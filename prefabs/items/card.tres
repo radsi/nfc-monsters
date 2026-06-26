@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dy3b81whlp5ta"]
+
+[ext_resource type="Texture2D" uid="uid://crx8xlej6mxj3" path="res://sprites/items/card item.png" id="1_ulaya"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_bnptc"]
+
+[resource]
+script = ExtResource("2_bnptc")
+id = 4
+name = "card"
+price = 200
+icon = ExtResource("1_ulaya")
+weight = 20
+description = "+1 card usability"
+ammounts = Array[int]([1])
+operators = Array[int]([0])
+min_layer = 2
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

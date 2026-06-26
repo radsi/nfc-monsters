@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvgqrasn2baqd"]
+
+[ext_resource type="Texture2D" uid="uid://bv5pmbh6ct4fr" path="res://sprites/spells/material-symbols--lock.png" id="1_bck2j"]
+[ext_resource type="Texture2D" uid="uid://cmu88e0wox2qg" path="res://sprites/UI/entypo--new.png" id="2_bmh52"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="2_ch1p1"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+size_flags_vertical = 4
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_bck2j")
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="NEW" type="TextureRect" parent="TextureRect"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("2_bmh52")
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Label" type="Label" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "???"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Label2" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "???"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("2_ch1p1")]

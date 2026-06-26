@@ -1,0 +1,454 @@
+[gd_scene load_steps=20 format=3 uid="uid://bx4w74kp37djl"]
+
+[ext_resource type="Texture2D" uid="uid://dvwt55mlmr4na" path="res://sprites/UI/ion--arrow-back-outline.png" id="1_lg6hf"]
+[ext_resource type="Script" uid="uid://buihrp681eibg" path="res://scripts/gallery_manager.gd" id="1_li7wd"]
+[ext_resource type="Material" uid="uid://d04n1og1adgh5" path="res://scripts/shaders/background.tres" id="2_li7wd"]
+[ext_resource type="Texture2D" uid="uid://bgwdpfcio0r4t" path="res://sprites/UI/mdi--card.png" id="3_8naax"]
+[ext_resource type="Texture2D" uid="uid://datlda3ht8j0n" path="res://sprites/UI/ep--arrow-right-bold.png" id="4_7r7o8"]
+[ext_resource type="Texture2D" uid="uid://bv5pmbh6ct4fr" path="res://sprites/spells/material-symbols--lock.png" id="4_543d2"]
+[ext_resource type="Texture2D" uid="uid://phjvbbos2spj" path="res://sprites/spells/SpellHit.png" id="5_mdy1u"]
+[ext_resource type="Texture2D" uid="uid://bv6qiyk04uvbe" path="res://sprites/spells/material-symbols--shield.png" id="6_fgpkw"]
+[ext_resource type="Texture2D" uid="uid://bh6vn577x1ks8" path="res://sprites/spells/meteor-icons--cross.png" id="8_li7wd"]
+[ext_resource type="Texture2D" uid="uid://cmu88e0wox2qg" path="res://sprites/UI/entypo--new.png" id="8_vrutb"]
+[ext_resource type="Texture2D" uid="uid://3arq4pksaq37" path="res://sprites/spells/ic--baseline-discount.png" id="9_7r7o8"]
+[ext_resource type="Texture2D" uid="uid://bhj15pp1ria2x" path="res://sprites/spells/game-icons--round-struck.png" id="9_vmxya"]
+[ext_resource type="Texture2D" uid="uid://dc1inwm18s3kn" path="res://sprites/spells/mdi--luck-outline.png" id="10_7r7o8"]
+[ext_resource type="Texture2D" uid="uid://ksnb4jxqjwsx" path="res://sprites/spells/game-icons--vertical-banner.png" id="11_vrutb"]
+[ext_resource type="Texture2D" uid="uid://bibvyhimg5pqh" path="res://sprites/spells/carbon--ibm-webmethods-developer-portal.png" id="12_rlvu6"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="15_7r7o8"]
+[ext_resource type="AudioStream" uid="uid://i3i88m3gqsj4" path="res://sounds/844147__mihacappy__sfx_wrong_generic.wav" id="15_vmxya"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6rhrw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8naax"]
+
+[node name="Gallery" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_li7wd")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = ExtResource("2_li7wd")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="HBoxContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+columns = 3
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="backbutton" type="Button" parent="VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.70242256, 0.70242244, 0.7024226, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6rhrw")
+icon = ExtResource("1_lg6hf")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="changebutton" type="Button" parent="VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.70242256, 0.70242244, 0.7024226, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6rhrw")
+icon = ExtResource("4_7r7o8")
+flat = true
+icon_alignment = 1
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellsContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 59
+columns = 4
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellHit" type="Button" parent="VBoxContainer/SpellsContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8naax")
+icon = ExtResource("3_8naax")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellHit"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("4_543d2")
+
+[node name="SpellSprite" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellHit"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("5_mdy1u")
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/SpellsContainer/SpellHit"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("8_vrutb")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellDefend" type="Button" parent="VBoxContainer/SpellsContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8naax")
+icon = ExtResource("3_8naax")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellDefend"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("4_543d2")
+
+[node name="SpellSprite" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellDefend"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("6_fgpkw")
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/SpellsContainer/SpellDefend"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("8_vrutb")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellDiscount" type="Button" parent="VBoxContainer/SpellsContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8naax")
+icon = ExtResource("3_8naax")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellDiscount"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("4_543d2")
+
+[node name="SpellSprite" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellDiscount"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("9_7r7o8")
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/SpellsContainer/SpellDiscount"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("8_vrutb")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellHealth" type="Button" parent="VBoxContainer/SpellsContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8naax")
+icon = ExtResource("3_8naax")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellHealth"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("4_543d2")
+
+[node name="SpellSprite" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellHealth"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("8_li7wd")
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/SpellsContainer/SpellHealth"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("8_vrutb")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellStruck" type="Button" parent="VBoxContainer/SpellsContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8naax")
+icon = ExtResource("3_8naax")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellStruck"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("4_543d2")
+
+[node name="SpellSprite" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellStruck"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("9_vmxya")
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/SpellsContainer/SpellStruck"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("8_vrutb")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellGamble" type="Button" parent="VBoxContainer/SpellsContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8naax")
+icon = ExtResource("3_8naax")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellGamble"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("4_543d2")
+
+[node name="SpellSprite" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellGamble"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("10_7r7o8")
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/SpellsContainer/SpellGamble"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("8_vrutb")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellBuff" type="Button" parent="VBoxContainer/SpellsContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8naax")
+icon = ExtResource("3_8naax")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellBuff"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("4_543d2")
+
+[node name="SpellSprite" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellBuff"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("11_vrutb")
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/SpellsContainer/SpellBuff"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("8_vrutb")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellSummon" type="Button" parent="VBoxContainer/SpellsContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8naax")
+icon = ExtResource("3_8naax")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellSummon"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("4_543d2")
+
+[node name="SpellSprite" type="Sprite2D" parent="VBoxContainer/SpellsContainer/SpellSummon"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(122, 122)
+texture = ExtResource("12_rlvu6")
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/SpellsContainer/SpellSummon"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("8_vrutb")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="ItemsContainer" type="MarginContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/ItemsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ItemsContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="error" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_vmxya")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65882355)
+
+[node name="Label" type="Label" parent="ColorRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 86
+text = "NFC Card is not an spell!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ErrorTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("15_7r7o8")]
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/backbutton" to="." method="_on_backbutton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/changebutton" to="." method="_on_changebutton_pressed"]
+[connection signal="timeout" from="ErrorTimer" to="." method="_on_error_timer_timeout"]

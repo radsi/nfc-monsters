@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://btqfygdbjmiwq"]
+
+[ext_resource type="Texture2D" uid="uid://cvoar3y12qsrq" path="res://sprites/items/mdi--water.png" id="1_seqfd"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_omead"]
+
+[resource]
+script = ExtResource("2_omead")
+id = 10
+name = "water"
+price = 100
+icon = ExtResource("1_seqfd")
+type = 2
+weight = 30
+description = "This drop seems special..."
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

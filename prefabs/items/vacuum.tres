@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://div2knvo8qcs4"]
+
+[ext_resource type="Texture2D" uid="uid://c7mx07s11e0su" path="res://sprites/items/material-symbols--vacuum-outline.png" id="1_y2403"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_r7qjq"]
+
+[resource]
+script = ExtResource("2_r7qjq")
+id = 9
+name = "vacuum"
+price = 500
+icon = ExtResource("1_y2403")
+type = 1
+weight = 5
+description = "remove ghosts"
+variables = Array[String](["remove_ghosts"])
+ammounts = Array[int]([1])
+operators = Array[int]([0])
+unique = true
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

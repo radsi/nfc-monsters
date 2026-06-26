@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cpv0j5ysepgk0"]
+
+[ext_resource type="Texture2D" uid="uid://wqo83t6i5mgl" path="res://sprites/items/mdi--radioactive.png" id="1_xhkxu"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_p742x"]
+
+[resource]
+script = ExtResource("2_p742x")
+id = 2
+name = "radioactive"
+icon = ExtResource("1_xhkxu")
+type = 1
+description = "+5 poison damage"
+variables = Array[String](["poison"])
+ammounts = Array[int]([5])
+operators = Array[int]([0])
+unique = true
+event_only = true
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

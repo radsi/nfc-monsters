@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://kixxlo4xpgmc"]
+
+[ext_resource type="Texture2D" uid="uid://dmgniu11ywrj0" path="res://sprites/items/game-icons--spiked-armor.png" id="1_cd20j"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_kstiq"]
+
+[resource]
+script = ExtResource("2_kstiq")
+id = 8
+name = "spikes"
+price = 200
+icon = ExtResource("1_cd20j")
+weight = 30
+description = "+10% thorn damage"
+variables = Array[String](["thorns"])
+ammounts = Array[int]([10])
+operators = Array[int]([0])
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

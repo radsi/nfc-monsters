@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://brkokt1espsrl"]
+
+[ext_resource type="Shader" uid="uid://dic6d1g6bfxqb" path="res://scripts/shaders/draw clock.gdshader" id="1_7e3fk"]
+
+[resource]
+shader = ExtResource("1_7e3fk")
+shader_parameter/progress = 0.0
+shader_parameter/start_angle = 283.510013466725

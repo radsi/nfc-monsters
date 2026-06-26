@@ -1,0 +1,244 @@
+[gd_scene load_steps=31 format=3 uid="uid://o5ktslnsypbl"]
+
+[ext_resource type="Shader" uid="uid://cgfjnyrfpq53o" path="res://scripts/shaders/dissolve.gdshader" id="1_as52v"]
+[ext_resource type="Texture2D" uid="uid://ct5i76wpgjjnv" path="res://sprites/enemies/game-icons--bone-gnawer.png" id="2_70740"]
+[ext_resource type="Script" uid="uid://dpp7vl258uqlu" path="res://scripts/enemies/enemy.gd" id="3_gxu5e"]
+[ext_resource type="Script" uid="uid://dgoqmqbwxralk" path="res://scripts/enemies/behaviour_phase.gd" id="4_1lsh8"]
+[ext_resource type="Script" uid="uid://cwboblw35jqam" path="res://scripts/enemies/behaviour_enemy.gd" id="5_nk4ur"]
+[ext_resource type="Material" uid="uid://166vq4cu1w1b" path="res://scripts/shaders/shake.tres" id="6_2mkn2"]
+[ext_resource type="Texture2D" uid="uid://ckvcmidd2aqig" path="res://sprites/UI/temaki--dagger.png" id="7_mnbpc"]
+[ext_resource type="Material" uid="uid://dboj8npb35a80" path="res://scripts/shaders/rotation.tres" id="8_a5w4i"]
+[ext_resource type="Texture2D" uid="uid://cg8r8v4bvekwc" path="res://sprites/UI/tabler--spiral.png" id="9_2t2oj"]
+[ext_resource type="Texture2D" uid="uid://bcmx12k50psfy" path="res://sprites/UI/material-symbols--shield 38.png" id="10_bvgwv"]
+[ext_resource type="Shader" uid="uid://bifp3l7a1qjl8" path="res://scripts/shaders/wave.gdshader" id="11_hed5a"]
+[ext_resource type="Texture2D" uid="uid://cwjkh5t3ifsi1" path="res://sprites/UI/bitcoin-icons--question-filled.png" id="12_7m2xb"]
+[ext_resource type="Texture2D" uid="uid://b07ngklvpj6dt" path="res://sprites/UI/mdi--prohibited.png" id="13_n7nf6"]
+[ext_resource type="Shader" uid="uid://bry3xc0qu427o" path="res://scripts/shaders/shake.gdshader" id="14_pins7"]
+[ext_resource type="Texture2D" uid="uid://pe3gwcimnfl5" path="res://sprites/UI/mynaui--bubbles-solid.png" id="15_51vbs"]
+[ext_resource type="Texture2D" uid="uid://bbq2hijn2jq2j" path="res://sprites/UI/progress bars/vaadin--progressbar 128.png" id="16_pn4k8"]
+[ext_resource type="Texture2D" uid="uid://cyw4xqf0d20pt" path="res://sprites/UI/progress bars/vaadin--progressbar fill 128.png" id="17_8huqu"]
+[ext_resource type="Texture2D" uid="uid://b7lvbr3gbcib1" path="res://sprites/UI/uil--focus.png" id="18_dy06l"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="19_24baw"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qkomg"]
+frequency = 0.0143
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4lpxk"]
+noise = SubResource("FastNoiseLite_qkomg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vj8al"]
+shader = ExtResource("1_as52v")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_4lpxk")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.0
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_vj8al"]
+script = ExtResource("4_1lsh8")
+label = "First turn"
+condition_type = 4
+condition_value = 1.0
+force_actions = true
+weight_attack = 0
+weight_defend = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_70740"]
+script = ExtResource("4_1lsh8")
+condition_type = 5
+force_actions = true
+weight_buff = 0
+weight_defend = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_ir7pr"]
+script = ExtResource("5_nk4ur")
+behavior_name = "BoneCrusher"
+phases = Array[ExtResource("4_1lsh8")]([SubResource("Resource_vj8al"), SubResource("Resource_70740")])
+metadata/_custom_type_script = "uid://cwboblw35jqam"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj8al"]
+size = Vector2(138, 158)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkomg"]
+shader = ExtResource("11_hed5a")
+shader_parameter/amplitude = 4.05
+shader_parameter/frequency = 12.53
+shader_parameter/speed = -2.0
+shader_parameter/min_height = 0.6
+shader_parameter/height_range = -0.5
+shader_parameter/min_width = -0.25
+shader_parameter/width_range = 100.0
+shader_parameter/vertical = true
+shader_parameter/tint = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfdb"]
+shader = ExtResource("14_pins7")
+shader_parameter/strength = 17.6
+shader_parameter/speed = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vcg6f"]
+texture = ExtResource("16_pn4k8")
+modulate_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l4abe"]
+texture = ExtResource("17_8huqu")
+axis_stretch_horizontal = 1
+modulate_color = Color(0, 0, 0, 1)
+
+[node name="Bone crusher" type="TextureRect"]
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_vj8al")
+use_parent_material = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource("2_70740")
+script = ExtResource("3_gxu5e")
+behavior = SubResource("Resource_ir7pr")
+min_layer = 2
+weight_spawn = 50.0
+max_hp = 125.0
+current_hp = 125.0
+damage_reduction = 0.0
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(64, 37)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_vj8al")
+
+[node name="Actions" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.625
+anchor_right = 1.0
+anchor_bottom = -0.25
+offset_top = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Attack" type="TextureRect" parent="Actions"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+material = ExtResource("6_2mkn2")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_mnbpc")
+stretch_mode = 2
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Buff" type="TextureRect" parent="Actions"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+material = ExtResource("8_a5w4i")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_2t2oj")
+stretch_mode = 2
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Defense" type="TextureRect" parent="Actions"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+material = ExtResource("6_2mkn2")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("10_bvgwv")
+stretch_mode = 2
+
+[node name="Secret" type="TextureRect" parent="Actions"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_qkomg")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("12_7m2xb")
+stretch_mode = 2
+
+[node name="Prohibited" type="TextureRect" parent="Actions"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+material = ExtResource("6_2mkn2")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("13_n7nf6")
+stretch_mode = 2
+
+[node name="Poisoned" type="TextureRect" parent="Actions"]
+visible = false
+modulate = Color(0, 0.65955013, 0, 1)
+material = SubResource("ShaderMaterial_fgfdb")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("15_51vbs")
+stretch_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.254
+anchor_right = 1.0
+offset_top = -0.48799896
+offset_bottom = 4.0
+grow_horizontal = 0
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxTexture_vcg6f")
+theme_override_styles/fill = SubResource("StyleBoxTexture_l4abe")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0, 0.60784316)
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_dy06l")
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("19_24baw")]
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

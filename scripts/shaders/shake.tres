@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://166vq4cu1w1b"]
+
+[ext_resource type="Shader" uid="uid://bry3xc0qu427o" path="res://scripts/shaders/shake.gdshader" id="1_i5vis"]
+
+[resource]
+shader = ExtResource("1_i5vis")
+shader_parameter/strength = 17.6
+shader_parameter/speed = 20.0

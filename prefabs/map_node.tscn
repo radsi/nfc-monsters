@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpcrst1aaesam"]
+
+[ext_resource type="Script" uid="uid://dlxhjbjhg3j58" path="res://scripts/map_node.gd" id="1_dqfc8"]
+[ext_resource type="Texture2D" uid="uid://74nb8ktj2ym1" path="res://sprites/nodes/ph--skull.png" id="2_pfggd"]
+[ext_resource type="Texture2D" uid="uid://bx1bscw7l06ga" path="res://sprites/UI/line-md--question.png" id="3_jhocp"]
+[ext_resource type="Texture2D" uid="uid://dsrvd58y68o71" path="res://sprites/nodes/mdi--shop-outline.png" id="4_1w6ix"]
+[ext_resource type="Texture2D" uid="uid://bwx56oeojad1k" path="res://sprites/nodes/solar--bonfire-bold.png" id="5_lny5u"]
+[ext_resource type="Texture2D" uid="uid://curd8o1a7cv4p" path="res://sprites/nodes/ph--hand-eye-fill.png" id="6_hu1vj"]
+[ext_resource type="Texture2D" uid="uid://n8fevmowu7hb" path="res://sprites/ink circle.png" id="7_1w6ix"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="8_hu1vj"]
+[ext_resource type="Script" uid="uid://u8iilf8ky4n8" path="res://addons/mobile/signals_manager/signals_manager.gd" id="9_t08iy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhocp"]
+size = Vector2(105.333336, 108)
+
+[node name="MapNode" type="Area2D"]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_dqfc8")
+icon_combat = ExtResource("2_pfggd")
+icon_event = ExtResource("3_jhocp")
+icon_shop = ExtResource("4_1w6ix")
+icon_rest = ExtResource("5_lny5u")
+icon_boss = ExtResource("6_hu1vj")
+
+[node name="Icon" type="TextureRect" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_pfggd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.66666794, -2)
+shape = SubResource("RectangleShape2D_jhocp")
+
+[node name="Icon2" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -103.999985
+offset_right = 248.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_1w6ix")
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="mobile_plugin_signals_manager" type="Node" parent="." instance=ExtResource("8_hu1vj")]
+editor_description = "The mobile plugin uses this node to store node connections. It is an internal node. If you delete this node, it will be recreated, but any connections you made through the mobile plugin will be lost. The node must be a direct child of the scene root and have the same name as found in \"mobile.gd\".CONNECTOR"
+script = ExtResource("9_t08iy")
+metadata/tooltip_overrides = {}
+metadata/help_bar_overrides = {}

@@ -1,0 +1,198 @@
+[gd_scene load_steps=21 format=3 uid="uid://cx5asvewvyvi"]
+
+[ext_resource type="Script" uid="uid://dqh4n5mwkx5ng" path="res://scripts/mainmenu_manager.gd" id="1_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://b8c7q6r8vji3s" path="res://sprites/UI/material-symbols--book.png" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://dog4qonbydhue" path="res://sprites/UI/cooltext507481618374936/37585cf5-dcd0-4b2d-bf97-3134400a875c-0.png" id="2_5dd4i"]
+[ext_resource type="Material" uid="uid://d04n1og1adgh5" path="res://scripts/shaders/background.tres" id="2_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://dupbx0d7oqoui" path="res://sprites/UI/cooltext507481618374936/37585cf5-dcd0-4b2d-bf97-3134400a875c-1.png" id="3_lgwnu"]
+[ext_resource type="Texture2D" uid="uid://bt7tqcdg58y2r" path="res://sprites/UI/solar--play-bold.png" id="3_wu84c"]
+[ext_resource type="Texture2D" uid="uid://dckqghn15ov2d" path="res://sprites/UI/clarity--new-solid.png" id="4_8ln24"]
+[ext_resource type="Texture2D" uid="uid://wp7i5q1qmvfm" path="res://sprites/UI/cooltext507481618374936/37585cf5-dcd0-4b2d-bf97-3134400a875c-2.png" id="4_flqon"]
+[ext_resource type="Texture2D" uid="uid://u6a62mhe5fu7" path="res://sprites/UI/clarity--list-solid.png" id="5_8ln24"]
+[ext_resource type="Texture2D" uid="uid://b6kr7i5giee45" path="res://sprites/UI/cooltext507481618374936/37585cf5-dcd0-4b2d-bf97-3134400a875c-3.png" id="5_rcqid"]
+[ext_resource type="Texture2D" uid="uid://d2qwctr5sbl34" path="res://sprites/UI/cooltext507481618374936/37585cf5-dcd0-4b2d-bf97-3134400a875c-4.png" id="6_1ajci"]
+[ext_resource type="Material" uid="uid://bfi76nyrujh8" path="res://scripts/shaders/dissolve.tres" id="9_flqon"]
+[ext_resource type="Texture2D" uid="uid://cmu88e0wox2qg" path="res://sprites/UI/entypo--new.png" id="10_7b55j"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="14_5pajh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7b55j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5dd4i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_lgwnu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_flqon")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rcqid")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1ajci")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxnf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
+bg_color = Color(0.35001245, 0.6455866, 0.7244034, 0.63529414)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1go"]
+bg_color = Color(0.34901962, 0.64705884, 0.7254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbmy8"]
+bg_color = Color(0.34901962, 0.64705884, 0.7254902, 0.63529414)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jk1qb"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+script = ExtResource("1_ekxnf")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = ExtResource("2_lgwnu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -100
+
+[node name="Container" type="Container" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer/Container"]
+position = Vector2(0, -300)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_7b55j")
+frame = 2
+frame_progress = 0.65563
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="gallerybutton" type="Button" parent="VBoxContainer/HBoxContainer"]
+texture_filter = 1
+material = ExtResource("9_flqon")
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.70242256, 0.70242244, 0.7024226, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
+icon = ExtResource("1_l6cm7")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="NEW" type="TextureRect" parent="VBoxContainer/HBoxContainer/gallerybutton"]
+visible = false
+self_modulate = Color(1, 0.33333334, 0.26666668, 0.827451)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture = ExtResource("10_7b55j")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+
+[node name="playbutton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+material = ExtResource("9_flqon")
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_rtw2f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oa1go")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tbmy8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jk1qb")
+icon = ExtResource("3_wu84c")
+flat = true
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="newbutton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+material = ExtResource("9_flqon")
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_rtw2f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oa1go")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tbmy8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jk1qb")
+icon = ExtResource("4_8ln24")
+flat = true
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="creditsbutton" type="Button" parent="VBoxContainer/HBoxContainer"]
+texture_filter = 1
+material = ExtResource("9_flqon")
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.70242256, 0.70242244, 0.7024226, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
+icon = ExtResource("5_8ln24")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0)
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("14_5pajh")]
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/gallerybutton" to="." method="_on_gallerybutton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/playbutton" to="." method="_on_playbutton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/newbutton" to="." method="_on_newbutton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/creditsbutton" to="." method="_on_creditsbutton_pressed"]

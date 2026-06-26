@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwgrv1pcgkn6n"]
+
+[ext_resource type="Script" uid="uid://csfhjv5w1pprm" path="res://scripts/game_over.gd" id="1_tbwuq"]
+[ext_resource type="Texture2D" uid="uid://c6buucbkovc7i" path="res://sprites/UI/blood-images-download-blood-splashes-17-3127988917.png" id="1_wqhvx"]
+[ext_resource type="Texture2D" uid="uid://gk70cchjunac" path="res://sprites/nodes/material-symbols--home.png" id="2_racf3"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="4_7m3ot"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbwuq"]
+size = Vector2(114, 107)
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tbwuq")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 90
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 200
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 24.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Try hader next time..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Home" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_racf3")
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="MarginContainer/VBoxContainer/Home"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBoxContainer/Home/Area2D"]
+position = Vector2(64, 63)
+shape = SubResource("RectangleShape2D_tbwuq")
+
+[node name="BloodImagesDownloadBloodSplashes173127988917" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -6.9999924
+offset_top = 37.0
+offset_right = 1017.0
+offset_bottom = 788.0
+scale = Vector2(0.6582031, 0.60252994)
+texture = ExtResource("1_wqhvx")
+
+[node name="BloodImagesDownloadBloodSplashes173127988918" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -27.0
+offset_right = 988.0
+offset_bottom = 724.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.41665232, 0.46199372)
+texture = ExtResource("1_wqhvx")
+flip_h = true
+flip_v = true
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("4_7m3ot")]
+
+[connection signal="input_event" from="MarginContainer/VBoxContainer/Home/Area2D" to="." method="_on_area_2d_input_event"]

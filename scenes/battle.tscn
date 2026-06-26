@@ -1,0 +1,258 @@
+[gd_scene load_steps=13 format=3 uid="uid://dlxlftfsrcm4b"]
+
+[ext_resource type="Script" uid="uid://0xigdl4571c2" path="res://scripts/battle_controller.gd" id="1_dn72j"]
+[ext_resource type="Material" uid="uid://chtljj6m6lo55" path="res://scripts/shaders/dissolve black.tres" id="2_v7i3o"]
+[ext_resource type="Texture2D" uid="uid://phjvbbos2spj" path="res://sprites/spells/SpellHit.png" id="3_v7i3o"]
+[ext_resource type="Texture2D" uid="uid://bv6qiyk04uvbe" path="res://sprites/spells/material-symbols--shield.png" id="4_66ngm"]
+[ext_resource type="Texture2D" uid="uid://bh6vn577x1ks8" path="res://sprites/spells/meteor-icons--cross.png" id="6_22uqi"]
+[ext_resource type="Texture2D" uid="uid://bhj15pp1ria2x" path="res://sprites/spells/game-icons--round-struck.png" id="7_6ni85"]
+[ext_resource type="Texture2D" uid="uid://dc1inwm18s3kn" path="res://sprites/spells/mdi--luck-outline.png" id="8_vceff"]
+[ext_resource type="Texture2D" uid="uid://ksnb4jxqjwsx" path="res://sprites/spells/game-icons--vertical-banner.png" id="9_ekamt"]
+[ext_resource type="Material" uid="uid://166vq4cu1w1b" path="res://scripts/shaders/shake.tres" id="9_v7i3o"]
+[ext_resource type="Texture2D" uid="uid://bibvyhimg5pqh" path="res://sprites/spells/carbon--ibm-webmethods-developer-portal.png" id="10_djc8l"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="11_03edq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7i3o"]
+size = Vector2(368, 72)
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_dn72j")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="GridContainer" type="GridContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.29000002
+anchor_top = 0.30100003
+anchor_right = 0.71000004
+anchor_bottom = 0.49800003
+offset_left = -0.08001709
+offset_top = -0.04801941
+offset_right = 0.079956055
+offset_bottom = 0.29599
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 50
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.634
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.16799927
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Area2D" type="Area2D" parent="VBoxContainer"]
+position = Vector2(455, 37)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Area2D"]
+position = Vector2(121, 0)
+shape = SubResource("RectangleShape2D_v7i3o")
+
+[node name="Execute" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "Cast spells (0/0)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SpellHit" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
+material = ExtResource("2_v7i3o")
+layout_mode = 2
+theme_override_constants/separation = -15
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpellHit" type="TextureRect" parent="VBoxContainer/HBoxContainer/SpellHit"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+layout_mode = 2
+texture = ExtResource("3_v7i3o")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/SpellHit"]
+visible = false
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpellDefend" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
+material = ExtResource("2_v7i3o")
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="SpellDefend" type="TextureRect" parent="VBoxContainer/HBoxContainer/SpellDefend"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_66ngm")
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/SpellDefend"]
+visible = false
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpellHealth" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
+material = ExtResource("2_v7i3o")
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="SpellHealth" type="TextureRect" parent="VBoxContainer/HBoxContainer/SpellHealth"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_22uqi")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/SpellHealth"]
+visible = false
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpellStruck" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
+material = ExtResource("2_v7i3o")
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="SpellStruck" type="TextureRect" parent="VBoxContainer/HBoxContainer/SpellStruck"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_6ni85")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/SpellStruck"]
+visible = false
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpellGamble" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
+material = ExtResource("2_v7i3o")
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="SpellGamble" type="TextureRect" parent="VBoxContainer/HBoxContainer/SpellGamble"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("8_vceff")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/SpellGamble"]
+visible = false
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpellBuff" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
+material = ExtResource("2_v7i3o")
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="SpellBuff" type="TextureRect" parent="VBoxContainer/HBoxContainer/SpellBuff"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_ekamt")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/SpellBuff"]
+visible = false
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "x2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpellSummon" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
+material = ExtResource("2_v7i3o")
+layout_mode = 2
+theme_override_constants/separation = -15
+
+[node name="SpellSummon" type="TextureRect" parent="VBoxContainer/HBoxContainer/SpellSummon"]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("10_djc8l")
+
+[node name="Spell" type="TextureRect" parent="VBoxContainer/HBoxContainer/SpellSummon"]
+visible = false
+modulate = Color(0.60333395, 0.43728647, 0.74269533, 1)
+texture_filter = 1
+material = ExtResource("9_v7i3o")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_ekamt")
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("11_03edq")]
+
+[connection signal="input_event" from="VBoxContainer/Area2D" to="." method="_on_area_2d_input_event"]

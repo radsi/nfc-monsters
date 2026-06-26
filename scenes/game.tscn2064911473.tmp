@@ -1,0 +1,227 @@
+[gd_scene load_steps=23 format=3 uid="uid://co0higyrwk0jc"]
+
+[ext_resource type="Script" uid="uid://cy3f8kgaaeju8" path="res://scripts/game_controller.gd" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://dxgu3m6qwxhjm" path="res://sprites/old paper piece.png" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://cbb70bdwjlyu" path="res://scripts/map.gd" id="3_dinhu"]
+[ext_resource type="Script" uid="uid://cmctdxw4jctf2" path="res://scripts/drag_map.gd" id="3_kvpfn"]
+[ext_resource type="Material" uid="uid://c3y1meri54ofm" path="res://scripts/shaders/background - 2.tres" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://bpcrst1aaesam" path="res://prefabs/map_node.tscn" id="4_trtic"]
+[ext_resource type="Script" uid="uid://cutfybf7raaeh" path="res://scripts/map_config.gd" id="5_ir15t"]
+[ext_resource type="PackedScene" uid="uid://dl82w08boiusu" path="res://prefabs/LevelSystem.tscn" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://cx48mkh5ie4uw" path="res://sprites/UI/mdi--fire.png" id="6_gee14"]
+[ext_resource type="AudioStream" uid="uid://bderscvgwathk" path="res://sounds/561733__fmaudio__crumpling-piece-of-paper-softly.wav" id="6_p57ef"]
+[ext_resource type="Texture2D" uid="uid://00t2ccfkowcd" path="res://sprites/UI/material-symbols--flag.png" id="6_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://cdwjg2c47ljhc" path="res://sprites/UI/bi--coin.png" id="7_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://bpai6jy38b1q3" path="res://prefabs/start_map_node.tscn" id="7_ir15t"]
+[ext_resource type="AudioStream" uid="uid://4pn21qald2ht" path="res://sounds/831936__1bob__woosh.wav" id="10_vtaks"]
+
+[sub_resource type="Resource" id="Resource_ca42v"]
+script = ExtResource("5_ir15t")
+start_scene = ExtResource("7_ir15t")
+columns = 4
+rows = 12
+node_scene = ExtResource("4_trtic")
+encounter_types = {
+"combat": 60,
+"event": 20,
+"rest": 10,
+"shop": 10
+}
+line_color = Color(0, 0, 0, 0.6)
+type_rules = {
+"combat": {
+"cooldown": 1,
+"max_consecutive": 5
+},
+"event": {
+"cooldown": 3,
+"max_consecutive": 2
+},
+"rest": {
+"cooldown": 5,
+"max_consecutive": 1
+},
+"shop": {
+"cooldown": 5,
+"max_consecutive": 1
+}
+}
+metadata/_custom_type_script = "uid://cutfybf7raaeh"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0tnpc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvpfn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dinhu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvuet"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vtaks"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5sy4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gee14"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_uwrxv")
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("3_kvpfn")
+
+[node name="OldPaperPiece" type="Sprite2D" parent="Map"]
+texture_filter = 1
+position = Vector2(402, -342)
+scale = Vector2(2, 4)
+texture = ExtResource("2_yqjtg")
+
+[node name="Container" type="Node2D" parent="Map/OldPaperPiece"]
+position = Vector2(-128.5, 201.24998)
+scale = Vector2(0.425, 0.2125)
+script = ExtResource("3_dinhu")
+config = SubResource("Resource_ca42v")
+
+[node name="Nodes" type="Node2D" parent="Map/OldPaperPiece/Container"]
+
+[node name="Lines" type="Node2D" parent="Map/OldPaperPiece/Container"]
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+material = ExtResource("4_iywne")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelSystem" parent="." instance=ExtResource("5_iywne")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8350694
+anchor_right = 0.8350694
+anchor_bottom = 0.0
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 6
+size_flags_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -336.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_right = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -350
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 110
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+columns = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("6_gee14")
+flat = true
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/GridContainer"]
+layout_mode = 2
+icon = ExtResource("6_gee14")
+flat = true
+
+[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/GridContainer"]
+layout_mode = 2
+icon = ExtResource("6_gee14")
+flat = true
+
+[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/GridContainer"]
+layout_mode = 2
+icon = ExtResource("6_gee14")
+flat = true
+
+[node name="Button5" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("6_gee14")
+flat = true
+
+[node name="Button6" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("6_gee14")
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="money" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0tnpc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dinhu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kvuet")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vtaks")
+button_mask = 0
+text = "128"
+icon = ExtResource("7_0tnpc")
+flat = true
+
+[node name="backbutton" type="Button" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 32
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u5sy4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gee14")
+text = "Surrender  "
+icon = ExtResource("6_u5sy4")
+
+[node name="paper" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_p57ef")
+
+[node name="whoosh" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_vtaks")

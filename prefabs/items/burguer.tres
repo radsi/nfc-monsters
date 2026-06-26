@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://rw3r6lrxo5bo"]
+
+[ext_resource type="Texture2D" uid="uid://c8txp6vvfja5m" path="res://sprites/items/burguer.png" id="1_e3gqi"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_08776"]
+
+[resource]
+script = ExtResource("2_08776")
+id = 17
+name = "burguer"
+price = 150
+icon = ExtResource("1_e3gqi")
+weight = 30
+description = "+5 max hp"
+variables = Array[String](["max_player_health"])
+ammounts = Array[int]([5])
+operators = Array[int]([0])
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

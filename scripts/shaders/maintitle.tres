@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ddc2n6wflt7v7"]
+
+[ext_resource type="Shader" uid="uid://cwbrbfj10b71k" path="res://scripts/shaders/maintitle.gdshader" id="1_pnurp"]
+
+[resource]
+shader = ExtResource("1_pnurp")
+shader_parameter/spin_rotation_speed = -2.0
+shader_parameter/move_speed = 5.0
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/colour_1 = Color(0.49264073, 0.031110177, 0.43640235, 1)
+shader_parameter/colour_2 = Color(0.7113839, 0.7019489, 0.8185732, 1)
+shader_parameter/colour_3 = Color(0.086, 0.137, 0.145, 1)
+shader_parameter/contrast = 6.5
+shader_parameter/lighting = 2.0
+shader_parameter/spin_amount = 0.1
+shader_parameter/pixel_filter = 740.0
+shader_parameter/is_rotating = false

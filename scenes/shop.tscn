@@ -1,0 +1,370 @@
+[gd_scene load_steps=17 format=3 uid="uid://bq6wkxj658fgw"]
+
+[ext_resource type="Script" uid="uid://b4lnmvqst8r5i" path="res://scripts/shop.gd" id="1_2fc2m"]
+[ext_resource type="Texture2D" uid="uid://dwaa23b0tggno" path="res://sprites/nodes/game-icons--pig-face.png" id="1_xfvoa"]
+[ext_resource type="Texture2D" uid="uid://buuvd2xq46uc8" path="res://sprites/UI/fluent--table-stack-above-20-filled.png" id="2_xfvoa"]
+[ext_resource type="Texture2D" uid="uid://cx48mkh5ie4uw" path="res://sprites/UI/mdi--fire.png" id="3_1l46r"]
+[ext_resource type="Texture2D" uid="uid://cdwjg2c47ljhc" path="res://sprites/UI/bi--coin.png" id="4_032fp"]
+[ext_resource type="Material" uid="uid://bfi76nyrujh8" path="res://scripts/shaders/dissolve.tres" id="5_y6sft"]
+[ext_resource type="Texture2D" uid="uid://dvwt55mlmr4na" path="res://sprites/UI/ion--arrow-back-outline.png" id="6_8r1wq"]
+[ext_resource type="Script" uid="uid://86l0i6tvjbkk" path="res://scripts/item_button_data.gd" id="6_ajxib"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="9_heatd"]
+[ext_resource type="Script" uid="uid://u8iilf8ky4n8" path="res://addons/mobile/signals_manager/signals_manager.gd" id="10_1v8qu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8r1wq"]
+size = Vector2(135, 130)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2fc2m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8r1wq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ajxib"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y6sft"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m4ofw"]
+
+[node name="Shop" type="Control"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2fc2m")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="backbutton" type="Area2D" parent="."]
+z_index = 1
+texture_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="backbutton"]
+offset_right = 128.0
+offset_bottom = 128.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("6_8r1wq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="backbutton"]
+position = Vector2(67.5, 65)
+shape = SubResource("RectangleShape2D_8r1wq")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_xfvoa")
+
+[node name="Label" type="Label" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "Welcome!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -175.0
+offset_top = -97.0
+offset_right = 175.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(175, 97)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_xfvoa")
+
+[node name="hbo" type="HBoxContainer" parent="TextureRect2"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -203.5
+offset_top = -105.0
+offset_right = 203.5
+offset_bottom = 31.0
+grow_horizontal = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset = Vector2(378.5, 30)
+theme_override_constants/separation = 71
+
+[node name="Button" type="Button" parent="TextureRect2/hbo"]
+material = ExtResource("5_y6sft")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 2
+button_mask = 0
+icon = ExtResource("3_1l46r")
+flat = true
+script = ExtResource("6_ajxib")
+
+[node name="money" type="Button" parent="TextureRect2/hbo/Button"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.125
+anchor_top = 0.94100004
+anchor_right = 1.0070001
+anchor_bottom = 1.4900001
+offset_top = 0.023994446
+offset_right = 17.047989
+offset_bottom = 8.359985
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.9, 0.9)
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2fc2m")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8r1wq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ajxib")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_y6sft")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m4ofw")
+button_mask = 0
+text = "128"
+icon = ExtResource("4_032fp")
+flat = true
+
+[node name="Area2D" type="Area2D" parent="TextureRect2/hbo/Button"]
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextureRect2/hbo/Button/Area2D"]
+position = Vector2(67.5, 65)
+shape = SubResource("RectangleShape2D_8r1wq")
+
+[node name="Label" type="Label" parent="TextureRect2/hbo/Button"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.13100001
+anchor_top = -0.66200006
+anchor_right = 1.1190001
+anchor_bottom = 0.17600001
+offset_left = 0.06603241
+offset_top = 0.03200531
+offset_right = 1.3159943
+offset_bottom = 0.06399727
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "+10% water damage"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button2" type="Button" parent="TextureRect2/hbo"]
+material = ExtResource("5_y6sft")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 2
+button_mask = 0
+icon = ExtResource("3_1l46r")
+flat = true
+script = ExtResource("6_ajxib")
+
+[node name="money" type="Button" parent="TextureRect2/hbo/Button2"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -8.0
+offset_right = 18.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.9, 0.9)
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2fc2m")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8r1wq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ajxib")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_y6sft")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m4ofw")
+button_mask = 0
+text = "128"
+icon = ExtResource("4_032fp")
+flat = true
+
+[node name="Area2D" type="Area2D" parent="TextureRect2/hbo/Button2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextureRect2/hbo/Button2/Area2D"]
+position = Vector2(67.5, 65)
+shape = SubResource("RectangleShape2D_8r1wq")
+
+[node name="Label" type="Label" parent="TextureRect2/hbo/Button2"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.13100001
+anchor_top = -0.66200006
+anchor_right = 1.1190001
+anchor_bottom = 0.17600001
+offset_left = 0.06603241
+offset_top = 0.03200531
+offset_right = 1.3159943
+offset_bottom = 0.06399727
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "+10% water damage"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button3" type="Button" parent="TextureRect2/hbo"]
+material = ExtResource("5_y6sft")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 2
+button_mask = 0
+icon = ExtResource("3_1l46r")
+flat = true
+script = ExtResource("6_ajxib")
+
+[node name="money" type="Button" parent="TextureRect2/hbo/Button3"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -8.0
+offset_right = 18.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.9, 0.9)
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2fc2m")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8r1wq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ajxib")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_y6sft")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m4ofw")
+button_mask = 0
+text = "128"
+icon = ExtResource("4_032fp")
+flat = true
+
+[node name="Area2D" type="Area2D" parent="TextureRect2/hbo/Button3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextureRect2/hbo/Button3/Area2D"]
+position = Vector2(67.5, 65)
+shape = SubResource("RectangleShape2D_8r1wq")
+
+[node name="Label" type="Label" parent="TextureRect2/hbo/Button3"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.13100001
+anchor_top = -0.66200006
+anchor_right = 1.1190001
+anchor_bottom = 0.17600001
+offset_left = 0.06603241
+offset_top = 0.03200531
+offset_right = 1.3159943
+offset_bottom = 0.06399727
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "+10% water damage"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button4" type="Button" parent="TextureRect2/hbo"]
+material = ExtResource("5_y6sft")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 2
+button_mask = 0
+icon = ExtResource("3_1l46r")
+flat = true
+script = ExtResource("6_ajxib")
+
+[node name="money" type="Button" parent="TextureRect2/hbo/Button4"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -8.0
+offset_right = 18.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.9, 0.9)
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2fc2m")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8r1wq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ajxib")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_y6sft")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m4ofw")
+button_mask = 0
+text = "128"
+icon = ExtResource("4_032fp")
+flat = true
+
+[node name="Area2D" type="Area2D" parent="TextureRect2/hbo/Button4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TextureRect2/hbo/Button4/Area2D"]
+position = Vector2(67.5, 65)
+shape = SubResource("RectangleShape2D_8r1wq")
+
+[node name="Label" type="Label" parent="TextureRect2/hbo/Button4"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.13100001
+anchor_top = -0.66200006
+anchor_right = 1.1190001
+anchor_bottom = 0.17600001
+offset_left = 0.06603241
+offset_top = 0.03200531
+offset_right = 1.3159943
+offset_bottom = 0.06399727
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 26
+text = "+10% water damage"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="mobile_plugin_signals_manager" type="Node" parent="." instance=ExtResource("9_heatd")]
+editor_description = "The mobile plugin uses this node to store node connections. It is an internal node. If you delete this node, it will be recreated, but any connections you made through the mobile plugin will be lost. The node must be a direct child of the scene root and have the same name as found in \"mobile.gd\".CONNECTOR"
+script = ExtResource("10_1v8qu")
+metadata/tooltip_overrides = {}
+metadata/help_bar_overrides = {}

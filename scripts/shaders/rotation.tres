@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dboj8npb35a80"]
+
+[ext_resource type="Shader" uid="uid://dwpybvf82n4e7" path="res://scripts/shaders/rotation.gdshader" id="1_qvlwj"]
+
+[resource]
+shader = ExtResource("1_qvlwj")
+shader_parameter/rotation_speed = 1.0

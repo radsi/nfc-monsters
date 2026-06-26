@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://eju6ptsbs3fn"]
+
+[ext_resource type="Texture2D" uid="uid://bdv68dfv2qd0x" path="res://sprites/items/cardboard/goden.png" id="1_153fm"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_1yuif"]
+
+[resource]
+script = ExtResource("2_1yuif")
+id = 14
+name = "gold"
+icon = ExtResource("1_153fm")
+type = 3
+weight = 50
+description = "+5% more gold"
+variables = Array[String](["money_multiplier"])
+ammounts = Array[int]([5])
+operators = Array[int]([4])
+unique = true
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

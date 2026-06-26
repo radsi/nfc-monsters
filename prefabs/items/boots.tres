@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://njcvb4gplqc8"]
+
+[ext_resource type="Texture2D" uid="uid://cmq1aiyvipngk" path="res://sprites/items/game-icons--leg-armor.png" id="1_0ag7q"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_pfl7j"]
+
+[resource]
+script = ExtResource("2_pfl7j")
+id = 3
+name = "shin armor"
+price = 150
+icon = ExtResource("1_0ag7q")
+weight = 40
+description = "+2% armor"
+variables = Array[String](["armor"])
+ammounts = Array[int]([2])
+operators = Array[int]([0])
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

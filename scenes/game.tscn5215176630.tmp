@@ -1,0 +1,365 @@
+[gd_scene load_steps=38 format=3 uid="uid://co0higyrwk0jc"]
+
+[ext_resource type="Script" uid="uid://cy3f8kgaaeju8" path="res://scripts/game_controller.gd" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://dxgu3m6qwxhjm" path="res://sprites/old paper piece.png" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://bq6wkxj658fgw" path="res://scenes/shop.tscn" id="3_ca42v"]
+[ext_resource type="Script" uid="uid://cbb70bdwjlyu" path="res://scripts/map.gd" id="3_dinhu"]
+[ext_resource type="Script" uid="uid://cmctdxw4jctf2" path="res://scripts/drag_map.gd" id="3_kvpfn"]
+[ext_resource type="Material" uid="uid://c3y1meri54ofm" path="res://scripts/shaders/background - 2.tres" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://bpcrst1aaesam" path="res://prefabs/map_node.tscn" id="4_trtic"]
+[ext_resource type="Script" uid="uid://cutfybf7raaeh" path="res://scripts/map_config.gd" id="5_ir15t"]
+[ext_resource type="Texture2D" uid="uid://cx48mkh5ie4uw" path="res://sprites/UI/mdi--fire.png" id="6_gee14"]
+[ext_resource type="AudioStream" uid="uid://bderscvgwathk" path="res://sounds/561733__fmaudio__crumpling-piece-of-paper-softly.wav" id="6_p57ef"]
+[ext_resource type="Texture2D" uid="uid://00t2ccfkowcd" path="res://sprites/UI/material-symbols--flag.png" id="6_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://cdwjg2c47ljhc" path="res://sprites/UI/bi--coin.png" id="7_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://bpai6jy38b1q3" path="res://prefabs/start_map_node.tscn" id="7_ir15t"]
+[ext_resource type="PackedScene" uid="uid://cnooqsa2o03kg" path="res://scenes/rest.tscn" id="9_5newe"]
+[ext_resource type="PackedScene" uid="uid://dlxlftfsrcm4b" path="res://scenes/battle.tscn" id="10_e1j6l"]
+[ext_resource type="AudioStream" uid="uid://4pn21qald2ht" path="res://sounds/831936__1bob__woosh.wav" id="10_vtaks"]
+[ext_resource type="Texture2D" uid="uid://r7iurr7dkvoc" path="res://sprites/UI/progress bars/vaadin--progressbar 340.png" id="11_bt5mj"]
+[ext_resource type="PackedScene" uid="uid://b3abjskq8dl7" path="res://scenes/random.tscn" id="11_pl11u"]
+[ext_resource type="Script" uid="uid://osnrx484t0pd" path="res://scripts/items_manager.gd" id="11_rysoc"]
+[ext_resource type="Texture2D" uid="uid://e7doi1skxact" path="res://sprites/UI/progress bars/vaadin--progressbar fill 340.png" id="12_e1j6l"]
+[ext_resource type="Script" uid="uid://86l0i6tvjbkk" path="res://scripts/item_button_data.gd" id="13_264po"]
+[ext_resource type="Material" uid="uid://chtljj6m6lo55" path="res://scripts/shaders/dissolve black.tres" id="15_e1j6l"]
+[ext_resource type="AudioStream" uid="uid://cp1frwaubjluq" path="res://sounds/761526__geoff-bremner-audio__sharpie-scribble-2.wav" id="15_ir15t"]
+[ext_resource type="AudioStream" uid="uid://c4d8so0su3ge" path="res://sounds/140360__dwoboyle__coins-04.wav" id="18_ssvqc"]
+[ext_resource type="AudioStream" uid="uid://vpudo4rqhvrx" path="res://sounds/853953__alexzavesa__bonfire-4.wav" id="22_37s47"]
+
+[sub_resource type="Resource" id="Resource_ca42v"]
+script = ExtResource("5_ir15t")
+start_scene = ExtResource("7_ir15t")
+columns = 4
+rows = 12
+node_scene = ExtResource("4_trtic")
+encounter_types = {
+"combat": 60,
+"event": 20,
+"rest": 10,
+"shop": 10
+}
+line_color = Color(0, 0, 0, 0.6)
+type_rules = {
+"combat": {
+"cooldown": 1,
+"max_consecutive": 5
+},
+"event": {
+"cooldown": 3,
+"max_consecutive": 2
+},
+"rest": {
+"cooldown": 5,
+"max_consecutive": 1
+},
+"shop": {
+"cooldown": 5,
+"max_consecutive": 1
+}
+}
+metadata/_custom_type_script = "uid://cutfybf7raaeh"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_37s47"]
+texture = ExtResource("11_bt5mj")
+modulate_color = Color(1, 0.4257876, 0.35708547, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pl11u"]
+texture = ExtResource("12_e1j6l")
+axis_stretch_horizontal = 1
+modulate_color = Color(1, 0.42745098, 0.35686275, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1kice"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_264po"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0tnpc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvpfn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dinhu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvuet"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vtaks"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5sy4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gee14"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_uwrxv")
+
+[node name="Map" type="Control" parent="."]
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("3_kvpfn")
+
+[node name="OldPaperPiece" type="TextureRect" parent="Map"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -1592.0
+offset_right = 400.0
+offset_bottom = -967.0
+grow_vertical = 2
+scale = Vector2(2, 4)
+texture = ExtResource("2_yqjtg")
+
+[node name="Container" type="Control" parent="Map/OldPaperPiece"]
+layout_mode = 1
+anchor_left = 0.12900001
+anchor_top = 0.63900006
+anchor_right = 0.90400004
+anchor_bottom = 0.89500004
+offset_left = 17.528996
+offset_top = 108.12497
+offset_right = 435.36288
+offset_bottom = 701.06616
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.425, 0.2125)
+script = ExtResource("3_dinhu")
+config = SubResource("Resource_ca42v")
+
+[node name="Nodes" type="Control" parent="Map/OldPaperPiece/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Lines" type="Control" parent="Map/OldPaperPiece/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menus" type="Control" parent="Map/OldPaperPiece"]
+layout_mode = 1
+anchor_left = 0.075
+anchor_top = 0.64100003
+anchor_right = 0.91700006
+anchor_bottom = 0.89000005
+offset_left = 0.074998856
+offset_top = -0.12503052
+offset_right = 410.78366
+offset_bottom = 537.5834
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.45, 0.225)
+mouse_filter = 1
+
+[node name="shop" parent="Map/OldPaperPiece/Menus" node_paths=PackedStringArray("ItemsManager", "GameController", "NodesContainer", "SFX", "PaperBG") instance=ExtResource("3_ca42v")]
+layout_mode = 1
+ItemsManager = NodePath("../../../../MarginContainer/VBoxContainer/MarginContainer2/ItemsManager")
+GameController = NodePath("../../../..")
+NodesContainer = NodePath("../../Container")
+SFX = [NodePath("../../../../paper"), NodePath("../../../../buy")]
+PaperBG = NodePath("../..")
+
+[node name="rest" parent="Map/OldPaperPiece/Menus" node_paths=PackedStringArray("GameController", "NodesContainer", "SFX", "PaperBG") instance=ExtResource("9_5newe")]
+layout_mode = 1
+GameController = NodePath("../../../..")
+NodesContainer = NodePath("../../Container")
+SFX = [NodePath("../../../../paper"), NodePath("../../../../bonfire")]
+PaperBG = NodePath("../..")
+
+[node name="combat" parent="Map/OldPaperPiece/Menus" node_paths=PackedStringArray("GameController", "NodesContainer", "SFX", "PaperBG") instance=ExtResource("10_e1j6l")]
+layout_mode = 1
+GameController = NodePath("../../../..")
+NodesContainer = NodePath("../../Container")
+SFX = [NodePath("../../../../paper")]
+PaperBG = NodePath("../..")
+
+[node name="event" parent="Map/OldPaperPiece/Menus" instance=ExtResource("11_pl11u")]
+layout_mode = 1
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+material = ExtResource("4_iywne")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.661
+anchor_right = 0.99200004
+anchor_bottom = 0.136
+offset_left = 17.527954
+offset_top = 1.0
+offset_right = -16.784058
+offset_bottom = -6.128006
+grow_horizontal = 2
+scale = Vector2(1.1, 1.1)
+pivot_offset = Vector2(173.5, 18)
+theme_override_constants/margin_top = 25
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+theme_override_styles/background = SubResource("StyleBoxTexture_37s47")
+theme_override_styles/fill = SubResource("StyleBoxTexture_pl11u")
+value = 100.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -336.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_right = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -350
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 110
+
+[node name="ItemsManager" type="GridContainer" parent="MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+columns = 2
+script = ExtResource("11_rysoc")
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/ItemsManager"]
+material = ExtResource("15_e1j6l")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1kice")
+icon = ExtResource("6_gee14")
+flat = true
+script = ExtResource("13_264po")
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/ItemsManager"]
+material = ExtResource("15_e1j6l")
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_264po")
+icon = ExtResource("6_gee14")
+flat = true
+script = ExtResource("13_264po")
+
+[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/ItemsManager"]
+material = ExtResource("15_e1j6l")
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_264po")
+icon = ExtResource("6_gee14")
+flat = true
+script = ExtResource("13_264po")
+
+[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/ItemsManager"]
+material = ExtResource("15_e1j6l")
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_264po")
+icon = ExtResource("6_gee14")
+flat = true
+script = ExtResource("13_264po")
+
+[node name="Button5" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/ItemsManager"]
+material = ExtResource("15_e1j6l")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_264po")
+icon = ExtResource("6_gee14")
+flat = true
+script = ExtResource("13_264po")
+
+[node name="Button6" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2/ItemsManager"]
+material = ExtResource("15_e1j6l")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_264po")
+icon = ExtResource("6_gee14")
+flat = true
+script = ExtResource("13_264po")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="money" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0tnpc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kvpfn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dinhu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kvuet")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vtaks")
+button_mask = 0
+text = "128"
+icon = ExtResource("7_0tnpc")
+flat = true
+
+[node name="backbutton" type="Button" parent="MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 32
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u5sy4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gee14")
+text = "Surrender  "
+icon = ExtResource("6_u5sy4")
+
+[node name="paper" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_p57ef")
+
+[node name="whoosh" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_vtaks")
+
+[node name="write" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_ir15t")
+
+[node name="buy" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_ssvqc")
+
+[node name="bonfire" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("22_37s47")

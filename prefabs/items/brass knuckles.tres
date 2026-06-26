@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bm0l0m2sby2tj"]
+
+[ext_resource type="Texture2D" uid="uid://bbtsp5qynb" path="res://sprites/items/game-icons--brass-knuckles.png" id="1_47dgr"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_fcg5f"]
+
+[resource]
+script = ExtResource("2_fcg5f")
+id = 13
+name = "brass knuckles"
+price = 50
+icon = ExtResource("1_47dgr")
+weight = 30
+description = "+30% fist damage"
+variables = Array[String](["fist_damage"])
+ammounts = Array[int]([30])
+operators = Array[int]([0])
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

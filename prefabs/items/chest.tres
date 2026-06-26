@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bp716eu00m1cu"]
+
+[ext_resource type="Texture2D" uid="uid://c5chyf0f5eg25" path="res://sprites/items/game-icons--chest-armor.png" id="1_58qtp"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_a1jfp"]
+
+[resource]
+script = ExtResource("2_a1jfp")
+id = 5
+name = "chest armor"
+price = 200
+icon = ExtResource("1_58qtp")
+weight = 25
+description = "+2% armor"
+variables = Array[String](["armor"])
+ammounts = Array[int]([2])
+operators = Array[int]([0])
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

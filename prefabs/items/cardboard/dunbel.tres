@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cnynjja6b0od1"]
+
+[ext_resource type="Texture2D" uid="uid://bhi4hfntb88qx" path="res://sprites/items/cardboard/dunbel.png" id="1_olci0"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_tm0wc"]
+
+[resource]
+script = ExtResource("2_tm0wc")
+id = 13
+name = "dunbel"
+icon = ExtResource("1_olci0")
+type = 3
+weight = 100
+description = "+2% damage"
+variables = Array[String](["damage"])
+ammounts = Array[int]([2])
+operators = Array[int]([0])
+event_only = true
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://d3y4kj48hl1cp"]
+
+[ext_resource type="Texture2D" uid="uid://dfinbj3n67262" path="res://sprites/items/game-icons--gold-stack.png" id="1_alwpe"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_0cvxd"]
+
+[resource]
+script = ExtResource("2_0cvxd")
+id = 11
+name = "midas"
+price = 300
+icon = ExtResource("1_alwpe")
+weight = 5
+description = "+60% more gold"
+variables = Array[String](["money_multiplier"])
+ammounts = Array[int]([60])
+operators = Array[int]([4])
+min_layer = 2
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

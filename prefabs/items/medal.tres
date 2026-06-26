@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://biwa620qh7h8m"]
+
+[ext_resource type="Texture2D" uid="uid://cvt7kwd1c5c8y" path="res://sprites/items/mdi--medal.png" id="1_5ql5e"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_t851o"]
+
+[resource]
+script = ExtResource("2_t851o")
+id = 12
+name = "medal"
+price = 100
+icon = ExtResource("1_5ql5e")
+weight = 30
+description = "+10 max hp & +1 luck"
+variables = Array[String](["max_player_health", "luck"])
+ammounts = Array[int]([10, 1])
+operators = Array[int]([0, 0])
+min_layer = 2
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

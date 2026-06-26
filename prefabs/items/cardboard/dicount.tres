@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cybil0ksbx5ou"]
+
+[ext_resource type="Texture2D" uid="uid://dsedlji5prkyt" path="res://sprites/items/cardboard/dicount.png" id="1_1vi3l"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_bgu24"]
+
+[resource]
+script = ExtResource("2_bgu24")
+id = 15
+name = "discount"
+icon = ExtResource("1_1vi3l")
+type = 3
+weight = 50
+description = "-5% shop price"
+variables = Array[String](["shop_price"])
+ammounts = Array[int]([5])
+operators = Array[int]([1])
+event_only = true
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

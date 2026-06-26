@@ -1,0 +1,195 @@
+[gd_scene load_steps=21 format=3 uid="uid://b3abjskq8dl7"]
+
+[ext_resource type="Script" uid="uid://bd0drodmgsybo" path="res://scripts/random_event.gd" id="1_dugwi"]
+[ext_resource type="Material" uid="uid://chtljj6m6lo55" path="res://scripts/shaders/dissolve black.tres" id="2_iqm1n"]
+[ext_resource type="Texture2D" uid="uid://bwb4aykvwo0u" path="res://sprites/UI/mdi--card upgrade.png" id="3_kbww5"]
+[ext_resource type="Texture2D" uid="uid://bgwdpfcio0r4t" path="res://sprites/UI/mdi--card.png" id="4_3uybq"]
+[ext_resource type="Shader" uid="uid://cgfjnyrfpq53o" path="res://scripts/shaders/dissolve.gdshader" id="4_kbww5"]
+[ext_resource type="Texture2D" uid="uid://bv5pmbh6ct4fr" path="res://sprites/spells/material-symbols--lock.png" id="6_q8xav"]
+[ext_resource type="Texture2D" uid="uid://phjvbbos2spj" path="res://sprites/spells/SpellHit.png" id="7_nuy7a"]
+[ext_resource type="Texture2D" uid="uid://bv6qiyk04uvbe" path="res://sprites/spells/material-symbols--shield.png" id="8_e4xr8"]
+[ext_resource type="Texture2D" uid="uid://3arq4pksaq37" path="res://sprites/spells/ic--baseline-discount.png" id="9_55mmb"]
+[ext_resource type="Texture2D" uid="uid://bh6vn577x1ks8" path="res://sprites/spells/meteor-icons--cross.png" id="10_4xnuu"]
+[ext_resource type="Texture2D" uid="uid://bhj15pp1ria2x" path="res://sprites/spells/game-icons--round-struck.png" id="11_egowf"]
+[ext_resource type="Texture2D" uid="uid://dc1inwm18s3kn" path="res://sprites/spells/mdi--luck-outline.png" id="12_66saj"]
+[ext_resource type="Texture2D" uid="uid://bibvyhimg5pqh" path="res://sprites/spells/carbon--ibm-webmethods-developer-portal.png" id="13_hvsuy"]
+[ext_resource type="Texture2D" uid="uid://ksnb4jxqjwsx" path="res://sprites/spells/game-icons--vertical-banner.png" id="13_sdrri"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="15_hvsuy"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3uybq"]
+frequency = 0.0079
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t4yi0"]
+noise = SubResource("FastNoiseLite_3uybq")
+bump_strength = 6.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q8xav"]
+shader = ExtResource("4_kbww5")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_t4yi0")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.12999999709424
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nuy7a"]
+shader = ExtResource("4_kbww5")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_t4yi0")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.12999999709424
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e4xr8"]
+
+[node name="Random" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dugwi")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="CompletedTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.41981313, 0.41981313, 0.4198131, 0.39215687)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -118.0
+offset_right = 118.0
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 100
+
+[node name="Upgrade" type="TextureRect" parent="ColorRect/HBoxContainer2"]
+self_modulate = Color(0, 0, 0, 1)
+material = ExtResource("2_iqm1n")
+layout_mode = 2
+texture = ExtResource("3_kbww5")
+
+[node name="Label" type="Label" parent="ColorRect/HBoxContainer2/Upgrade"]
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_q8xav")
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.19900002
+anchor_top = 0.915
+anchor_right = 1.199
+anchor_bottom = 1.199
+offset_left = 46.964005
+offset_top = 0.05999756
+offset_right = -46.96399
+offset_bottom = 0.036010742
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 48
+text = "Waiting card..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardView" type="Button" parent="ColorRect/HBoxContainer2/Upgrade"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+material = SubResource("ShaderMaterial_nuy7a")
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 240.0
+offset_bottom = 240.0
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_e4xr8")
+button_mask = 0
+icon = ExtResource("4_3uybq")
+flat = true
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("6_q8xav")
+
+[node name="SpellHit" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("7_nuy7a")
+
+[node name="SpellDefend" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("8_e4xr8")
+
+[node name="SpellDiscount" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("9_55mmb")
+
+[node name="SpellHealth" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("10_4xnuu")
+
+[node name="SpellStruck" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("11_egowf")
+
+[node name="SpellGamble" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("12_66saj")
+
+[node name="SpellBuff" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("13_sdrri")
+
+[node name="SpellSummon" type="Sprite2D" parent="ColorRect/HBoxContainer2/Upgrade/CardView"]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("13_hvsuy")
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("15_hvsuy")]
+
+[connection signal="timeout" from="CompletedTimer" to="." method="_on_completed_timer_timeout"]

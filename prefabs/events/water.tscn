@@ -1,0 +1,118 @@
+[gd_scene load_steps=10 format=3 uid="uid://w33ilej6l5ro"]
+
+[ext_resource type="Script" uid="uid://cp348o6yi8jkt" path="res://scripts/event_data.gd" id="1_mu2v6"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_a2e1m"]
+[ext_resource type="Resource" uid="uid://btqfygdbjmiwq" path="res://prefabs/items/water.tres" id="3_4duw3"]
+[ext_resource type="Resource" uid="uid://cpv0j5ysepgk0" path="res://prefabs/items/radioactive.tres" id="4_3ym74"]
+[ext_resource type="Texture2D" uid="uid://dt03lt6nhijm3" path="res://sprites/events/tabler--fountain.png" id="5_3k6ae"]
+[ext_resource type="Texture2D" uid="uid://bfexd72gfbcr5" path="res://sprites/events/akar-icons--cross 128.png" id="6_3k6ae"]
+[ext_resource type="Texture2D" uid="uid://dffap6c7hudmo" path="res://sprites/events/mdi--tick.png" id="7_on70r"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="8_3k6ae"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ym74"]
+size = Vector2(127.5, 129)
+
+[node name="Water" type="Control" node_paths=PackedStringArray("YesButton", "NoButton", "YesSFX")]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_mu2v6")
+id = "fountain"
+weight = 5
+unique = true
+types = Array[int]([0])
+items_data = Array[ExtResource("2_a2e1m")]([ExtResource("3_4duw3"), ExtResource("4_3ym74")])
+YesButton = NodePath("MarginContainer/HBoxContainer/YES/Area2D")
+NoButton = NodePath("MarginContainer/HBoxContainer/NO/Area2D")
+NoResponse = "You don't trust the fountain and you continue on your way..."
+ConditionResponse = "Wary, you take the water from the fountain and feel a blow to your chest..."
+YesResponse = "Wary, you take the water from the fountain... its salty..."
+YesSFX = NodePath("drink")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -250.0
+offset_right = 96.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3k6ae")
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.44900003
+anchor_right = 1.0
+anchor_bottom = 0.66
+offset_top = 0.047973633
+offset_bottom = 0.3199768
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "This fountain seems special...
+Do you want to drink its water?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="NO" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+icon = ExtResource("6_3k6ae")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="MarginContainer/HBoxContainer/NO"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/HBoxContainer/NO/Area2D"]
+position = Vector2(64.25, 64)
+shape = SubResource("RectangleShape2D_3ym74")
+
+[node name="YES" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+icon = ExtResource("7_on70r")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="MarginContainer/HBoxContainer/YES"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/HBoxContainer/YES/Area2D"]
+position = Vector2(64.25, 64)
+shape = SubResource("RectangleShape2D_3ym74")
+
+[node name="drink" type="AudioStreamPlayer2D" parent="."]
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("8_3k6ae")]

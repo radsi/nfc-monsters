@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dek2luldjbecg"]
+
+[ext_resource type="Texture2D" uid="uid://wrhopu0fv7kx" path="res://sprites/items/mdi--dumbbell.png" id="1_3tb3u"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="1_meoa2"]
+
+[resource]
+script = ExtResource("1_meoa2")
+name = "dumbbell"
+price = 50
+icon = ExtResource("1_3tb3u")
+weight = 100
+description = "+10% damage"
+variables = Array[String](["damage"])
+ammounts = Array[int]([10])
+operators = Array[int]([0])
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://tnobm66lht0t"]
+
+[ext_resource type="Texture2D" uid="uid://dbomvrwqtmnk3" path="res://sprites/items/cardboard/cardboard head.png" id="1_n2w3w"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_j38et"]
+
+[resource]
+script = ExtResource("2_j38et")
+id = 16
+name = "cardboard head"
+icon = ExtResource("1_n2w3w")
+type = 3
+weight = 5
+description = "Discretion"
+event_only = true
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

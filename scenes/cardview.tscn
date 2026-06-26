@@ -1,0 +1,488 @@
+[gd_scene load_steps=49 format=3 uid="uid://cvleoge6kr3p8"]
+
+[ext_resource type="Script" uid="uid://dskxrpopp65kb" path="res://scripts/cardview.gd" id="1_jcn82"]
+[ext_resource type="Texture2D" uid="uid://dvwt55mlmr4na" path="res://sprites/UI/ion--arrow-back-outline.png" id="1_pyp8r"]
+[ext_resource type="Material" uid="uid://d04n1og1adgh5" path="res://scripts/shaders/background.tres" id="2_1e278"]
+[ext_resource type="Texture2D" uid="uid://x51u0ju5l2p5" path="res://sprites/UI/mingcute--nfc-fill.png" id="2_fbcxm"]
+[ext_resource type="Texture2D" uid="uid://bgwdpfcio0r4t" path="res://sprites/UI/mdi--card.png" id="3_nt3aw"]
+[ext_resource type="Texture2D" uid="uid://cx48mkh5ie4uw" path="res://sprites/UI/mdi--fire.png" id="7_wmx85"]
+[ext_resource type="Texture2D" uid="uid://bohbbj65v4y3q" path="res://sprites/UI/mdi--run-fast.png" id="8_1e278"]
+[ext_resource type="Texture2D" uid="uid://cvoar3y12qsrq" path="res://sprites/items/mdi--water.png" id="8_l11u5"]
+[ext_resource type="Texture2D" uid="uid://b6yl53fpbc44k" path="res://sprites/UI/material-symbols--air.png" id="9_glw0c"]
+[ext_resource type="Texture2D" uid="uid://diyqd3inuvmsy" path="res://sprites/UI/loading circle.png" id="11_glw0c"]
+[ext_resource type="Texture2D" uid="uid://dplglcrg7uxx4" path="res://sprites/UI/akar-icons--cross.png" id="12_10qqo"]
+[ext_resource type="Texture2D" uid="uid://bibvyhimg5pqh" path="res://sprites/spells/carbon--ibm-webmethods-developer-portal.png" id="13_7biso"]
+[ext_resource type="Texture2D" uid="uid://bv5pmbh6ct4fr" path="res://sprites/spells/material-symbols--lock.png" id="14_trxep"]
+[ext_resource type="Texture2D" uid="uid://bxd3h0ll2fxvu" path="res://sprites/UI/mdi--sticker.png" id="15_1e278"]
+[ext_resource type="Texture2D" uid="uid://phjvbbos2spj" path="res://sprites/spells/SpellHit.png" id="15_hxt55"]
+[ext_resource type="Texture2D" uid="uid://bv6qiyk04uvbe" path="res://sprites/spells/material-symbols--shield.png" id="16_1piyp"]
+[ext_resource type="Texture2D" uid="uid://3arq4pksaq37" path="res://sprites/spells/ic--baseline-discount.png" id="17_ntevi"]
+[ext_resource type="Texture2D" uid="uid://bh6vn577x1ks8" path="res://sprites/spells/meteor-icons--cross.png" id="18_k5iia"]
+[ext_resource type="Texture2D" uid="uid://bhj15pp1ria2x" path="res://sprites/spells/game-icons--round-struck.png" id="19_xat7a"]
+[ext_resource type="Texture2D" uid="uid://dc1inwm18s3kn" path="res://sprites/spells/mdi--luck-outline.png" id="20_whtpf"]
+[ext_resource type="Texture2D" uid="uid://ksnb4jxqjwsx" path="res://sprites/spells/game-icons--vertical-banner.png" id="21_boglp"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="28_3k1id"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_123hd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt3aw"]
+bg_color = Color(0.35001245, 0.6455866, 0.7244034, 0.63529414)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x71ev"]
+bg_color = Color(0.34901962, 0.64705884, 0.7254902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dd0r"]
+bg_color = Color(0.34901962, 0.64705884, 0.7254902, 0.63529414)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i8hn3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu6jk"]
+bg_color = Color(0.42237097, 0.42237106, 0.4223709, 0.5058824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_moqih"]
+bg_color = Color(0.6, 0.6, 0.6, 0.49803922)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_10qqo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_moqih"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10qqo"]
+bg_color = Color(0.6, 0.6, 0.6, 0.25882354)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ta54"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5529412)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wmx85"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmx85"]
+bg_color = Color(0.6, 0.6, 0.6, 0.25882354)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l11u5"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5529412)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l11u5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glw0c"]
+bg_color = Color(0.6, 0.6, 0.6, 0.25882354)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_es0kb"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5529412)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_glw0c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ta54"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_es0kb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bu6jk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eficr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pt1xv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eficr"]
+bg_color = Color(0.8664585, 0.4619987, 0.44536763, 0.63529414)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jcn82"]
+bg_color = Color(0.8666667, 0.4627451, 0.44705883, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pt1xv"]
+bg_color = Color(0.8666667, 0.4627451, 0.44705883, 0.63529414)
+
+[node name="Cardview" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jcn82")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="SpellBuff" type="Sprite2D" parent="SubViewport"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(256, 256)
+scale = Vector2(4, 4)
+texture = ExtResource("21_boglp")
+
+[node name="SpellSummon" type="Sprite2D" parent="SubViewport"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(256, 256)
+scale = Vector2(3, 3)
+texture = ExtResource("13_7biso")
+
+[node name="SpellHit" type="Sprite2D" parent="SubViewport"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(256, 256)
+scale = Vector2(3, 3)
+texture = ExtResource("15_hxt55")
+
+[node name="SpellDefend" type="Sprite2D" parent="SubViewport"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(256, 256)
+scale = Vector2(3, 3)
+texture = ExtResource("16_1piyp")
+
+[node name="SpellDiscount" type="Sprite2D" parent="SubViewport"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(256, 256)
+scale = Vector2(3, 3)
+texture = ExtResource("8_1e278")
+
+[node name="SpellHealth" type="Sprite2D" parent="SubViewport"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(256, 256)
+scale = Vector2(3, 3)
+texture = ExtResource("18_k5iia")
+
+[node name="SpellStruck" type="Sprite2D" parent="SubViewport"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(256, 256)
+scale = Vector2(3, 3)
+texture = ExtResource("19_xat7a")
+
+[node name="SpellGamble" type="Sprite2D" parent="SubViewport"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+position = Vector2(256, 256)
+scale = Vector2(3, 3)
+texture = ExtResource("20_whtpf")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = ExtResource("2_1e278")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="backbutton" type="Button" parent="VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.70242256, 0.70242244, 0.7024226, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_123hd")
+icon = ExtResource("1_pyp8r")
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="nfcbutton" type="Button" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_nt3aw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_x71ev")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2dd0r")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_123hd")
+text = "Spell to NFC Card  "
+icon = ExtResource("2_fbcxm")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CardView" type="Button" parent="VBoxContainer/HBoxContainer2/GridContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i8hn3")
+button_mask = 0
+icon = ExtResource("3_nt3aw")
+flat = true
+metadata/signals_manager_path = "../../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="SpriteLocked" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("14_trxep")
+
+[node name="SpellHit" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("15_hxt55")
+
+[node name="SpellDefend" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("16_1piyp")
+
+[node name="SpellDiscount" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("17_ntevi")
+
+[node name="SpellHealth" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("18_k5iia")
+
+[node name="SpellStruck" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("19_xat7a")
+
+[node name="SpellGamble" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("20_whtpf")
+
+[node name="SpellBuff" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("21_boglp")
+
+[node name="SpellSummon" type="Sprite2D" parent="VBoxContainer/HBoxContainer2/GridContainer/CardView"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+use_parent_material = true
+position = Vector2(122, 122)
+texture = ExtResource("13_7biso")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/GridContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Level 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="printbutton" type="Button" parent="VBoxContainer/HBoxContainer2/GridContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_bu6jk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_moqih")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_10qqo")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_moqih")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_123hd")
+text = "Print card "
+icon = ExtResource("15_1e278")
+
+[node name="GridContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer2/GridContainer2"]
+layout_mode = 2
+columns = 3
+
+[node name="EffectFire" type="Button" parent="VBoxContainer/HBoxContainer2/GridContainer2/GridContainer"]
+visible = false
+modulate = Color(1, 0.38431373, 0.2509804, 1)
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_10qqo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1ta54")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_wmx85")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i8hn3")
+icon = ExtResource("7_wmx85")
+
+[node name="EffectWater" type="Button" parent="VBoxContainer/HBoxContainer2/GridContainer2/GridContainer"]
+visible = false
+modulate = Color(0.29411766, 1, 1, 1)
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_wmx85")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_l11u5")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_l11u5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i8hn3")
+icon = ExtResource("8_l11u5")
+
+[node name="EffectAir" type="Button" parent="VBoxContainer/HBoxContainer2/GridContainer2/GridContainer"]
+visible = false
+modulate = Color(0.70242256, 0.7024225, 0.7024225, 1)
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/icon_pressed_color = Color(0.7019608, 0.7019608, 0.7019608, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_glw0c")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_es0kb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_glw0c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i8hn3")
+icon = ExtResource("9_glw0c")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
+text = "Hit with your tight fist!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.76862746)
+
+[node name="GridContainer" type="GridContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 100
+
+[node name="Label" type="Label" parent="ColorRect/GridContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 32
+text = "Writing spell...
+(Bring your NFC card that you want to write to the mobile, whatever is on it will be overwritten)"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="LoadingCircle" type="Button" parent="ColorRect/GridContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1ta54")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_es0kb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bu6jk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_eficr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pt1xv")
+button_mask = 0
+flat = true
+
+[node name="LoadingCircle" type="Button" parent="ColorRect/GridContainer/LoadingCircle"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -118.0
+offset_right = 118.0
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(118, 118)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1ta54")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_es0kb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bu6jk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_eficr")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pt1xv")
+button_mask = 0
+icon = ExtResource("11_glw0c")
+flat = true
+
+[node name="cancelbutton" type="Button" parent="ColorRect/GridContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_eficr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jcn82")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pt1xv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_123hd")
+text = "Cancel "
+icon = ExtResource("12_10qqo")
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("28_3k1id")]
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/backbutton" to="." method="_on_backbutton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/MarginContainer/nfcbutton" to="." method="_on_nfcbutton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/GridContainer/HBoxContainer/printbutton" to="." method="_on_printbutton_pressed"]
+[connection signal="pressed" from="ColorRect/GridContainer/cancelbutton" to="." method="_on_cancelbutton_pressed"]

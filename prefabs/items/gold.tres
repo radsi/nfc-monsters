@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://g04caagye5k8"]
+
+[ext_resource type="Texture2D" uid="uid://b6qtukidhq8oo" path="res://sprites/items/streamline-freehand--wealth-gold-bars.png" id="1_vjfj8"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_4q3mj"]
+
+[resource]
+script = ExtResource("2_4q3mj")
+id = 6
+name = "gold"
+price = 100
+icon = ExtResource("1_vjfj8")
+weight = 15
+description = "+25% more gold"
+variables = Array[String](["money_multiplier"])
+ammounts = Array[int]([25])
+operators = Array[int]([4])
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"
