@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b4dw6jt2whsvy"]
+[gd_scene load_steps=33 format=3 uid="uid://b4dw6jt2whsvy"]
 
 [ext_resource type="Shader" uid="uid://cgfjnyrfpq53o" path="res://scripts/shaders/dissolve.gdshader" id="1_aerr4"]
 [ext_resource type="Texture2D" uid="uid://bmtsi4r3c54fi" path="res://sprites/enemies/game-icons--bird-mask.png" id="2_qn0wn"]
@@ -77,6 +77,24 @@ modulate_color = Color(0, 0, 0, 1)
 texture = ExtResource("17_ladfl")
 axis_stretch_horizontal = 1
 modulate_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_qn0wn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.65887, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_aerr4"]
+curve = SubResource("Curve_qn0wn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d26og"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100.165, -38.46, 1)
+direction = Vector3(1, -30, 0)
+spread = 15.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 300, 0)
+scale_curve = SubResource("CurveTexture_aerr4")
 
 [node name="Birdman" type="TextureRect"]
 self_modulate = Color(0, 0, 0, 1)
@@ -225,5 +243,32 @@ grow_vertical = 2
 texture = ExtResource("18_b7lt6")
 
 [node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("19_gf347")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="DamageLabel" type="Label" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.30826515, 0.24432126, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 32
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(64.355, 41.195)
+emitting = false
+amount = 1
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_d26og")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

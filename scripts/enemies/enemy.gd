@@ -55,8 +55,10 @@ var actives_tweens := {}
 @onready var Actions: HBoxContainer = $Actions
 @onready var HealthBar: ProgressBar = $ProgressBar
 @onready var FocusTexture: TextureRect = $TextureRect
+@onready var _SubViewport: SubViewport = $SubViewport
 
 var actions_to_do: Array[Action] = []
+var particles_pool: Array[GPUParticles2D] = []
 
 const DISSOLVE_DURATION := 0.75
 
@@ -430,6 +432,8 @@ func receive_damage(amount: float, is_poison = false) -> void:
 		actual *= (1.0 - damage_reduction / 100.0)
 	if buff == BuffType.DEFEND:
 		actual *= (1.0 - (damage_reduction * buff_multiplier) / 100.0)
+		
+	_SubViewport.get_child(0).text = str(int(actual))
 
 	current_hp -= actual
 	current_hp = maxf(current_hp, 0.0)
@@ -441,6 +445,7 @@ func receive_damage(amount: float, is_poison = false) -> void:
 	
 	if _GameController.poison > 0 and poisoned_damage == 0:
 		poisoned_damage += _GameController.poison
+		_SubViewport.get_child(0).text = str(int(poisoned_damage))
 	
 	_damage_feedback(Color.RED if not is_poison else Color.SEA_GREEN, self.self_modulate)
 
@@ -448,6 +453,26 @@ func receive_damage(amount: float, is_poison = false) -> void:
 		die()
 
 func _damage_feedback(color_feedback = Color.RED, color_original = Color.BLACK):
+	var damage_texture = _SubViewport.get_texture()
+	var emitter_found = false
+	
+	if particles_pool.is_empty():
+		particles_pool.append($GPUParticles2D)
+	
+	for particle: GPUParticles2D in particles_pool:
+		if emitter_found: break
+		if not particle.emitting:
+			particle.texture = damage_texture
+			particle.restart()
+			emitter_found = true
+	
+	if not emitter_found:
+		var new_particle = particles_pool[0].duplicate()
+		add_child(new_particle)
+		new_particle.texture = damage_texture
+		new_particle.restart()
+		particles_pool.append(new_particle)
+	
 	var tween := create_tween()
 
 	tween.tween_property(

@@ -34,7 +34,7 @@ func _ready() -> void:
 				children[i].icon = data.icon
 				children[i].item_data = data.duplicate()
 				children[i].tooltip_text = data.description
-				_GameController.apply_item_effect(data)
+				_GameController.apply_item_effect(data, false, false)
 				children[i].material.set_shader_parameter("dissolve_value", 1)
 		else:
 			children[i].material.set_shader_parameter("dissolve_value", 0)
@@ -71,7 +71,7 @@ func add_item(item: ItemData):
 
 	tween.finished.connect(func(): ItemAdded.emit())
 
-	_GameController.apply_item_effect(items.get(item.id))
+	_GameController.apply_item_effect(items.get(item.id), false, true)
 
 	var arr = []
 	for _item: ItemDataButton in get_children():
@@ -97,7 +97,7 @@ func remove_item(item: ItemData):
 	if inv_item == null:
 		return
 
-	_GameController.apply_item_effect(items[item.id], true)
+	_GameController.apply_item_effect(items[item.id], true, true)
 
 	var tween = create_tween()
 	tween.tween_method(

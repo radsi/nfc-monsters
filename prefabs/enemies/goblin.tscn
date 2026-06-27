@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://drqcj6mfffr6b"]
+[gd_scene load_steps=34 format=3 uid="uid://drqcj6mfffr6b"]
 
 [ext_resource type="Texture2D" uid="uid://cvqt3ytx3ntnd" path="res://sprites/enemies/game-icons--goblin-head.png" id="1_4fkym"]
 [ext_resource type="Texture2D" uid="uid://ckvcmidd2aqig" path="res://sprites/UI/temaki--dagger.png" id="2_8ymvn"]
@@ -26,7 +26,7 @@ frequency = 0.0143
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4lpxk"]
 noise = SubResource("FastNoiseLite_qkomg")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vj8al"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54o11"]
 shader = ExtResource("2_qkomg")
 shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_4lpxk")
 shader_parameter/dissolve_value = 1.0
@@ -92,10 +92,27 @@ texture = ExtResource("3_8ymvn")
 axis_stretch_horizontal = 1
 modulate_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Curve" id="Curve_54o11"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.65887, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fgfdb"]
+curve = SubResource("Curve_54o11")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ph0b7"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100.165, -38.46, 1)
+direction = Vector3(1, -30, 0)
+spread = 15.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 300, 0)
+scale_curve = SubResource("CurveTexture_fgfdb")
+
 [node name="Goblin" type="TextureRect"]
 self_modulate = Color(0, 0, 0, 1)
-material = SubResource("ShaderMaterial_vj8al")
-use_parent_material = true
+material = SubResource("ShaderMaterial_54o11")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -233,7 +250,36 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("15_vtsq2")
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
 
 [node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("19_fgfdb")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="DamageLabel" type="Label" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.30826515, 0.24432126, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 32
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(64.355, 41.195)
+emitting = false
+amount = 1
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_ph0b7")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

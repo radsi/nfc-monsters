@@ -123,7 +123,7 @@ func _update_coins():
 var hp_tween: Tween
 var damage_tween: Tween
 
-func _update_hp_bar(value, max_value, healthBar: ProgressBar):
+func _update_hp_bar(value, max_value, healthBar: ProgressBar, is_damage = true):
 	healthBar.max_value = max_value
 
 	if hp_tween:
@@ -133,7 +133,7 @@ func _update_hp_bar(value, max_value, healthBar: ProgressBar):
 
 	var start_hp = healthBar.value
 	
-	if value < start_hp and healthBar == HealthBar:
+	if value < start_hp and healthBar == HealthBar and is_damage:
 		damage_tween = create_tween()
 		DamageEffect.self_modulate.a = 1
 
@@ -173,13 +173,13 @@ func _apply_player_damage(amount: float) -> void:
 	var actual = amount * (1.0 - armor / 100.0)
 	add_hp(actual, "-")
 
-func apply_item_effect(item: ItemData, is_removing = false):
+func apply_item_effect(item: ItemData, is_removing = false, is_damage = true):
 	for n in item.variables.size():
 		var _variable = get(item.variables[n])
 		var result = operators[item.operators[n]].call(_variable, item.ammounts[n] if not is_removing else -item.ammounts[n])
 		set(item.variables[n], result)
 		if item.variables[n] == "max_player_health": player_health = clamp(max_player_health - player_health, 0, max_player_health)
-		_update_hp_bar(player_health, max_player_health, HealthBar)
+		_update_hp_bar(player_health, max_player_health, HealthBar, is_damage)
 
 func _dissolve_in(node: CanvasItem, duration: float, _action_original_materials: Dictionary, dissolveShader = DissolveShader, node_to_show: Node = null) -> void:
 	if _active_tweens.has(node):
@@ -216,7 +216,7 @@ func _dissolve_in(node: CanvasItem, duration: float, _action_original_materials:
 		_active_tweens.erase(node)
 	)
 	
-func _dissolve_out(node: CanvasItem, duration: float, node_to_hide: Node = null, set_original_material = true, dissolveShader = DissolveShader) -> Tween:
+func _dissolve_out(node: Node, duration: float, node_to_hide: Node = null, set_original_material = true, dissolveShader = DissolveShader) -> Tween:
 	if not node.visible:
 		return null
 

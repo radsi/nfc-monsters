@@ -198,6 +198,8 @@ func clear_game_state() -> void:
 	card_to_view = {
 		"name": ""
 	}
+	
+	_save()
 
 func save_map_state(current_position: Array, visited_nodes: Array, seed: int, layer: int) -> void:
 	config.set_value("map", "current_pos", current_position)
