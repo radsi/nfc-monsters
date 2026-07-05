@@ -56,7 +56,6 @@ func show_on_paper(skip_anim := false) -> void:
 		showing_mid_animation.emit()
 		shown_on_paper.emit()
 		animation_finished.emit()
-		print(global_position)
 		return
 
 	_GameController.doin_animation = true

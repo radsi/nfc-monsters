@@ -21,8 +21,6 @@ var enemy_action_queue = []
 var actives_tweens = {}
 var is_boss = false
 
-var temp_armor = 0
-
 const DISSOLVE_DURATION = 0.25
 
 const ACTION_DELAY = 0.75
@@ -34,7 +32,6 @@ func _ready() -> void:
 	super._ready()
 	
 	var spellsummon = CardsContainer.find_child("SpellSummon")
-	_GameController.cache_original_material(spellsummon.get_child(1))
 	
 	ActionsButton.text = "Cast spells (%d/%d)" % [
 		used_cards.size(),
@@ -47,14 +44,18 @@ func _ready() -> void:
 	)
 	
 	shown_on_paper.connect(func():
+		_GameController.temp_armor = 0
+		_GameController.add_temp_armor(_GameController.armor, "+")
 		_GameController._action_original_materials.clear()
+		_GameController.cache_original_material(spellsummon.get_child(1))
 		NfcUsage.connect("nfc_detected", Callable(self, "_on_nfc_detected"))
 		var enemies = EnemiesContainer.get_children()
 		for e: Enemy in enemies:
 			if e.should_die_from_condition(enemies):
 				e.die()
 			elif e.SpawnSFX.size() > 0:
-				e.SpawnSFX.pick_random().play()
+				e.SpawnStreamer.stream = e.SpawnSFX.pick_random()
+				e.SpawnStreamer.play()
 	)
 	
 	show_animation_started.connect(func():
@@ -174,22 +175,34 @@ func _on_enemy_turn_finished() -> void:
 	battle_turn += 1 
 	ActionsButton.disabled = false 
 	
-	for child in CardsContainer.get_children(): 
-		if child.name.begins_with("Spell"): 
-			var label = child.find_child("Label") 
-			if label: 
-				label.hide() 
-				child.modulate = Color.WHITE 
-				child.scale = Vector2.ONE 
-				_GameController._dissolve_out(child, DISSOLVE_DURATION, child) 
+	var summon_entry = null
+	if summon_index != -1:
+		for c in used_cards:
+			if c.get("name") == "SpellSummon":
+				summon_entry = c
+				break
 	
-	used_cards.clear() 
-	summoned_card = [] 
-	waiting_summon = false 
-	ActionsButton.text = "Cast spells (0/%d)" % _GameController.max_cards_use
-	
-	_GameController.armor -= temp_armor
-	temp_armor = 0
+	for child in CardsContainer.get_children():
+		if child.name == "SpellSummon" and summon_index != -1:
+			continue
+		if child.name.begins_with("Spell"):
+			var label = child.find_child("Label")
+			if label:
+				label.hide()
+			child.modulate = Color.WHITE
+			child.scale = Vector2.ONE
+			_GameController._dissolve_out(child, DISSOLVE_DURATION, child)
+
+	used_cards.clear()
+	if summon_entry:
+		used_cards.insert(summon_index - 1, summon_entry)
+
+	waiting_summon = false
+	ActionsButton.text = "Cast spells (%d/%d)" % [used_cards.size(), _GameController.max_cards_use]
+
+	_GameController.temp_armor = 0
+	_GameController.add_temp_armor(_GameController.armor, "+")
+
 
 func roll_enemies() -> void:
 	
@@ -206,14 +219,13 @@ func roll_enemies() -> void:
 		if enemy == null:
 			continue
 
-		if enemy.min_layer > _GameController.layer:
+		if enemy.is_boss != is_boss:
 			enemy.queue_free()
 			continue
 
-		if enemy.is_boss:
-			if not (is_boss and enemy.min_layer == _GameController.layer):
-				enemy.queue_free()
-				continue
+		if enemy.min_layer > _GameController.layer:
+			enemy.queue_free()
+			continue
 
 		available.append(scene)
 		weights.append(enemy.weight_spawn)
@@ -225,7 +237,7 @@ func roll_enemies() -> void:
 
 	var enemy_count := 1
 	
-	if is_boss == true:
+	if is_boss == false:
 		var count_roll := combat_rng.randf()
 		
 		if count_roll < 0.45:
@@ -305,8 +317,13 @@ func _on_enemy_die(enemy: Enemy) -> void:
 		_GameController._update_coins()
 		
 		if is_boss:
-			change_layer_after_boss(_GameController.layer)
 			_GameController.layer += 1
+			if _GameController.layer == 4:
+				_GameController.GameOverMenu.show_on_paper()
+				return
+			
+			change_layer_after_boss(_GameController.layer-1)
+			_GameController.last_map_pos = Vector2(0, -1592)
 		else:
 			hide_on_paper()
 
@@ -343,18 +360,21 @@ func _on_nfc_detected(tag_id: String) -> void:
 	if cardname == "SpellDiscount": return
 
 	if cardname == "SpellSummon":
-		if not used_cards.has(data):
+		var is_new = not used_cards.has(data)
+		if is_new:
 			used_cards.append(data)
-		if summon_index == -1: summon_index = used_cards.size()
+			_GameController.max_cards_use += 1
+		else: return
+
+		if summon_index == -1:
+			summon_index = used_cards.size() - 1
 
 		var spellsummon = CardsContainer.find_child(cardname)
-
 		CardsContainer.move_child(spellsummon, summon_index)
 
 		var tween_out = _GameController._dissolve_out(spellsummon.get_child(1), DISSOLVE_DURATION, spellsummon.get_child(1), DissolveShader_purple)
 		var do_show_in = func():
 			_GameController._dissolve_in(spellsummon, DISSOLVE_DURATION, _GameController._action_original_materials, _GameController.DissolveShader, spellsummon.get_child(0))
-
 		if tween_out:
 			tween_out.finished.connect(do_show_in)
 		else:
@@ -362,13 +382,8 @@ func _on_nfc_detected(tag_id: String) -> void:
 
 		waiting_summon = true
 		summoned_card = []
-		
-		_GameController.max_cards_use += 1
 
-		ActionsButton.text = "Cast spells (%d/%d)" % [
-			used_cards.size(),
-			_GameController.max_cards_use
-		]
+		ActionsButton.text = "Cast spells (%d/%d)" % [used_cards.size(), _GameController.max_cards_use]
 		return
 
 	if waiting_summon:
@@ -441,8 +456,6 @@ func _run_action_queue(queue: Array) -> void:
 	if killed_enemies >= EnemiesContainer.get_child_count(): return
 		
 	if queue.is_empty():
-		summon_index = -1
-		_executing = false
 		_start_enemy_turn()
 		return
 
@@ -483,8 +496,7 @@ func _execute_card(card) -> void:
 		_GameController.pending_buff = 0
 
 	elif cardname == "SpellDefend":
-		_GameController.armor += 5 + (2 * card.get("level"))
-		temp_armor += 5 + (2 * card.get("level"))
+		_GameController.add_temp_armor(5 + (2 * card.get("level")), "+")
 
 	elif cardname == "SpellHealth":
 		_GameController.add_hp(25, "%")
@@ -517,10 +529,11 @@ func _highlight_active_card(cardname: String, total: int) -> void:
 	var active_spell = CardsContainer.find_child(cardname)
 	var total_label = active_spell.find_child("Label")
 
-	if total == 1:
-		total_label.hide()
-	else:
-		total_label.text = "x" + str(total - 1)
+	if total_label != null:
+		if total == 1:
+			total_label.hide()
+		else:
+			total_label.text = "x" + str(total - 1)
 
 	for child in CardsContainer.get_children():
 		var is_active := child.name == cardname

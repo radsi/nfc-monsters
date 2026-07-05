@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://x4lcatn5b128"
+path="res://.godot/imported/348700__deganoth__goblin_p.wav-3f8fa51a8f1e4110330bf30e37a039d2.sample"
+
+[deps]
+
+source_file="res://sounds/monster pack deganoth/348700__deganoth__goblin_p.wav"
+dest_files=["res://.godot/imported/348700__deganoth__goblin_p.wav-3f8fa51a8f1e4110330bf30e37a039d2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

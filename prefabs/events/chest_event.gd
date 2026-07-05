@@ -2,6 +2,7 @@ extends EventData
 
 func custom_event_script(caller) -> void:
 	var _ItemsManager: ItemsManager = caller._ItemsManager
+	var _GameController: GameController = caller._GameController
 
 	var unlocked_items = Gamemanager.get_unlocked_items()
 	var item_pool: Array[ItemData] = []
@@ -27,7 +28,7 @@ func custom_event_script(caller) -> void:
 		item_pool.sort_custom(func(a, b): return a.id < b.id)
 
 		var rng := RandomNumberGenerator.new()
-		rng.seed = hash(str(Gamemanager.get_map_seed()) + ":" + str(get_parent().NodesContainer) + ":chest")
+		rng.seed = _GameController.current_hash
 
 		var selected_item = item_pool[rng.randi_range(0, item_pool.size() - 1)]
 

@@ -33,15 +33,12 @@ func _ready() -> void:
 		ignore_clicks = false
 		waiting_index = 0
 		waiting_timer = 0.0
-
 		$VBoxContainer/HBoxContainer2.hide()
-
+		ButtonsContainer.show()
 		for button in ButtonsContainer.get_children():
 			button.show()
-
 			if button.material:
 				button.material.set_shader_parameter("dissolve_value", 1.0)
-
 		card_view.hide()
 	)
 	

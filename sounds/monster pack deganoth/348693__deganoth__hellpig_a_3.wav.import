@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://lvpd05563oeb"
+path="res://.godot/imported/348693__deganoth__hellpig_a_3.wav-be02ada51a3e22e94bf55c634d1dfb3e.sample"
+
+[deps]
+
+source_file="res://sounds/monster pack deganoth/348693__deganoth__hellpig_a_3.wav"
+dest_files=["res://.godot/imported/348693__deganoth__hellpig_a_3.wav-be02ada51a3e22e94bf55c634d1dfb3e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

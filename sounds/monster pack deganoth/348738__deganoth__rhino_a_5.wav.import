@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://be21jp0ifjkga"
+path="res://.godot/imported/348738__deganoth__rhino_a_5.wav-2e4f98d45e8dc3516967ad4ae0a621f1.sample"
+
+[deps]
+
+source_file="res://sounds/monster pack deganoth/348738__deganoth__rhino_a_5.wav"
+dest_files=["res://.godot/imported/348738__deganoth__rhino_a_5.wav-2e4f98d45e8dc3516967ad4ae0a621f1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

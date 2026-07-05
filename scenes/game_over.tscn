@@ -38,6 +38,8 @@ theme_override_font_sizes/font_size = 64
 text = "Game Over"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Label"]
 layout_mode = 1

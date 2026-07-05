@@ -1,23 +1,22 @@
-[gd_scene load_steps=32 format=3 uid="uid://6napmm400rq1"]
+[gd_scene load_steps=27 format=3 uid="uid://6napmm400rq1"]
 
 [ext_resource type="Shader" uid="uid://bifp3l7a1qjl8" path="res://scripts/shaders/wave.gdshader" id="1_vey2m"]
 [ext_resource type="Texture2D" uid="uid://bpubtjgsjvfbm" path="res://sprites/enemies/game-icons--brain-tentacle.png" id="2_bm1dj"]
 [ext_resource type="Script" uid="uid://dpp7vl258uqlu" path="res://scripts/enemies/enemy.gd" id="3_rekmw"]
 [ext_resource type="Script" uid="uid://dgoqmqbwxralk" path="res://scripts/enemies/behaviour_phase.gd" id="4_pun4i"]
 [ext_resource type="Script" uid="uid://cwboblw35jqam" path="res://scripts/enemies/behaviour_enemy.gd" id="5_nag3g"]
-[ext_resource type="Material" uid="uid://166vq4cu1w1b" path="res://scripts/shaders/shake.tres" id="6_3sqcf"]
-[ext_resource type="Texture2D" uid="uid://ckvcmidd2aqig" path="res://sprites/UI/temaki--dagger.png" id="7_cmr8o"]
-[ext_resource type="Material" uid="uid://dboj8npb35a80" path="res://scripts/shaders/rotation.tres" id="8_sk44x"]
-[ext_resource type="Texture2D" uid="uid://cg8r8v4bvekwc" path="res://sprites/UI/tabler--spiral.png" id="9_ieoai"]
-[ext_resource type="Texture2D" uid="uid://bcmx12k50psfy" path="res://sprites/UI/material-symbols--shield 38.png" id="10_hfqcy"]
-[ext_resource type="Texture2D" uid="uid://cwjkh5t3ifsi1" path="res://sprites/UI/bitcoin-icons--question-filled.png" id="11_hwocg"]
-[ext_resource type="Texture2D" uid="uid://b07ngklvpj6dt" path="res://sprites/UI/mdi--prohibited.png" id="12_tawf8"]
-[ext_resource type="Shader" uid="uid://bry3xc0qu427o" path="res://scripts/shaders/shake.gdshader" id="13_1oi2b"]
-[ext_resource type="Texture2D" uid="uid://pe3gwcimnfl5" path="res://sprites/UI/mynaui--bubbles-solid.png" id="14_ao2na"]
-[ext_resource type="Texture2D" uid="uid://bbq2hijn2jq2j" path="res://sprites/UI/progress bars/vaadin--progressbar 128.png" id="15_b2dxi"]
-[ext_resource type="Texture2D" uid="uid://cyw4xqf0d20pt" path="res://sprites/UI/progress bars/vaadin--progressbar fill 128.png" id="16_h4wqm"]
+[ext_resource type="AudioStream" uid="uid://x4lcatn5b128" path="res://sounds/monster pack deganoth/348700__deganoth__goblin_p.wav" id="6_sk44x"]
+[ext_resource type="AudioStream" uid="uid://cwrkrjse14mto" path="res://sounds/monster pack deganoth/348726__deganoth__goblin_a_1.wav" id="7_ieoai"]
+[ext_resource type="AudioStream" uid="uid://bpu78ru608b74" path="res://sounds/monster pack deganoth/348724__deganoth__goblin_a_3.wav" id="8_hfqcy"]
+[ext_resource type="AudioStream" uid="uid://bx878l81p051t" path="res://sounds/monster pack deganoth/348702__deganoth__goblin_g_2.wav" id="9_hwocg"]
+[ext_resource type="AudioStream" uid="uid://ckynd7cwvr00o" path="res://sounds/monster pack deganoth/348729__deganoth__goblin_d_2.wav" id="10_tawf8"]
+[ext_resource type="AudioStream" uid="uid://bbgiywmy7brrj" path="res://sounds/monster pack deganoth/348730__deganoth__goblin_d_1.wav" id="11_1oi2b"]
+[ext_resource type="PackedScene" uid="uid://c45oeykxwxhhi" path="res://prefabs/enemy_health_bar.tscn" id="17_2eyfb"]
 [ext_resource type="Texture2D" uid="uid://b7lvbr3gbcib1" path="res://sprites/UI/uil--focus.png" id="17_rq4ew"]
+[ext_resource type="PackedScene" uid="uid://qnmhfihowsij" path="res://prefabs/enemies_actions.tscn" id="18_bm1dj"]
 [ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="18_o0anj"]
+[ext_resource type="AudioStream" uid="uid://cf0pbnvhutf6u" path="res://sounds/536118__eminyildirim__water-single-bubble.wav" id="25_ao2na"]
+[ext_resource type="AudioStream" uid="uid://d33fdfycajgl4" path="res://sounds/657930__lilmati__cartoon-drowning-02.wav" id="26_b2dxi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vj8al"]
 shader = ExtResource("1_vey2m")
@@ -68,32 +67,6 @@ metadata/_custom_type_script = "uid://cwboblw35jqam"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vj8al"]
 size = Vector2(138, 158)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkomg"]
-shader = ExtResource("1_vey2m")
-shader_parameter/amplitude = 4.05
-shader_parameter/frequency = 12.53
-shader_parameter/speed = -2.0
-shader_parameter/min_height = 0.6
-shader_parameter/height_range = -0.5
-shader_parameter/min_width = -0.25
-shader_parameter/width_range = 100.0
-shader_parameter/vertical = true
-shader_parameter/tint = Color(0, 0, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_56kru"]
-shader = ExtResource("13_1oi2b")
-shader_parameter/strength = 17.6
-shader_parameter/speed = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vcg6f"]
-texture = ExtResource("15_b2dxi")
-modulate_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l4abe"]
-texture = ExtResource("16_h4wqm")
-axis_stretch_horizontal = 1
-modulate_color = Color(0, 0, 0, 1)
-
 [sub_resource type="Curve" id="Curve_bm1dj"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.65887, 0.0, 0, 0]
 point_count = 2
@@ -138,6 +111,8 @@ current_hp = 250.0
 damage = 30.0
 damage_reduction = 10.0
 buff_multiplier = 2.0
+SpawnSFX = Array[AudioStreamWAV]([ExtResource("6_sk44x"), ExtResource("7_ieoai"), ExtResource("8_hfqcy"), ExtResource("9_hwocg")])
+DieSFX = Array[AudioStreamWAV]([ExtResource("10_tawf8"), ExtResource("11_1oi2b"), null])
 metadata/signals_manager_path = "mobile_plugin_signals_manager"
 metadata/tooltip_on_mobile = false
 
@@ -147,109 +122,6 @@ position = Vector2(64, 37)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_vj8al")
-
-[node name="Actions" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.625
-anchor_right = 1.0
-anchor_bottom = -0.25
-offset_top = -6.0
-offset_bottom = -6.0
-grow_horizontal = 2
-alignment = 1
-
-[node name="Attack" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("6_3sqcf")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("7_cmr8o")
-stretch_mode = 2
-
-[node name="Spell" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("8_sk44x")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("9_ieoai")
-stretch_mode = 2
-
-[node name="Defense" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("6_3sqcf")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("10_hfqcy")
-stretch_mode = 2
-
-[node name="Secret" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = SubResource("ShaderMaterial_qkomg")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("11_hwocg")
-stretch_mode = 2
-
-[node name="Prohibited" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("6_3sqcf")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("12_tawf8")
-stretch_mode = 2
-
-[node name="Poisoned" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0.65955013, 0, 1)
-material = SubResource("ShaderMaterial_56kru")
-use_parent_material = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("14_ao2na")
-stretch_mode = 2
-metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
-metadata/tooltip_on_mobile = false
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-use_parent_material = true
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.254
-anchor_right = 1.0
-offset_top = -0.48799896
-offset_bottom = 4.0
-grow_horizontal = 0
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxTexture_vcg6f")
-theme_override_styles/fill = SubResource("StyleBoxTexture_l4abe")
-value = 100.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="ProgressBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/outline_size = 10
-text = "250/250"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
-metadata/tooltip_on_mobile = false
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
@@ -291,5 +163,23 @@ emitting = false
 amount = 1
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_y2rt1")
+
+[node name="spawn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_ao2na")
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("26_b2dxi")
+
+[node name="Actions" parent="." instance=ExtResource("18_bm1dj")]
+layout_mode = 1
+offset_top = -86.0
+offset_bottom = -38.0
+
+[node name="ProgressBar" parent="." instance=ExtResource("17_2eyfb")]
+layout_mode = 1
+anchor_top = -0.305
+offset_top = 0.040000916
+offset_bottom = -1.0
+grow_horizontal = 1
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

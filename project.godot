@@ -27,7 +27,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/NFCPlugin/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/mobile/plugin.cfg")
+enabled=PackedStringArray("res://addons/NFCPlugin/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/mobile/plugin.cfg", "res://addons/variable_export_import/plugin.cfg")
 
 [input_devices]
 

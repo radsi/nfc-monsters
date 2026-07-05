@@ -53,10 +53,10 @@ func start_play_animation() -> void:
 		5.0
 	).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 
-	if gallery_button.material:
+	if gallery_button.material and gallery_button.material is ShaderMaterial:
 		tween.tween_method(
 			func(value: float):
-				gallery_button.material.set_shader_parameter("dissolve_value", value),
+				(gallery_button.material as ShaderMaterial).set_shader_parameter("dissolve_value", value),
 			1.0,
 			0.0,
 			2.0

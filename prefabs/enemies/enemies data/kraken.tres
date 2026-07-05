@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="ExportedVariableData" load_steps=11 format=3 uid="uid://c4a3mj88modk1"]
+
+[ext_resource type="Script" uid="uid://5hux7sye7uhg" path="res://addons/variable_export_import/exported_variable_data.gd" id="1_txesh"]
+[ext_resource type="Script" uid="uid://dgoqmqbwxralk" path="res://scripts/enemies/behaviour_phase.gd" id="2_hnn45"]
+[ext_resource type="Script" uid="uid://cwboblw35jqam" path="res://scripts/enemies/behaviour_enemy.gd" id="3_a84sq"]
+[ext_resource type="AudioStream" uid="uid://cf0pbnvhutf6u" path="res://sounds/536118__eminyildirim__water-single-bubble.wav" id="4_vmb6t"]
+[ext_resource type="AudioStream" uid="uid://d33fdfycajgl4" path="res://sounds/657930__lilmati__cartoon-drowning-02.wav" id="5_ym83r"]
+
+[sub_resource type="Resource" id="Resource_uxaik"]
+script = ExtResource("2_hnn45")
+condition_type = 2
+condition_value = 150.0
+force_actions = true
+weight_attack = 0
+weight_buff = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_5xx2y"]
+script = ExtResource("2_hnn45")
+condition_type = 1
+condition_value = 150.0
+weight_buff = 0
+weight_defend = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_cucji"]
+script = ExtResource("2_hnn45")
+condition_type = 1
+condition_value = 100.0
+weight_attack = 50
+weight_buff = 75
+weight_defend = 50
+weight_secret = 75
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_6ou5e"]
+script = ExtResource("2_hnn45")
+condition_type = 5
+force_actions = true
+weight_buff = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_mralw"]
+script = ExtResource("3_a84sq")
+behavior_name = "Kraken"
+phases = Array[ExtResource("2_hnn45")]([SubResource("Resource_uxaik"), SubResource("Resource_5xx2y"), SubResource("Resource_cucji"), SubResource("Resource_6ou5e")])
+metadata/_custom_type_script = "uid://cwboblw35jqam"
+
+[resource]
+script = ExtResource("1_txesh")
+script_path = "res://scripts/enemies/enemy.gd"
+variables = {
+"DieSFX": Array[AudioStreamWAV]([ExtResource("5_ym83r")]),
+"SpawnSFX": Array[AudioStreamWAV]([ExtResource("4_vmb6t")]),
+"armor_gain": 10.0,
+"behavior": SubResource("Resource_mralw"),
+"buff": false,
+"buff_multiplier": 2.0,
+"can_spawn_single": true,
+"current_hp": 200.0,
+"damage": 20.0,
+"die_condition": 0,
+"is_boss": true,
+"max_hp": 200.0,
+"min_layer": 1,
+"thorns_damage": 0.0,
+"weight_spawn": 100.0
+}

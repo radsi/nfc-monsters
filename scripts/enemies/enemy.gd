@@ -9,7 +9,6 @@ enum Action {
 	PROHIBITED,
 	POISONED
 }
-enum BuffType { ATTACK, DEFEND, NONE }
 enum DieCondition {
 	NONE,
 	NO_OTHER_TYPES,
@@ -33,29 +32,36 @@ signal EnemyActionsEnded
 @export var can_spawn_single := true
 @export var min_layer: int = 1
 @export var weight_spawn: float = 100.0
+@export var has_secret_action := false
 
 @export_group("Enemy Stats")
 @export var max_hp: float = 100.0
 @export var current_hp: float = 100.0
 @export var damage: float = 10.0
-@export var damage_reduction: float = 25.0
+@export var armor_gain: float = 10.0
 @export var thorns_damage: float = 0.0
-@export var buff: BuffType = BuffType.NONE
+@export var buff := false
 @export var buff_multiplier: float = 1.5
 
 @export_group("SFX")
-@export var SpawnSFX: Array[AudioStreamPlayer2D]
-@export var DieSFX: Array[AudioStreamPlayer2D]
+@onready var SpawnStreamer: AudioStreamPlayer2D = $spawn
+@onready var DieStreamer: AudioStreamPlayer2D = $die
+@export var SpawnSFX: Array[AudioStreamWAV]
+@export var DieSFX: Array[AudioStreamWAV]
 
-var is_defending := false
 var poisoned_damage := 0
+var armor := 0
 var focusable := true
 var actives_tweens := {}
+var buff_queued := false
 
 @onready var Actions: HBoxContainer = $Actions
 @onready var HealthBar: ProgressBar = $ProgressBar
+@onready var ArmorBar: ProgressBar = $ProgressBar/ArmorBar
 @onready var FocusTexture: TextureRect = $TextureRect
 @onready var _SubViewport: SubViewport = $SubViewport
+@onready var DamageLabel: Label = $Actions/Attack/DamageLabel
+@onready var DefenseLabel: Label = $Actions/Defense/DefenseLabel
 
 var actions_to_do: Array[Action] = []
 var particles_pool: Array[GPUParticles2D] = []
@@ -68,6 +74,7 @@ func _ready() -> void:
 	_GameController = get_tree().current_scene
 	HealthBar.max_value = max_hp
 	HealthBar.value = current_hp
+	ArmorBar.max_value = max_hp/3
 
 	for i in Actions.get_child_count():
 		var node := Actions.get_child(i)
@@ -79,7 +86,8 @@ func _ready() -> void:
 func die() -> Tween:
 	
 	if DieSFX.size() > 0:
-		DieSFX.pick_random().play()
+		DieStreamer.stream = DieSFX.pick_random()
+		DieStreamer.play()
 	
 	focusable = false
 
@@ -90,7 +98,10 @@ func die() -> Tween:
 		false
 	)
 	
-	for child in Actions.get_children():
+	var nodes = Actions.get_children()
+	nodes.append_array([DefenseLabel, DamageLabel, HealthBar.get_child(0)])
+
+	for child in nodes:
 		_GameController._dissolve_out(child, DISSOLVE_DURATION, null, false)
 
 	OnDie.emit(self)
@@ -149,7 +160,13 @@ func get_enemy_type(enemy: Enemy) -> String:
 	return regex.sub(enemy.name, "", true)
 
 func decide_actions() -> Array[Action]:
-	is_defending = false
+	armor = 0
+	_GameController._update_hp_bar(0, max_hp/3, ArmorBar, false)
+	_update_health_label()
+
+	if buff_queued:
+		buff = true
+		buff_queued = false
 
 	var phase := _get_active_phase()
 	if phase == null:
@@ -165,40 +182,51 @@ func decide_actions() -> Array[Action]:
 		phase.weight_prohibited
 	]
 
+	if buff:
+		weights[Action.BUFF] = 0
+
 	var chosen_indices: Array[int] = _weighted_random(weights, phase.force_actions)
 	if poisoned_damage != 0 and current_hp > 0:
 		chosen_indices.append(Action.POISONED)
 
 	actions_to_do.clear()
-
 	for idx in chosen_indices:
-		var action := idx as Action
-
-		match action:
-			Action.BUFF:
-				_apply_buff()
-
-			Action.DEFEND:
-				_apply_defend()
-
-			Action.ATTACK, Action.SECRET, Action.PROHIBITED, Action.POISONED:
-				actions_to_do.append(action)
+		actions_to_do.append(idx as Action)
 
 	_highlight_action(chosen_indices)
 
+	if actions_to_do.has(Action.DEFEND):
+		_apply_defend()
+
 	return actions_to_do
 
-func _apply_buff() -> void:
-	match buff:
-		BuffType.NONE:
-			buff = BuffType.ATTACK
-		BuffType.ATTACK:
-			buff = BuffType.DEFEND
-		BuffType.DEFEND:
-			buff = BuffType.NONE
-
 func _apply_defend() -> void:
-	is_defending = true
+	var amount := armor_gain
+	if buff:
+		amount *= buff_multiplier
+	add_armor(amount)
+
+func add_armor(amount: float, operator := "+") -> void:
+	match operator:
+		"+":
+			armor += amount
+		"-":
+			armor = maxf(0.0, armor - amount)
+
+	_GameController._update_hp_bar(armor, max_hp/3, ArmorBar, false)
+	_update_health_label()
+
+func _update_health_label():
+	if armor > 0:
+		HealthBar.get_child(0).text = "%d/%d" % [
+			roundi(current_hp + armor),
+			roundi(max_hp)
+		]
+	else:
+		HealthBar.get_child(0).text = "%d/%d" % [
+			roundi(current_hp),
+			roundi(max_hp)
+		]
 
 func _get_active_phase() -> BehaviorPhase:
 	if behavior == null or behavior.phases.is_empty():
@@ -224,47 +252,54 @@ func _get_active_phase() -> BehaviorPhase:
 				if _BattleController.battle_turn < int(phase.condition_value):
 					return phase
 			BehaviorPhase.ConditionType.HAS_BUFF:
-				if buff != BuffType.NONE:
+				if buff:
 					return phase
 			BehaviorPhase.ConditionType.NO_BUFF:
-				if buff == BuffType.NONE:
+				if not buff:
 					return phase
 			BehaviorPhase.ConditionType.ALWAYS:
 				return phase
 	return null
 
 func _weighted_random(weights: Array, force_actions: bool) -> Array[int]:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = _GameController.current_hash + hash(":" + name + ":" + str(_BattleController.battle_turn))
+
+	var usable_weights: Array = weights.duplicate()
+	if not has_secret_action:
+		usable_weights[Action.SECRET] = 0
+
 	var selected: Array[int] = []
 
 	var available_indices: Array[int] = []
-	for i in range(weights.size()):
+	for i in range(usable_weights.size()):
 		available_indices.append(i)
 
-	var available_weights: Array = weights.duplicate()
+	var available_weights: Array = usable_weights.duplicate()
 
 	var i := available_weights.size() - 1
 	while i >= 0:
-		if force_actions and weights[i] > 0:
+		if force_actions and usable_weights[i] > 0:
 			selected.append(i)
 		if available_weights[i] <= 0:
 			available_weights.remove_at(i)
 			available_indices.remove_at(i)
 		i -= 1
-	
+
 	if force_actions:
 		return selected
 
 	if available_indices.is_empty():
 		return [Action.ATTACK]
 
-	var count := mini(randi_range(1, 3), available_indices.size())
+	var count := mini(rng.randi_range(1, 3), available_indices.size())
 
 	for _n in count:
 		var total := 0.0
 		for w in available_weights:
 			total += w
 
-		var roll := randf() * total
+		var roll := rng.randf() * total
 		var cumulative := 0.0
 
 		for j in range(available_weights.size()):
@@ -278,22 +313,54 @@ func _weighted_random(weights: Array, force_actions: bool) -> Array[int]:
 	return selected
 
 func _highlight_action(action_indices: Array[int]) -> void:
+	DamageLabel.text = str(roundi(damage))
+	DefenseLabel.text = str(roundi(armor_gain))
+	
 	for i in range(Actions.get_child_count()):
 		var node := Actions.get_child(i)
 		var should_show := action_indices.has(i)
 
 		if should_show:
 			node.show()
-			print(node.name)
+			var affected_by_buff := buff and (i == Action.ATTACK or i == Action.DEFEND)
+			node.modulate = Color("ff8bfb") if affected_by_buff else Color.BLACK
 			_GameController._dissolve_in(node, DISSOLVE_DURATION, _GameController._action_original_materials)
 		else:
 			var tween := _GameController._dissolve_out(node, DISSOLVE_DURATION, node, true)
 			if tween:
-				tween.finished.connect(func():
-					node.hide()
-				)
+				tween.finished.connect(func(): node.hide())
 			else:
 				node.hide()
+
+func execute_single_action(action: Action) -> void:
+	if action == Action.PROHIBITED: return
+	
+	_highlight_active_action(action)
+	await get_tree().create_timer(0.2).timeout
+
+	var icon := Actions.get_child(int(action))
+	var tween = _GameController._dissolve_out(icon, 0.25, icon)
+	if tween:
+		await tween.finished
+
+	match action:
+		Action.BUFF:
+			buff_queued = true
+
+		Action.DEFEND:
+			pass 
+
+		Action.ATTACK:
+			var actual_damage := damage
+			if buff:
+				actual_damage *= buff_multiplier
+			_GameController._apply_player_damage(actual_damage)
+
+		Action.SECRET:
+			await _execute_secret_action()
+		
+		Action.POISONED:
+			receive_damage(poisoned_damage, true)
 
 func _highlight_active_action(action: Action) -> void:
 	for i in range(Actions.get_child_count()):
@@ -331,41 +398,6 @@ func _highlight_active_action(action: Action) -> void:
 			tween.tween_property(child, "scale", Vector2.ONE, 0.15)
 			tween.finished.connect(func(): actives_tweens.erase(child))
 
-func execute_single_action(action: Action) -> void:
-	if action == Action.PROHIBITED: return
-	
-	_highlight_active_action(action)
-
-	await get_tree().create_timer(0.2).timeout
-
-	var icon := Actions.get_child(int(action))
-
-	var tween = _GameController._dissolve_out(
-		icon,
-		0.25,
-		icon
-	)
-
-	if tween:
-		await tween.finished
-	match action:
-		Action.ATTACK:
-			var actual_damage := damage
-
-			if buff == BuffType.ATTACK:
-				actual_damage *= buff_multiplier
-
-			_GameController._apply_player_damage(actual_damage)
-
-		Action.SECRET:
-			await _execute_secret_action()
-		
-		Action.POISONED:
-			receive_damage(poisoned_damage, true)
-
-		Action.PROHIBITED:
-			pass
-
 func execute_actions() -> void:
 	await get_tree().create_timer(0.5).timeout
 
@@ -374,7 +406,7 @@ func execute_actions() -> void:
 			Action.ATTACK:
 				var actual_damage := damage
 
-				if buff == BuffType.ATTACK:
+				if buff:
 					actual_damage *= buff_multiplier
 
 				_GameController._apply_player_damage(actual_damage)
@@ -382,24 +414,21 @@ func execute_actions() -> void:
 				if _GameController.thorns != 0:
 					receive_damage(actual_damage * _GameController.thorns / 100)
 
+			Action.BUFF:
+				buff_queued = true
+
 			Action.SECRET:
 				await _execute_secret_action()
+
+	if buff:
+		buff = false
 
 	actions_to_do = decide_actions()
 
 	EnemyActionsEnded.emit()
 
 func _execute_secret_action() -> void:
-	if randi() % 2 == 0:
-		var actual_damage := damage * 2.0
-		if buff == BuffType.ATTACK:
-			actual_damage *= buff_multiplier
-		_GameController._apply_player_damage(actual_damage)
-	else:
-		var heal_amount := max_hp * 0.15
-		current_hp = minf(current_hp + heal_amount, max_hp)
-		buff = BuffType.DEFEND
-		_GameController._update_hp_bar(current_hp, max_hp, HealthBar)
+	pass
 
 func finish_turn() -> void:
 	await dissolve_current_actions()
@@ -425,28 +454,33 @@ func dissolve_current_actions() -> void:
 		await tween.finished
 
 func receive_damage(amount: float, is_poison = false) -> void:
-	if actions_to_do.has(Action.PROHIBITED): return
-	
-	var actual := amount
-	if is_defending:
-		actual *= (1.0 - damage_reduction / 100.0)
-	if buff == BuffType.DEFEND:
-		actual *= (1.0 - (damage_reduction * buff_multiplier) / 100.0)
-		
-	_SubViewport.get_child(0).text = str(int(actual))
+	if actions_to_do.has(Action.PROHIBITED):
+		return
 
-	current_hp -= actual
-	current_hp = maxf(current_hp, 0.0)
-	
+	var actual := amount
+
+	if armor > 0:
+		if armor >= actual:
+			add_armor(actual, "-")
+			_SubViewport.get_child(0).text = str(int(amount))
+			_damage_feedback(Color.RED if not is_poison else Color.SEA_GREEN, self.self_modulate)
+			return
+
+		actual -= armor
+		add_armor(armor, "-")
+
+	_SubViewport.get_child(0).text = str(int(amount))
+
+	current_hp = maxf(current_hp - actual, 0.0)
+
 	if thorns_damage != 0:
 		_GameController._apply_player_damage(amount * thorns_damage / 100)
-	
-	_GameController._update_hp_bar(current_hp, max_hp, HealthBar)
-	
+
+	_GameController._update_hp_bar(current_hp, max_hp, HealthBar, true, _update_health_label)
+
 	if _GameController.poison > 0 and poisoned_damage == 0:
 		poisoned_damage += _GameController.poison
-		_SubViewport.get_child(0).text = str(int(poisoned_damage))
-	
+
 	_damage_feedback(Color.RED if not is_poison else Color.SEA_GREEN, self.self_modulate)
 
 	if current_hp <= 0.0:

@@ -56,7 +56,7 @@ size_flags_vertical = 2
 theme_override_constants/shadow_offset_y = 10
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 24
-text = "Every icon is extracted from iconify.design
+text = "Every other graphic not mentioned here is extracted from iconify.design
 
 Paper background - thegraphicsfairy.com
 Paper sfx - F.M.Audio | freesound.org
@@ -64,7 +64,9 @@ Buy sfx - DWOBoyle | freesound.org
 Bonfire sfx - AleXZavesa | freesound.org
 Yawn sfx - Larakaa |freesound.org
 Chest sfx - JUDITH136 | freesound.org
-Squid sfx - EminYILDIRIM | freesound.org"
+Squid sfx - EminYILDIRIM | freesound.org
+Monster Voices - Deganoth | freesound.org
+Jingle sfx - JustInvoke |freesound.org"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/signals_manager_path = "../../mobile_plugin_signals_manager"

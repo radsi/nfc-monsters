@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://5ekx78vvd6wl"
+path="res://.godot/imported/348732__deganoth__ogre_p_2.wav-c163e4836ed4720fc55b1458e42ca11d.sample"
+
+[deps]
+
+source_file="res://sounds/monster pack deganoth/348732__deganoth__ogre_p_2.wav"
+dest_files=["res://.godot/imported/348732__deganoth__ogre_p_2.wav-c163e4836ed4720fc55b1458e42ca11d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

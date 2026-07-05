@@ -83,7 +83,7 @@ func buy_item(item: ItemDataButton):
 	Gamemanager.unlock_item(1)
 
 func roll_items() -> void:
-	items_pick = pick_n_weighted(4, _GameController.current_hash)
+	items_pick = pick_n_weighted(4)
 
 	for n in 4:
 		var child: ItemDataButton = ItemsContainer.get_child(n)
@@ -100,10 +100,10 @@ func roll_items() -> void:
 		if child.material:
 			child.material.set_shader_parameter("dissolve_value", 1.0)
 
-func pick_n_weighted(n: int, hash) -> Array[ItemData]:
+func pick_n_weighted(n: int) -> Array[ItemData]:
 	
 	var rng = RandomNumberGenerator.new()
-	rng.seed = hash
+	rng.seed = _GameController.current_hash
 	
 	var pool: Array[ItemData] = []
 

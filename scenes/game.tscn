@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://co0higyrwk0jc"]
+[gd_scene load_steps=46 format=3 uid="uid://co0higyrwk0jc"]
 
 [ext_resource type="Script" uid="uid://cy3f8kgaaeju8" path="res://scripts/game_controller.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://dxgu3m6qwxhjm" path="res://sprites/old paper piece.png" id="2_yqjtg"]
@@ -81,6 +81,13 @@ texture = ExtResource("12_e1j6l")
 axis_stretch_horizontal = 1
 modulate_color = Color(1, 0.42745098, 0.35686275, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_suyxu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sgl2t"]
+texture = ExtResource("12_e1j6l")
+axis_stretch_horizontal = 1
+modulate_color = Color(0, 0.7121826, 0.8120839, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1kice"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_264po"]
@@ -126,9 +133,8 @@ texture_filter = 1
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = 1.0
 offset_top = -1592.0
-offset_right = 400.0
+offset_right = 399.0
 offset_bottom = -967.0
 grow_vertical = 2
 scale = Vector2(2, 4)
@@ -248,7 +254,7 @@ metadata/tooltip_on_mobile = false
 [node name="ColorRect2" type="ColorRect" parent="."]
 process_mode = 3
 visible = false
-z_index = 1
+z_index = 999
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -286,6 +292,8 @@ grow_horizontal = 2
 scale = Vector2(1.1, 1.1)
 pivot_offset = Vector2(173.5, 18)
 theme_override_constants/margin_top = 25
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
 
 [node name="PlayerHealthBar" type="ProgressBar" parent="MarginContainer2"]
 process_mode = 3
@@ -301,6 +309,7 @@ metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
 metadata/tooltip_on_mobile = false
 
 [node name="Label" type="Label" parent="MarginContainer2/PlayerHealthBar"]
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -313,6 +322,25 @@ theme_override_font_sizes/font_size = 30
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="PlayerArmorBar" type="ProgressBar" parent="MarginContainer2/PlayerHealthBar"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+theme_override_styles/background = SubResource("StyleBoxEmpty_suyxu")
+theme_override_styles/fill = SubResource("StyleBoxTexture_sgl2t")
+show_percentage = false
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -324,6 +352,8 @@ offset_left = -336.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/margin_right = 60
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2

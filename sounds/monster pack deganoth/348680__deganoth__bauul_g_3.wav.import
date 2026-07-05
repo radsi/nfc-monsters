@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bt7152b3bepx7"
+path="res://.godot/imported/348680__deganoth__bauul_g_3.wav-d43b6a6c57e28c03d3b51097cb832ee4.sample"
+
+[deps]
+
+source_file="res://sounds/monster pack deganoth/348680__deganoth__bauul_g_3.wav"
+dest_files=["res://.godot/imported/348680__deganoth__bauul_g_3.wav-d43b6a6c57e28c03d3b51097cb832ee4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

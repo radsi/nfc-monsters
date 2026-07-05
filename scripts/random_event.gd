@@ -37,6 +37,8 @@ var waiting_dots := [
 	"Waiting card..."
 ]
 
+var waiting_replace_target = null
+
 func _ready() -> void:
 	shown_on_paper.connect(func():
 		NfcUsage.connect("nfc_detected", Callable(self, "_on_nfc_detected"))
@@ -172,12 +174,23 @@ func _choose_option(option):
 
 	if not is_no:
 		for action in current_event.types:
-			print(current_event.EventTypes.keys()[action])
 			call_deferred(current_event.EventTypes.keys()[action])
 
 	completed_timer.start(2)
 
 func _dissolve_general_label(is_no: bool):
+	if not current_event.GeneralLabel.visible:
+		current_event.GeneralLabel.set_instance_shader_parameter("dissolve_value", 0.0)
+		current_event.GeneralLabel.show()
+		
+		_GameController._dissolve_in(
+			current_event.GeneralLabel,
+			1,
+			_GameController._action_original_materials
+		)
+		
+		return
+	
 	var tween = _GameController._dissolve_out(
 		current_event.GeneralLabel,
 		0.5,
@@ -214,8 +227,10 @@ func _on_item_added():
 	pass
 
 func _on_item_removed():
-	if event_status == EventStatus.REPLACING_ITEM and current_event.items_data.size() >= 2:
-		_ItemsManager.add_item(current_event.items_data[1])
+	if event_status == EventStatus.REPLACING_ITEM and waiting_replace_target != null:
+		_ItemsManager.add_item(waiting_replace_target)
+		waiting_replace_target = null
+		event_status = EventStatus.NONE
 
 func load_events() -> void:
 	var dir := DirAccess.open(events_path)
@@ -299,12 +314,20 @@ func start_card_upgrade():
 	_GameController._dissolve_in($ColorRect/HBoxContainer2/Upgrade, 2, _GameController._action_original_materials)
 
 func REPLACE_ITEM():
-	if not is_condition_satisfied(): return
-	_ItemsManager.remove_item(current_event.items_data[0])
-	event_status = EventStatus.REPLACING_ITEM
+	if not is_condition_satisfied():
+		return
+
+	for i in range(0, current_event.items_data.size() - 1, 2):
+		var original = current_event.items_data[i]
+		var target = current_event.items_data[i + 1]
+
+		if _ItemsManager.get_current_items().has(original):
+			waiting_replace_target = target
+			event_status = EventStatus.REPLACING_ITEM
+			_ItemsManager.remove_item(_ItemsManager.get_current_items().find(original))
+			return
 
 func GIVE_ITEM():
-	print(current_event.items_data.size())
 	if current_event.items_data.size() == 0: return
 	_ItemsManager.add_item(current_event.items_data[0])
 

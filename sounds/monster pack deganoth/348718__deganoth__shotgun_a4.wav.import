@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://6lvo3g6injbx"
+path="res://.godot/imported/348718__deganoth__shotgun_a4.wav-83d7f79fcdd3af6a35bedf7d828ed188.sample"
+
+[deps]
+
+source_file="res://sounds/monster pack deganoth/348718__deganoth__shotgun_a4.wav"
+dest_files=["res://.godot/imported/348718__deganoth__shotgun_a4.wav-83d7f79fcdd3af6a35bedf7d828ed188.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

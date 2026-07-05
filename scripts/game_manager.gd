@@ -4,7 +4,7 @@ const SAVE_PATH := "user://playerdata.cfg"
 
 const DEFAULT_COINS := 0
 const DEFAULT_XP := 0
-const DEFAULT_HP := [100.0, 100.0]
+const DEFAULT_HP := [50.0, 50.0]
 
 const DEFAULT_SPELLS: Array[String] = [
 	"SpellHit",
@@ -15,7 +15,10 @@ const DEFAULT_UNLOCKED_ITEMS := [
 	2,
 	5,
 	10,
-	13
+	13,
+	14,
+	15,
+	18,
 ]
 
 var config := ConfigFile.new()

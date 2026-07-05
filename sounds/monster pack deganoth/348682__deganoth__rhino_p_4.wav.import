@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://kae0aqiikex7"
+path="res://.godot/imported/348682__deganoth__rhino_p_4.wav-32570640f017a3047590e6ad5608930f.sample"
+
+[deps]
+
+source_file="res://sounds/monster pack deganoth/348682__deganoth__rhino_p_4.wav"
+dest_files=["res://.godot/imported/348682__deganoth__rhino_p_4.wav-32570640f017a3047590e6ad5608930f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

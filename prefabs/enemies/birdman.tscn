@@ -1,22 +1,12 @@
-[gd_scene load_steps=33 format=3 uid="uid://b4dw6jt2whsvy"]
+[gd_scene load_steps=19 format=3 uid="uid://b4dw6jt2whsvy"]
 
 [ext_resource type="Shader" uid="uid://cgfjnyrfpq53o" path="res://scripts/shaders/dissolve.gdshader" id="1_aerr4"]
 [ext_resource type="Texture2D" uid="uid://bmtsi4r3c54fi" path="res://sprites/enemies/game-icons--bird-mask.png" id="2_qn0wn"]
 [ext_resource type="Script" uid="uid://dpp7vl258uqlu" path="res://scripts/enemies/enemy.gd" id="3_caud2"]
 [ext_resource type="Script" uid="uid://dgoqmqbwxralk" path="res://scripts/enemies/behaviour_phase.gd" id="4_gb3oh"]
 [ext_resource type="Script" uid="uid://cwboblw35jqam" path="res://scripts/enemies/behaviour_enemy.gd" id="5_cvpch"]
-[ext_resource type="Material" uid="uid://166vq4cu1w1b" path="res://scripts/shaders/shake.tres" id="6_llgmu"]
-[ext_resource type="Texture2D" uid="uid://ckvcmidd2aqig" path="res://sprites/UI/temaki--dagger.png" id="7_8a6f5"]
-[ext_resource type="Material" uid="uid://dboj8npb35a80" path="res://scripts/shaders/rotation.tres" id="8_0kytm"]
-[ext_resource type="Texture2D" uid="uid://cg8r8v4bvekwc" path="res://sprites/UI/tabler--spiral.png" id="9_feaf0"]
-[ext_resource type="Texture2D" uid="uid://bcmx12k50psfy" path="res://sprites/UI/material-symbols--shield 38.png" id="10_be8t2"]
-[ext_resource type="Shader" uid="uid://bifp3l7a1qjl8" path="res://scripts/shaders/wave.gdshader" id="11_ywrp7"]
-[ext_resource type="Texture2D" uid="uid://cwjkh5t3ifsi1" path="res://sprites/UI/bitcoin-icons--question-filled.png" id="12_w101e"]
-[ext_resource type="Texture2D" uid="uid://b07ngklvpj6dt" path="res://sprites/UI/mdi--prohibited.png" id="13_vkajv"]
-[ext_resource type="Shader" uid="uid://bry3xc0qu427o" path="res://scripts/shaders/shake.gdshader" id="14_56sl8"]
-[ext_resource type="Texture2D" uid="uid://pe3gwcimnfl5" path="res://sprites/UI/mynaui--bubbles-solid.png" id="15_jmtoe"]
-[ext_resource type="Texture2D" uid="uid://bbq2hijn2jq2j" path="res://sprites/UI/progress bars/vaadin--progressbar 128.png" id="16_qltg2"]
-[ext_resource type="Texture2D" uid="uid://cyw4xqf0d20pt" path="res://sprites/UI/progress bars/vaadin--progressbar fill 128.png" id="17_ladfl"]
+[ext_resource type="PackedScene" uid="uid://qnmhfihowsij" path="res://prefabs/enemies_actions.tscn" id="6_jtslq"]
+[ext_resource type="PackedScene" uid="uid://c45oeykxwxhhi" path="res://prefabs/enemy_health_bar.tscn" id="9_v6ltk"]
 [ext_resource type="Texture2D" uid="uid://b7lvbr3gbcib1" path="res://sprites/UI/uil--focus.png" id="18_b7lt6"]
 [ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="19_gf347"]
 
@@ -52,32 +42,6 @@ metadata/_custom_type_script = "uid://cwboblw35jqam"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vj8al"]
 size = Vector2(138, 158)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkomg"]
-shader = ExtResource("11_ywrp7")
-shader_parameter/amplitude = 4.05
-shader_parameter/frequency = 12.53
-shader_parameter/speed = -2.0
-shader_parameter/min_height = 0.6
-shader_parameter/height_range = -0.5
-shader_parameter/min_width = -0.25
-shader_parameter/width_range = 100.0
-shader_parameter/vertical = true
-shader_parameter/tint = Color(0, 0, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfdb"]
-shader = ExtResource("14_56sl8")
-shader_parameter/strength = 17.6
-shader_parameter/speed = 20.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vcg6f"]
-texture = ExtResource("16_qltg2")
-modulate_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l4abe"]
-texture = ExtResource("17_ladfl")
-axis_stretch_horizontal = 1
-modulate_color = Color(0, 0, 0, 1)
-
 [sub_resource type="Curve" id="Curve_qn0wn"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.65887, 0.0, 0, 0]
 point_count = 2
@@ -99,7 +63,6 @@ scale_curve = SubResource("CurveTexture_aerr4")
 [node name="Birdman" type="TextureRect"]
 self_modulate = Color(0, 0, 0, 1)
 material = SubResource("ShaderMaterial_vj8al")
-use_parent_material = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -121,7 +84,7 @@ weight_spawn = 50.0
 max_hp = 125.0
 current_hp = 125.0
 damage = 15.0
-damage_reduction = 5.0
+armor_gain = 15.0
 metadata/signals_manager_path = "mobile_plugin_signals_manager"
 metadata/tooltip_on_mobile = false
 
@@ -132,103 +95,11 @@ position = Vector2(64, 37)
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_vj8al")
 
-[node name="Actions" type="HBoxContainer" parent="."]
+[node name="Actions" parent="." instance=ExtResource("6_jtslq")]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.625
-anchor_right = 1.0
-anchor_bottom = -0.25
-offset_top = -6.0
-offset_bottom = -6.0
-grow_horizontal = 2
-alignment = 1
-
-[node name="Attack" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("6_llgmu")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("7_8a6f5")
-stretch_mode = 2
-
-[node name="Spell" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("8_0kytm")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("9_feaf0")
-stretch_mode = 2
-
-[node name="Defense" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("6_llgmu")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("10_be8t2")
-stretch_mode = 2
-
-[node name="Secret" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = SubResource("ShaderMaterial_qkomg")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("12_w101e")
-stretch_mode = 2
-
-[node name="Prohibited" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("6_llgmu")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("13_vkajv")
-stretch_mode = 2
-
-[node name="Poisoned" type="TextureRect" parent="Actions"]
-visible = false
-modulate = Color(0, 0.65955013, 0, 1)
-material = SubResource("ShaderMaterial_fgfdb")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("15_jmtoe")
-stretch_mode = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-use_parent_material = true
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.254
-anchor_right = 1.0
-offset_top = -0.48799896
-offset_bottom = 4.0
-grow_horizontal = 0
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxTexture_vcg6f")
-theme_override_styles/fill = SubResource("StyleBoxTexture_l4abe")
-value = 100.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="ProgressBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/outline_size = 10
-text = "100/100"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_top = -86.0
+offset_bottom = -38.0
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
@@ -270,5 +141,16 @@ emitting = false
 amount = 1
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_d26og")
+
+[node name="ProgressBar" parent="." instance=ExtResource("9_v6ltk")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+offset_top = -39.0
+offset_right = 128.0
+offset_bottom = -1.0
+grow_horizontal = 1
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

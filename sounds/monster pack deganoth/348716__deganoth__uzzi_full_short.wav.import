@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://2i4wra8r607l"
+path="res://.godot/imported/348716__deganoth__uzzi_full_short.wav-609943930cf97c9d95b8dd8694a04900.sample"
+
+[deps]
+
+source_file="res://sounds/monster pack deganoth/348716__deganoth__uzzi_full_short.wav"
+dest_files=["res://.godot/imported/348716__deganoth__uzzi_full_short.wav-609943930cf97c9d95b8dd8694a04900.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

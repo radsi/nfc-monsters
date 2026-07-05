@@ -97,6 +97,7 @@ lifetime = 1.5
 process_material = SubResource("ParticleProcessMaterial_kr6xu")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = -1

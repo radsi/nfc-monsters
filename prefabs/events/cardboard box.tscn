@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cylofkaqfjnhs" path="res://sprites/events/game-icons--cardboard-box.png" id="2_a5wp7"]
 [ext_resource type="Texture2D" uid="uid://cqj382pmnhx2q" path="res://sprites/events/game-icons--cardboard-box-closed.png" id="3_a5wp7"]
 [ext_resource type="Texture2D" uid="uid://ccyp80lj6i8g3" path="res://sprites/misc/cardboard.png" id="4_8gy3p"]
-[ext_resource type="AudioStream" uid="uid://dkuxqb6gklpou" path="res://sounds/chest.wav" id="4_vf2fv"]
 [ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="5_5yxlc"]
+[ext_resource type="AudioStream" uid="uid://bhkm6a2h6w0r2" path="res://sounds/487819__bendrain__cardboard_impact_05.wav" id="5_8gy3p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gjbd8"]
 
@@ -90,6 +90,7 @@ lifetime = 1.5
 process_material = SubResource("ParticleProcessMaterial_kr6xu")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -107,6 +108,6 @@ metadata/signals_manager_path = "../mobile_plugin_signals_manager"
 metadata/tooltip_on_mobile = false
 
 [node name="open" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_vf2fv")
+stream = ExtResource("5_8gy3p")
 
 [node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("5_5yxlc")]

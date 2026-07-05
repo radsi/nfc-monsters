@@ -8,6 +8,7 @@ class_name GameController
 @onready var GameMenu = $MarginContainer
 @onready var MoneyLabel = $MarginContainer/VBoxContainer/MarginContainer/money
 @onready var HealthBar: ProgressBar = $MarginContainer2/PlayerHealthBar
+@onready var ArmorBar: ProgressBar = $MarginContainer2/PlayerHealthBar/PlayerArmorBar
 @onready var GameOverMenu: MapMenu = $Map/OldPaperPiece/Menus/GameOver
 
 var last_map_pos
@@ -32,12 +33,13 @@ var current_hash
 var damage = 100
 var fist_damage = 100
 var armor = 0
+var temp_armor = 0
 var thorns = 0
 var remove_ghosts = 0
 var poison = 0
 
-var player_health = 100
-var max_player_health = 100
+var player_health = 50
+var max_player_health = 50
 var max_cards_use = 3
 var pending_buff = 0
 var luck = 0
@@ -72,6 +74,7 @@ func _ready() -> void:
 	FadeColorRect.show()
 	HealthBar.value = player_health
 	HealthBar.max_value = max_player_health
+	_update_health_label()
 	
 	doin_animation = true
 	
@@ -120,20 +123,22 @@ func _update_coins():
 		0.5
 	)
 
-var hp_tween: Tween
+var hp_tweens := {}
 var damage_tween: Tween
 
-func _update_hp_bar(value, max_value, healthBar: ProgressBar, is_damage = true):
+func _update_hp_bar(value, max_value, healthBar: ProgressBar, is_damage = true, health_label_updater: Callable = _update_health_label):
 	healthBar.max_value = max_value
 
-	if hp_tween:
-		hp_tween.kill()
-	if damage_tween:
-		damage_tween.kill()
+	if hp_tweens.has(healthBar):
+		hp_tweens[healthBar].kill()
 
 	var start_hp = healthBar.value
-	
+
 	if value < start_hp and healthBar == HealthBar and is_damage:
+		if damage_tween:
+			damage_tween.kill()
+			DamageEffect.self_modulate.a = 0.0
+
 		damage_tween = create_tween()
 		DamageEffect.self_modulate.a = 1
 
@@ -144,19 +149,23 @@ func _update_hp_bar(value, max_value, healthBar: ProgressBar, is_damage = true):
 			1.0
 		)
 
-	hp_tween = create_tween()
+	var tween := create_tween()
+	hp_tweens[healthBar] = tween
 
-	hp_tween.tween_method(
+	tween.tween_method(
 		func(_value: float):
 			healthBar.value = _value
-			healthBar.get_child(0).text = str(roundi(value)) + "/" + str(roundi(max_value)),
+			health_label_updater.call(),
 		start_hp,
 		value,
 		0.5
 	)
-	
-	await hp_tween.finished
-	
+
+	await tween.finished
+
+	if hp_tweens.get(healthBar) == tween:
+		hp_tweens.erase(healthBar)
+
 	if value <= 0 and healthBar == HealthBar:
 		get_tree().paused = true
 		GruntSFX.stream = Grunts.pick_random()
@@ -164,22 +173,68 @@ func _update_hp_bar(value, max_value, healthBar: ProgressBar, is_damage = true):
 		await get_tree().create_timer(1).timeout
 		GameOverMenu.show_on_paper()
 
+func _update_health_label():
+	var total_armor = armor + temp_armor
+	if total_armor > 0:
+		HealthBar.get_child(0).text = "%d/%d" % [
+			roundi(player_health + temp_armor),
+			roundi(max_player_health),
+		]
+	else:
+		HealthBar.get_child(0).text = "%d/%d" % [
+			roundi(player_health),
+			roundi(max_player_health)
+		]
+
 func add_hp(hp, operator):
 	var new_value = operators[operator].call(player_health, hp)
 	player_health = clamp(new_value, 0, max_player_health)
 	_update_hp_bar(player_health, max_player_health, HealthBar)
 
+func add_armor(_armor, operator):
+	armor = operators[operator].call(armor, _armor)
+
+func add_temp_armor(amount, operator):
+	temp_armor = operators[operator].call(temp_armor, amount)
+	_update_hp_bar(temp_armor, max_player_health, ArmorBar)
+
 func _apply_player_damage(amount: float) -> void:
-	var actual = amount * (1.0 - armor / 100.0)
-	add_hp(actual, "-")
+	if temp_armor > 0:
+		if temp_armor >= amount:
+			add_temp_armor(amount, "-")
+			return
+
+		amount -= temp_armor
+		add_temp_armor(temp_armor, "-")
+
+	add_hp(amount, "-")
+	
+	Gamemanager.save_player_health(player_health, max_player_health)
 
 func apply_item_effect(item: ItemData, is_removing = false, is_damage = true):
+	var old_hp = player_health
+
 	for n in item.variables.size():
-		var _variable = get(item.variables[n])
-		var result = operators[item.operators[n]].call(_variable, item.ammounts[n] if not is_removing else -item.ammounts[n])
-		set(item.variables[n], result)
-		if item.variables[n] == "max_player_health": player_health = clamp(max_player_health - player_health, 0, max_player_health)
-		_update_hp_bar(player_health, max_player_health, HealthBar, is_damage)
+		var variable = item.variables[n]
+		var value = get(variable)
+
+		var result = operators[item.operators[n]].call(
+			value,
+			item.ammounts[n] if not is_removing else -item.ammounts[n]
+		)
+
+		set(variable, result)
+
+	if old_hp != player_health or max_player_health != HealthBar.max_value:
+		player_health = clamp(player_health, 0, max_player_health)
+		_update_hp_bar(
+			player_health,
+			max_player_health,
+			HealthBar,
+			is_damage and player_health < old_hp
+		)
+		
+	Gamemanager.save_player_health(player_health, max_player_health)
 
 func _dissolve_in(node: CanvasItem, duration: float, _action_original_materials: Dictionary, dissolveShader = DissolveShader, node_to_show: Node = null) -> void:
 	if _active_tweens.has(node):

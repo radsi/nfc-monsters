@@ -18,6 +18,13 @@ func _on_showing_mid_animation() -> void:
 	for menu: MapMenu in get_parent().get_children():
 		if menu != self:
 			menu.hide()
+	
+	if _GameController.layer == 4:
+		RandomMessageLabel.hide()
+		$BloodImagesDownloadBloodSplashes173127988917.hide()
+		$BloodImagesDownloadBloodSplashes173127988918.hide()
+		$MarginContainer/VBoxContainer/Label.text = "You win!"
+		Gamemanager.clear_game_state()
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if doing_fade:
