@@ -33,6 +33,7 @@ signal EnemyActionsEnded
 @export var min_layer: int = 1
 @export var weight_spawn: float = 100.0
 @export var has_secret_action := false
+@export var secret_action_tooltip := ""
 
 @export_group("Enemy Stats")
 @export var max_hp: float = 100.0
@@ -84,7 +85,6 @@ func _ready() -> void:
 	actions_to_do = decide_actions()
 
 func die() -> Tween:
-	
 	if DieSFX.size() > 0:
 		DieStreamer.stream = DieSFX.pick_random()
 		DieStreamer.play()
@@ -105,6 +105,11 @@ func die() -> Tween:
 		_GameController._dissolve_out(child, DISSOLVE_DURATION, null, false)
 
 	OnDie.emit(self)
+	
+	match get_enemy_type(self):
+		"Mask":
+			if current_hp <= 0: Gamemanager.unlock_item(20)
+		"Ghost": Gamemanager.unlock_item(9)
 
 	return tween
 
@@ -236,6 +241,12 @@ func _get_active_phase() -> BehaviorPhase:
 
 	for phase in behavior.phases:
 		match phase.condition_type:
+			BehaviorPhase.ConditionType.HAS_BUFF:
+				if buff:
+					return phase
+			BehaviorPhase.ConditionType.NO_BUFF:
+				if not buff:
+					return phase
 			BehaviorPhase.ConditionType.TURN_EXACT:
 				if _BattleController.battle_turn == int(phase.condition_value):
 					return phase
@@ -250,12 +261,6 @@ func _get_active_phase() -> BehaviorPhase:
 					return phase
 			BehaviorPhase.ConditionType.TURN_UNDER:
 				if _BattleController.battle_turn < int(phase.condition_value):
-					return phase
-			BehaviorPhase.ConditionType.HAS_BUFF:
-				if buff:
-					return phase
-			BehaviorPhase.ConditionType.NO_BUFF:
-				if not buff:
 					return phase
 			BehaviorPhase.ConditionType.ALWAYS:
 				return phase

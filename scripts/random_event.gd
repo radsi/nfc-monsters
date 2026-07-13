@@ -39,7 +39,12 @@ var waiting_dots := [
 
 var waiting_replace_target = null
 
+var rng: RandomNumberGenerator
+
 func _ready() -> void:
+	
+	rng = RandomNumberGenerator.new()
+	
 	shown_on_paper.connect(func():
 		NfcUsage.connect("nfc_detected", Callable(self, "_on_nfc_detected"))
 		)
@@ -69,6 +74,11 @@ func _ready() -> void:
 
 		current_event = instance
 		
+		if current_event.bg_music != null:
+			bg_music = current_event.bg_music
+		else:
+			bg_music = null
+		
 		if current_event.has_method("custom_event_script"):
 			current_event.custom_event_script(self)
 
@@ -86,7 +96,7 @@ func _ready() -> void:
 	hidden_from_paper.connect(func():
 		NfcUsage.disconnect("nfc_detected", Callable(self, "_on_nfc_detected"))
 		event_finished = false
-		if selected_vanilla_event == "":
+		if selected_vanilla_event == "" and current_event != null:
 			current_event.queue_free()
 		)
 	
@@ -146,6 +156,10 @@ func format_spell_data_name(spell_name: String) -> String:
 	return "Spell " + spell_name.split("Spell")[1].to_lower()
 
 func _choose_option(option):
+	
+	if current_event.has_method("custom_event_choose"):
+		current_event.custom_event_choose(option, self)
+	
 	for particle: GPUParticles2D in current_event.ActiveParticles:
 		particle.emitting = false
 
@@ -167,10 +181,26 @@ func _choose_option(option):
 		sfx.play()
 
 	if sprite:
-		if target_texture is Button:
-			target_texture.icon = sprite
+		if current_event.ignore_sprite_dissolve:
+			if target_texture is Button:
+				target_texture.icon = sprite
+			else:
+				target_texture.texture = sprite
 		else:
-			target_texture.texture = sprite
+			var sprite_tween = _GameController._dissolve_out(target_texture, 0.5, null, false)
+
+			sprite_tween.finished.connect(func():
+				if target_texture is Button:
+					target_texture.icon = sprite
+				else:
+					target_texture.texture = sprite
+
+				_GameController._dissolve_in(
+					target_texture,
+					0.5,
+					_GameController._action_original_materials
+				)
+			)
 
 	if not is_no:
 		for action in current_event.types:
@@ -178,19 +208,33 @@ func _choose_option(option):
 
 	completed_timer.start(2)
 
+var general_label_shown := false
+
 func _dissolve_general_label(is_no: bool):
-	if not current_event.GeneralLabel.visible:
-		current_event.GeneralLabel.set_instance_shader_parameter("dissolve_value", 0.0)
-		current_event.GeneralLabel.show()
-		
+	var satisfied := is_condition_satisfied()
+
+	var new_text := current_event.YesResponse
+
+	if is_no:
+		new_text = current_event.NoResponse
+	elif satisfied and current_event.ConditionResponse != "":
+		new_text = current_event.ConditionResponse
+	elif not satisfied and current_event.FalseConditionResponse != "":
+		new_text = current_event.FalseConditionResponse
+
+	if not general_label_shown:
+		general_label_shown = true
+
+		current_event.GeneralLabel.text = new_text
+
 		_GameController._dissolve_in(
 			current_event.GeneralLabel,
 			1,
 			_GameController._action_original_materials
 		)
-		
+
 		return
-	
+
 	var tween = _GameController._dissolve_out(
 		current_event.GeneralLabel,
 		0.5,
@@ -198,28 +242,43 @@ func _dissolve_general_label(is_no: bool):
 		false
 	)
 
-	tween.finished.connect(func():
-		current_event.GeneralLabel.text = (
-			current_event.NoResponse
-			if is_no
-			else current_event.ConditionResponse if is_condition_satisfied()
-			else current_event.YesResponse
-		)
+	if tween == null:
+		current_event.GeneralLabel.text = new_text
 
 		_GameController._dissolve_in(
 			current_event.GeneralLabel,
 			0.5,
 			_GameController._action_original_materials
 		)
-	)
+		return
+
+	tween.finished.connect(func():
+		current_event.GeneralLabel.text = new_text
+
+		_GameController._dissolve_in(
+			current_event.GeneralLabel,
+			0.5,
+			_GameController._action_original_materials
+		)
+)
 
 func is_condition_satisfied() -> bool:
 	_GameController.completed_events.append(current_event.id)
 	for action in current_event.types:
 		var action_name = current_event.EventTypes.keys()[action]
 		match action_name:
+			"GIVE_ITEM":
+				if current_event.force_condition_satisfied: return true
 			"REPLACE_ITEM":
 				if current_event.items_data.size() == 0 or _ItemsManager.get_current_items().has(current_event.items_data[0]): return true
+			"GIVE_EFFECT":
+				var total_cost := 0
+
+				for i in current_event.effect_types.size():
+					if current_event.effect_types[i] == current_event.EffectTypes.MONEY and current_event.effect_values[i] < 0:
+						total_cost += current_event.effect_values[i]
+
+				return Gamemanager.coins >= -total_cost
 	
 	return false
 
@@ -270,7 +329,6 @@ func _is_event_valid(scene: PackedScene) -> bool:
 	return valid
 
 func pick_weighted_event() -> EventEntry:
-	var rng := RandomNumberGenerator.new()
 	rng.seed = _GameController.current_hash
 
 	if rng.randi() % 2 == 0:
@@ -330,6 +388,7 @@ func REPLACE_ITEM():
 func GIVE_ITEM():
 	if current_event.items_data.size() == 0: return
 	_ItemsManager.add_item(current_event.items_data[0])
+	Gamemanager.unlock_item(current_event.items_data[0].id)
 
 func REMOVE_ITEM():
 	if current_event.items_data.size() == 0: return
@@ -342,6 +401,7 @@ func GIVE_EFFECT():
 			current_event.EffectTypes.HP:
 				_GameController.add_hp(current_event.effect_values[i], "+")
 			current_event.EffectTypes.MONEY:
+				if not is_condition_satisfied(): return
 				Gamemanager.add_coins(current_event.effect_values[i])
 				_GameController._update_coins()
 			current_event.EffectTypes.UPGRADE:
@@ -349,4 +409,25 @@ func GIVE_EFFECT():
 
 
 func _on_completed_timer_timeout() -> void:
+	if current_event.EnemyToFightAfterEvent != null:
+		var battle_node: BattleController = NodesContainer.get_parent().get_child(1).get_child(2)
+		battle_node.force_enemy = current_event.EnemyToFightAfterEvent
+		battle_node.force_enemy_ammount = current_event.EnemiesAmmount
+		battle_node.force_item_after_fight = current_event.items_data
+		battle_node.show_on_paper()
+		
+		battle_node.showing_mid_animation.connect(func():
+			hide_on_paper(true)
+			current_event.queue_free()
+			)
+		
+		battle_node.shown_on_paper.connect(func():
+			battle_node.showing_mid_animation.disconnect(func(): 
+				hide_on_paper(true)
+				current_event.queue_free()
+			)
+		)
+		
+		return
+
 	hide_on_paper()

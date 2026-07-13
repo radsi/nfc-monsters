@@ -10,9 +10,15 @@ class_name GameController
 @onready var HealthBar: ProgressBar = $MarginContainer2/PlayerHealthBar
 @onready var ArmorBar: ProgressBar = $MarginContainer2/PlayerHealthBar/PlayerArmorBar
 @onready var GameOverMenu: MapMenu = $Map/OldPaperPiece/Menus/GameOver
+@onready var MusicStream: AudioStreamPlayer2D = $music
+@onready var BackButton: Area2D = $Map/OldPaperPiece/BackButton
+
+@onready var bg_music := preload("res://sounds/map music.wav")
+var main_music_position: float
 
 var last_map_pos
 var doin_animation = false
+var ignore_input = false
 
 @onready var paper_sfx: AudioStreamPlayer2D = $paper
 @onready var whoosh_sfx: AudioStreamPlayer2D = $whoosh
@@ -32,11 +38,14 @@ var current_hash
 
 var damage = 100
 var fist_damage = 100
+var damage_after_enemies = 0
+var regen_rest_additional = 0
 var armor = 0
 var temp_armor = 0
 var thorns = 0
 var remove_ghosts = 0
 var poison = 0
+var has_crown = 0
 
 var player_health = 50
 var max_player_health = 50
@@ -63,6 +72,8 @@ func _ready() -> void:
 	if NfcUsage.nfc_plugin:
 		NfcUsage.start_reading()
 	
+	Gamemanager.stop_menu_music()
+	
 	var hp_data = Gamemanager.get_player_health()
 	player_health = hp_data[0]
 	max_player_health = hp_data[1]
@@ -76,6 +87,9 @@ func _ready() -> void:
 	HealthBar.max_value = max_player_health
 	_update_health_label()
 	
+	MusicStream.stream = bg_music
+	MusicStream.play()
+	
 	doin_animation = true
 	
 	var player_items = Gamemanager.get_player_items()
@@ -86,6 +100,10 @@ func _ready() -> void:
 		for file in dir.get_files():
 			if file.get_extension() in ["ogg", "wav", "mp3"]:
 				Grunts.append(load("res://sounds/grunts/%s" % file))
+	
+	BackButton.input_event.connect(func(_viewport, event, _shape_idx):
+		_on_input_backbutton(BackButton, event)
+	)
 	
 	var tween = create_tween()
 	
@@ -114,6 +132,10 @@ func _ready() -> void:
 			FadeColorRect.hide();
 			doin_animation = false
 	)
+
+func _on_input_backbutton(area: Area2D, event):
+	ignore_input = true
+	$ConfirmBack.show()
 
 func _update_coins():
 	create_tween().tween_method(
@@ -248,7 +270,6 @@ func _dissolve_in(node: CanvasItem, duration: float, _action_original_materials:
 	dissolve_mat.set_shader_parameter("dissolve_value", 0.0)
 
 	node.material = dissolve_mat
-	node.visible = true
 	node.show()
 
 	if node_to_show:

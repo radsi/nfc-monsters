@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://d3ahh02sn6u2g"]
+
+[ext_resource type="Texture2D" uid="uid://brvdcf7psm3m4" path="res://sprites/events/game-icons--labrador-head.png" id="1_s1sj0"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_5xm6p"]
+
+[resource]
+script = ExtResource("2_5xm6p")
+id = 19
+name = "tobby"
+icon = ExtResource("1_s1sj0")
+type = 2
+weight = 100
+description = "Deal 5% damage after enemies turn"
+variables = Array[String](["damage_after_enemies"])
+ammounts = Array[int]([5])
+operators = Array[int]([0])
+unique = true
+event_only = true
+min_layer = 1
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

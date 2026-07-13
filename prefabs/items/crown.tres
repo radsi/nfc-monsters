@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://mb8bcywd5ucn"]
+
+[ext_resource type="Texture2D" uid="uid://bsjwghlcyseyu" path="res://sprites/items/game-icons--crown.png" id="1_bkjy8"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_dfj1u"]
+
+[resource]
+script = ExtResource("2_dfj1u")
+id = 22
+name = "crown"
+price = 300
+icon = ExtResource("1_bkjy8")
+type = 2
+weight = 2
+description = "+1 level to every spell"
+variables = Array[String](["has_crown"])
+ammounts = Array[int]([1])
+operators = Array[int]([0])
+min_layer = 2
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

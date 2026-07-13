@@ -6,6 +6,7 @@ signal PlayerActionsEnded
 @onready var EnemiesContainer: GridContainer = $GridContainer
 @onready var CardsContainer: HBoxContainer = $VBoxContainer/HBoxContainer
 @onready var ActionsButton: Button = $VBoxContainer/Execute
+@export var _ItemsManager: ItemsManager 
 
 @onready var DissolveShader_purple = preload("res://scripts/shaders/dissolve purple.tres")
 
@@ -20,11 +21,25 @@ var battle_turn = 0
 var enemy_action_queue = []
 var actives_tweens = {}
 var is_boss = false
+var randomize_player_actions := false
+
+var force_enemy: PackedScene
+var force_enemy_ammount: int
+var force_item_after_fight: Array[ItemData]
 
 const DISSOLVE_DURATION = 0.25
 
 const ACTION_DELAY = 0.75
 var _executing = false
+
+const RANDOMIZABLE_ACTIONS := [
+	"SpellHit",
+	"SpellDefend",
+	"SpellHealth",
+	"SpellStruck",
+	"SpellGamble",
+	"SpellBuff",
+]
 
 var combat_rng := RandomNumberGenerator.new()
 
@@ -32,6 +47,11 @@ func _ready() -> void:
 	super._ready()
 	
 	var spellsummon = CardsContainer.find_child("SpellSummon")
+	
+	var UNLOCKED_SPELLS = Gamemanager.get_unlocked_spells()
+	
+	for spell in RANDOMIZABLE_ACTIONS:
+		if not UNLOCKED_SPELLS.has(spell): RANDOMIZABLE_ACTIONS.erase(spell)
 	
 	ActionsButton.text = "Cast spells (%d/%d)" % [
 		used_cards.size(),
@@ -202,12 +222,33 @@ func _on_enemy_turn_finished() -> void:
 
 	_GameController.temp_armor = 0
 	_GameController.add_temp_armor(_GameController.armor, "+")
+	
+	for enemy: Enemy in EnemiesContainer.get_children():
+		if enemy.focusable and _GameController.damage_after_enemies != 0:
+			enemy.receive_damage(_GameController.damage * (0.01 * _GameController.damage_after_enemies))
 
+func spawn_enemy(scene: PackedScene) -> Enemy:
+		var enemy: Enemy = scene.instantiate()
+
+		EnemiesContainer.add_child(enemy)
+		enemy.OnFocus.connect(_on_enemy_focus)
+		enemy.OnDie.connect(_on_enemy_die)
+
+		return enemy
 
 func roll_enemies() -> void:
-	
 	combat_rng.seed = _GameController.current_hash
-	
+
+	if force_enemy != null:
+		EnemiesContainer.columns = clamp(force_enemy_ammount, 1, 4)
+
+		for i in range(force_enemy_ammount):
+			spawn_enemy(force_enemy)
+
+		force_enemy = null
+		force_enemy_ammount = 0
+		return
+
 	var enemies_prefab: Array[PackedScene] = get_scenes("res://prefabs/enemies")
 
 	var available: Array[PackedScene] = []
@@ -236,10 +277,10 @@ func roll_enemies() -> void:
 		return
 
 	var enemy_count := 1
-	
-	if is_boss == false:
+
+	if not is_boss:
 		var count_roll := combat_rng.randf()
-		
+
 		if count_roll < 0.45:
 			enemy_count = 1
 		elif count_roll < 0.80:
@@ -251,7 +292,7 @@ func roll_enemies() -> void:
 
 	EnemiesContainer.columns = clamp(enemy_count, 1, 4)
 
-	for _i in enemy_count:
+	for _i in range(enemy_count):
 		var total_weight := 0.0
 
 		for w in weights:
@@ -260,22 +301,17 @@ func roll_enemies() -> void:
 		var roll := combat_rng.randf() * total_weight
 		var cumulative := 0.0
 
-		for j in available.size():
+		for j in range(available.size()):
 			cumulative += weights[j]
 
 			if roll <= cumulative:
-				var selected_enemy = available[j].instantiate()
-
-				EnemiesContainer.add_child(selected_enemy)
-				
-				selected_enemy.OnFocus.connect(_on_enemy_focus)
-				selected_enemy.OnDie.connect(_on_enemy_die)
+				spawn_enemy(available[j])
 
 				available.remove_at(j)
 				weights.remove_at(j)
 
 				break
-	
+
 	if EnemiesContainer.get_child_count() == 1:
 		var first_enemy: Enemy = EnemiesContainer.get_child(0)
 
@@ -286,10 +322,9 @@ func roll_enemies() -> void:
 				var candidate: Enemy = available[i].instantiate()
 
 				if candidate.get_enemy_type(candidate) != first_type:
-					EnemiesContainer.add_child(candidate)
+					candidate.queue_free()
 
-					candidate.OnFocus.connect(_on_enemy_focus)
-					candidate.OnDie.connect(_on_enemy_die)
+					spawn_enemy(available[i])
 
 					EnemiesContainer.columns = 2
 
@@ -300,9 +335,11 @@ func roll_enemies() -> void:
 
 				candidate.queue_free()
 
-
 func _on_enemy_die(enemy: Enemy) -> void:
 	killed_enemies += 1
+	
+	if enemy.is_boss:
+		Gamemanager.unlock_spell("SpellBuff")
 
 	var enemies = EnemiesContainer.get_children()
 
@@ -326,6 +363,11 @@ func _on_enemy_die(enemy: Enemy) -> void:
 			_GameController.last_map_pos = Vector2(0, -1592)
 		else:
 			hide_on_paper()
+			
+		if force_item_after_fight.size() > 0:
+			for item in force_item_after_fight:
+				_ItemsManager.add_item(item)
+			force_item_after_fight.clear()
 
 		return
 
@@ -437,7 +479,58 @@ func add_card_to_actions(card) -> void:
 		_GameController.max_cards_use
 	]
 
+
+func _randomize_used_cards() -> void:
+	for card in used_cards:
+		var cname = card.get("name")
+		if cname == "SpellSummon" or cname == "SpellSummoned" or cname == "SpellDiscount":
+			continue
+
+		var new_name = RANDOMIZABLE_ACTIONS[combat_rng.randi() % RANDOMIZABLE_ACTIONS.size()]
+		card["name"] = new_name
+
+	_refresh_hand_nodes()
+	randomize_player_actions = false
+
+
+func _refresh_hand_nodes() -> void:
+	var counts := {}
+	for card in used_cards:
+		var cname = card.get("name")
+		counts[cname] = counts.get(cname, 0) + 1
+
+	for child in CardsContainer.get_children():
+		if not child.name.begins_with("Spell"):
+			continue
+		if child.name == "SpellSummon":
+			continue
+
+		var label = child.find_child("Label")
+		var count = counts.get(child.name, 0)
+
+		if count <= 0:
+			if label:
+				label.hide()
+			child.hide()
+			continue
+
+		if not child.visible:
+			child.show()
+			_GameController._dissolve_in(child, DISSOLVE_DURATION, _GameController._action_original_materials)
+
+		if label:
+			if count == 1:
+				label.hide()
+			else:
+				label.show()
+				label.text = "x" + str(count)
+
+
 func _on_execute_pressed() -> void:
+
+	if randomize_player_actions:
+		_randomize_used_cards()
+
 	if _executing or killed_enemies >= EnemiesContainer.get_child_count():
 		return
 	_executing = true
@@ -488,39 +581,50 @@ func _execute_card(card) -> void:
 	var cardname = card.get("name")
 
 	if cardname == "SpellHit":
-		var damage = (25 + (10 * card.get("level")))
+		var damage = (25 + (10 * card.get("level") + _GameController.has_crown) * _GameController.damage / 100)
 		damage *= _GameController.fist_damage / 100.0
 		damage += _GameController.pending_buff
+		
+		if damage >= 100:
+			Gamemanager.unlock_spell("SpellStruck")
 
 		focused_enemy.receive_damage(damage)
 		_GameController.pending_buff = 0
 
 	elif cardname == "SpellDefend":
-		_GameController.add_temp_armor(5 + (2 * card.get("level")), "+")
+		_GameController.add_temp_armor(5 + (2 * card.get("level")  + _GameController.has_crown), "+")
 
 	elif cardname == "SpellHealth":
 		_GameController.add_hp(25, "%")
 
 	elif cardname == "SpellStruck":
-		focused_enemy.receive_damage((50 + (10 * card.get("level"))) + _GameController.pending_buff)
+		focused_enemy.receive_damage((50 + (10 * card.get("level")  + _GameController.has_crown) * _GameController.damage / 100) + _GameController.pending_buff)
 		_GameController.pending_buff = 0
 
 	elif cardname == "SpellGamble":
+		var card_level = card.get("level", 0) + _GameController.has_crown
+		var level_factor = 1.0 + (0.1 * card_level)
+
 		var chance = combat_rng.randi() % 101
 		chance -= _GameController.luck
 
 		if chance <= 20:
-			focused_enemy.receive_damage(_GameController.player_health + _GameController.pending_buff)
+			focused_enemy.receive_damage(
+				(_GameController.player_health * level_factor) + _GameController.pending_buff
+			)
 			_GameController.pending_buff = 0
 
 		elif chance <= 60:
-			_GameController.add_hp(50, "%")
+			_GameController.add_hp(
+				50 * level_factor,
+				"%"
+			)
 
 		_GameController.luck = 0
 
 	elif cardname == "SpellBuff":
-		_GameController.pending_buff += 10
-		_GameController.luck += 10
+		_GameController.pending_buff += 10 + card.get("level", 0) + _GameController.has_crown
+		_GameController.luck += 10 + card.get("level", 0) + _GameController.has_crown
 
 	elif cardname == "SpellSummon":
 		_execute_card(summoned_card)

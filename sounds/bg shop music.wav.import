@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://jk1oiirmv232"
+path="res://.godot/imported/bg shop music.wav-a525e97f3ecb7d39196d6fcac21c03bf.sample"
+
+[deps]
+
+source_file="res://sounds/bg shop music.wav"
+dest_files=["res://.godot/imported/bg shop music.wav-a525e97f3ecb7d39196d6fcac21c03bf.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

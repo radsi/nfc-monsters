@@ -13,6 +13,8 @@ const CREDITS_SCENE := "res://scenes/credits.tscn"
 func _ready() -> void:
 	get_tree().paused = false
 	
+	Gamemanager.play_menu_music()
+	
 	if title_sprite:
 		title_sprite.play()
 
@@ -23,12 +25,16 @@ func _ready() -> void:
 		fade_color_rect.show()
 		fade_color_rect.color = Color.BLACK
 
-		create_tween().tween_property(
+		var tween = create_tween()
+		
+		tween.tween_property(
 			fade_color_rect,
 			"color",
 			Color(0, 0, 0, 0),
 			2.0
 		).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+		
+		tween.finished.connect(func(): fade_color_rect.hide())
 	
 	if Gamemanager.pending_unlocks.size() > 0:
 		$VBoxContainer/HBoxContainer/gallerybutton/NEW.show()

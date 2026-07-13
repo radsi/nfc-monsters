@@ -1,0 +1,157 @@
+[gd_scene load_steps=19 format=3 uid="uid://0wl8njrsd60m"]
+
+[ext_resource type="Shader" uid="uid://cgfjnyrfpq53o" path="res://scripts/shaders/dissolve.gdshader" id="1_6oqgb"]
+[ext_resource type="Texture2D" uid="uid://bdhiaemfnerax" path="res://sprites/enemies/game-icons--cracked-mask.png" id="2_6oqgb"]
+[ext_resource type="Script" uid="uid://dpp7vl258uqlu" path="res://scripts/enemies/enemy.gd" id="3_hxssk"]
+[ext_resource type="Script" uid="uid://dgoqmqbwxralk" path="res://scripts/enemies/behaviour_phase.gd" id="4_cvjo0"]
+[ext_resource type="Script" uid="uid://cwboblw35jqam" path="res://scripts/enemies/behaviour_enemy.gd" id="5_konek"]
+[ext_resource type="PackedScene" uid="uid://qnmhfihowsij" path="res://prefabs/enemies_actions.tscn" id="6_q315x"]
+[ext_resource type="Texture2D" uid="uid://b7lvbr3gbcib1" path="res://sprites/UI/uil--focus.png" id="7_66vxm"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="8_gqu4m"]
+[ext_resource type="PackedScene" uid="uid://c45oeykxwxhhi" path="res://prefabs/enemy_health_bar.tscn" id="9_pjqnt"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qkomg"]
+frequency = 0.0143
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4lpxk"]
+noise = SubResource("FastNoiseLite_qkomg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54o11"]
+shader = ExtResource("1_6oqgb")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_4lpxk")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.0
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_vj8al"]
+script = ExtResource("4_cvjo0")
+label = "First turn"
+condition_value = 1.0
+force_actions = true
+weight_attack = 0
+weight_buff = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_ir7pr"]
+script = ExtResource("5_konek")
+behavior_name = "Mask"
+phases = Array[ExtResource("4_cvjo0")]([SubResource("Resource_vj8al")])
+metadata/_custom_type_script = "uid://cwboblw35jqam"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj8al"]
+size = Vector2(138, 158)
+
+[sub_resource type="Curve" id="Curve_54o11"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.65887, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fgfdb"]
+curve = SubResource("Curve_54o11")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ph0b7"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100.165, -38.46, 1)
+direction = Vector3(1, -30, 0)
+spread = 15.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 300, 0)
+scale_curve = SubResource("CurveTexture_fgfdb")
+
+[node name="Mask" type="TextureRect"]
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_54o11")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource("2_6oqgb")
+script = ExtResource("3_hxssk")
+behavior = SubResource("Resource_ir7pr")
+die_condition = 1
+can_spawn_single = false
+min_layer = 3
+weight_spawn = 50.0
+armor_gain = 99.0
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(64, 37)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_vj8al")
+
+[node name="Actions" parent="." instance=ExtResource("6_q315x")]
+layout_mode = 1
+offset_top = -86.0
+offset_bottom = -38.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0, 0.60784316)
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_66vxm")
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("8_gqu4m")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="DamageLabel" type="Label" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.30826515, 0.24432126, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 32
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(64.355, 41.195)
+emitting = false
+amount = 1
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_ph0b7")
+
+[node name="ProgressBar" parent="." instance=ExtResource("9_pjqnt")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+offset_top = -39.0
+offset_right = 128.0
+offset_bottom = -1.0
+grow_horizontal = 1
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

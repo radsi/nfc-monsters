@@ -71,6 +71,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

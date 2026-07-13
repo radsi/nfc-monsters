@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d3n8o67o3xppq"
+path="res://.godot/imported/whispers loop.wav-7a93df7a38c17c0a19804ed7e4c39a3e.sample"
+
+[deps]
+
+source_file="res://sounds/whispers loop.wav"
+dest_files=["res://.godot/imported/whispers loop.wav-7a93df7a38c17c0a19804ed7e4c39a3e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

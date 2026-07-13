@@ -43,16 +43,17 @@ metadata/_custom_type_script = "uid://dgoqmqbwxralk"
 script = ExtResource("4_56kru")
 condition_type = 1
 condition_value = 100.0
+force_actions = true
 weight_attack = 50
 weight_buff = 75
 weight_defend = 50
-weight_secret = 75
+weight_secret = 0
 weight_prohibited = 0
 metadata/_custom_type_script = "uid://dgoqmqbwxralk"
 
 [sub_resource type="Resource" id="Resource_6ou5e"]
 script = ExtResource("4_56kru")
-condition_type = 5
+condition_type = 6
 force_actions = true
 weight_buff = 0
 weight_secret = 0
@@ -112,10 +113,9 @@ texture = ExtResource("2_xuar7")
 script = ExtResource("3_6xfts")
 behavior = SubResource("Resource_mralw")
 is_boss = true
-max_hp = 200.0
-current_hp = 200.0
+max_hp = 300.0
+current_hp = 300.0
 damage = 20.0
-damage_reduction = 20.0
 buff_multiplier = 2.0
 SpawnSFX = Array[AudioStreamWAV]([ExtResource("6_blvrf"), ExtResource("7_focce"), ExtResource("8_bhqyh"), ExtResource("9_dys6c")])
 DieSFX = Array[AudioStreamWAV]([ExtResource("10_dys6c"), ExtResource("11_wdv78"), ExtResource("12_wkbhu")])
@@ -190,5 +190,6 @@ offset_top = -39.0
 offset_right = 128.0
 offset_bottom = -1.0
 grow_horizontal = 1
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

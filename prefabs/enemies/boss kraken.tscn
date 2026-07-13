@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dwksqol25lk1l"]
+[gd_scene load_steps=26 format=3 uid="uid://dwksqol25lk1l"]
 
 [ext_resource type="Shader" uid="uid://bifp3l7a1qjl8" path="res://scripts/shaders/wave.gdshader" id="1_q3rqm"]
 [ext_resource type="Texture2D" uid="uid://d2t03mm2l0u1m" path="res://sprites/enemies/game-icons--giant-squid.png" id="2_q3rqm"]
@@ -29,7 +29,7 @@ shader_parameter/tint = Color(0, 0, 0, 1)
 [sub_resource type="Resource" id="Resource_uxaik"]
 script = ExtResource("4_pk865")
 condition_type = 2
-condition_value = 150.0
+condition_value = 175.0
 force_actions = true
 weight_attack = 0
 weight_buff = 0
@@ -40,7 +40,7 @@ metadata/_custom_type_script = "uid://dgoqmqbwxralk"
 [sub_resource type="Resource" id="Resource_5xx2y"]
 script = ExtResource("4_pk865")
 condition_type = 1
-condition_value = 150.0
+condition_value = 175.0
 weight_buff = 0
 weight_defend = 0
 weight_secret = 50
@@ -54,15 +54,6 @@ condition_value = 100.0
 weight_attack = 50
 weight_buff = 75
 weight_defend = 50
-weight_secret = 75
-weight_prohibited = 0
-metadata/_custom_type_script = "uid://dgoqmqbwxralk"
-
-[sub_resource type="Resource" id="Resource_6ou5e"]
-script = ExtResource("4_pk865")
-condition_type = 5
-force_actions = true
-weight_buff = 0
 weight_secret = 0
 weight_prohibited = 0
 metadata/_custom_type_script = "uid://dgoqmqbwxralk"
@@ -70,7 +61,7 @@ metadata/_custom_type_script = "uid://dgoqmqbwxralk"
 [sub_resource type="Resource" id="Resource_mralw"]
 script = ExtResource("5_gxfqw")
 behavior_name = "Kraken"
-phases = Array[ExtResource("4_pk865")]([SubResource("Resource_uxaik"), SubResource("Resource_5xx2y"), SubResource("Resource_cucji"), SubResource("Resource_6ou5e")])
+phases = Array[ExtResource("4_pk865")]([SubResource("Resource_uxaik"), SubResource("Resource_5xx2y"), SubResource("Resource_cucji")])
 metadata/_custom_type_script = "uid://cwboblw35jqam"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vj8al"]
@@ -129,8 +120,9 @@ script = ExtResource("3_1o0bp")
 behavior = SubResource("Resource_mralw")
 is_boss = true
 has_secret_action = true
-max_hp = 200.0
-current_hp = 200.0
+secret_action_tooltip = "Covers his actions with ink"
+max_hp = 300.0
+current_hp = 300.0
 damage = 20.0
 buff_multiplier = 2.0
 SpawnSFX = Array[AudioStreamWAV]([ExtResource("20_jd4vj")])

@@ -10,14 +10,31 @@ var items: Dictionary = {}
 @onready var Shop = $"../../../../../Map/OldPaperPiece/Menus/shop"
 
 func _init() -> void:
-	var dir = DirAccess.open("res://prefabs/items")
+	_load_items_recursive("res://prefabs/items")
+
+func _load_items_recursive(path: String) -> void:
+	var dir := DirAccess.open(path)
 	if dir == null:
 		return
-	
-	for file in dir.get_files():
-		if file.ends_with(".tres"):
-			var item: ItemData = load("res://prefabs/items/" + file)
-			items[item.id] = item
+
+	dir.list_dir_begin()
+
+	var file := dir.get_next()
+
+	while file != "":
+		if file != "." and file != "..":
+			var full_path := path.path_join(file)
+
+			if dir.current_is_dir():
+				_load_items_recursive(full_path)
+			elif file.ends_with(".tres"):
+				var item := load(full_path) as ItemData
+				if item:
+					items[item.id] = item
+
+		file = dir.get_next()
+
+	dir.list_dir_end()
 
 func _ready() -> void:
 	

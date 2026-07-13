@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://djour5vdwckhv"]
+
+[ext_resource type="Texture2D" uid="uid://gcdlkj27drrb" path="res://sprites/items/mask.png" id="1_mnpau"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_y4yew"]
+
+[resource]
+script = ExtResource("2_y4yew")
+id = 20
+name = "mask"
+price = 325
+icon = ExtResource("1_mnpau")
+weight = 100
+description = "+10 armor"
+variables = Array[String](["armor"])
+ammounts = Array[int]([10])
+operators = Array[int]([0])
+unique = true
+min_layer = 2
+metadata/_custom_type_script = "uid://drsw7n0e01tvo"

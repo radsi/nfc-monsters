@@ -292,6 +292,9 @@ func _mark_reachable_from(col: int, row: int) -> void:
 				_mark_reachable_from(dest_col, row + 1)
 
 func _on_node_pressed(col: int, row: int) -> void:
+	
+	if _GameController.ignore_input: return
+	
 	var prev_col = current_pos[0]
 	var prev_row = current_pos[1]
 	if not current_pos.is_empty():

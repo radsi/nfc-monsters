@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="ExportedVariableData" load_steps=3 format=3 uid="uid://2n3vy415g48"]
+
+[ext_resource type="Script" uid="uid://5hux7sye7uhg" path="res://addons/variable_export_import/exported_variable_data.gd" id="1_cpjgh"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="2_ggnkt"]
+
+[resource]
+script = ExtResource("1_cpjgh")
+script_path = "res://scripts/event_data.gd"
+variables = {
+"ActiveParticles": Array[GPUParticles2D]([]),
+"ConditionResponse": "",
+"DeactiveParticles": Array[GPUParticles2D]([]),
+"FalseConditionResponse": "",
+"NoButton": Object(Area2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"input_pickable":true,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector2(0, 1),"gravity_direction":Vector2(0, 1),"gravity":980.0,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":1.0,"audio_bus_override":false,"audio_bus_name":&"Master","script":null)
+,
+"NoResponse": "You decide not to risk being reprimanded.",
+"NoSFX": null,
+"NoSprite": null,
+"YesButton": Object(Area2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"input_pickable":true,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector2(0, 1),"gravity_direction":Vector2(0, 1),"gravity":980.0,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":1.0,"audio_bus_override":false,"audio_bus_name":&"Master","script":null)
+,
+"YesResponse": "",
+"YesSFX": Object(AudioStreamPlayer2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"stream":null,"volume_db":0.0,"pitch_scale":1.0,"autoplay":false,"stream_paused":false,"max_distance":2000.0,"attenuation":1.0,"max_polyphony":1,"panning_strength":1.0,"bus":&"Master","area_mask":1,"playback_type":0,"script":null)
+,
+"YesSprite": null,
+"bg_music": null,
+"effect_types": Array[int]([]),
+"effect_values": Array[int]([]),
+"id": "coronation",
+"items_data": Array[ExtResource("2_ggnkt")]([null]),
+"min_layer": 1,
+"types": Array[int]([1]),
+"unique": true,
+"weight": 10
+}

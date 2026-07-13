@@ -20,6 +20,7 @@ const PAPER_VISIBLE_Y := -1592.0
 @export var SFX: Array[AudioStreamPlayer2D]
 @export var PaperBG: TextureRect
 @export var GameBG: ColorRect
+@export var bg_music: AudioStreamWAV
 
 var layer_colors := ["#a24654", "#ffffff"]
 
@@ -48,6 +49,12 @@ func show_on_paper(skip_anim := false) -> void:
 		return
 
 	show_animation_started.emit()
+	
+	if bg_music != null:
+		_GameController.main_music_position = _GameController.MusicStream.get_playback_position()
+		_GameController.MusicStream.stop()
+		_GameController.MusicStream.stream = bg_music
+		_GameController.MusicStream.play()
 
 	if skip_anim == true:
 		NodesContainer.hide()
@@ -76,6 +83,7 @@ func show_on_paper(skip_anim := false) -> void:
 	tween.tween_callback(func():
 		NodesContainer.hide()
 		show()
+		_GameController.BackButton.hide()
 		showing_mid_animation.emit()
 	)
 
@@ -103,6 +111,11 @@ func hide_on_paper(skip_anim = false) -> void:
 		return
 
 	hide_animation_started.emit()
+	
+	if bg_music != null:
+		_GameController.MusicStream.stop()
+		_GameController.MusicStream.stream = _GameController.bg_music
+		_GameController.MusicStream.play(_GameController.main_music_position)
 	
 	if skip_anim == true:
 		hide()
@@ -133,6 +146,7 @@ func hide_on_paper(skip_anim = false) -> void:
 		hidding_mid_animation.emit()
 		NodesContainer.show()
 		hide()
+		_GameController.BackButton.show()
 	)
 
 	tween.tween_interval(ANIM_DELAY)

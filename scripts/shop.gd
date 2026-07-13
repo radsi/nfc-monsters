@@ -45,7 +45,7 @@ func _on_nfc_detected(tag_id: String) -> void:
 	if data.get("name") == "SpellDiscount" and items_pick != null and do_discount:
 		do_discount = false
 		_play_sfx(2)
-		var discount = max(0.0, 1.0 - (0.25 + data.get("level") * 0.0625))
+		var discount = max(0.0, 1.0 - (0.15 + (data.get("level", 0) + _GameController.has_crown) * 0.0625))
 		for i in range(items_pick.size()):
 			var child = ItemsContainer.get_child(i)
 			child.item_data.price = int(child.item_data.price * discount)
@@ -115,7 +115,7 @@ func pick_n_weighted(n: int) -> Array[ItemData]:
 				func(e: ItemDataButton): return e.item_data == item
 			)
 
-			if already_exists or not Gamemanager.has_unlocked_item(item.id):
+			if already_exists or not Gamemanager.has_unlocked_item(item.id) or item.type == item.ItemType.Cardboard:
 				continue
 
 		if item.type == 2 or item.event_only or (item.min_layer > _GameController.layer and item.min_layer != -1):

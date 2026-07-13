@@ -28,6 +28,8 @@ script = ExtResource("4_q1oq7")
 label = "chill"
 condition_type = 2
 condition_value = 75.0
+weight_buff = 0
+weight_defend = 0
 weight_secret = 0
 weight_prohibited = 0
 metadata/_custom_type_script = "uid://dgoqmqbwxralk"
@@ -89,12 +91,11 @@ size_flags_vertical = 6
 texture = ExtResource("2_e8eji")
 script = ExtResource("3_0ospw")
 behavior = SubResource("Resource_ir7pr")
-min_layer = 2
+min_layer = 3
 weight_spawn = 75.0
-max_hp = 150.0
-current_hp = 150.0
-damage = 15.0
-damage_reduction = 5.0
+max_hp = 200.0
+current_hp = 200.0
+damage = 20.0
 metadata/signals_manager_path = "mobile_plugin_signals_manager"
 metadata/tooltip_on_mobile = false
 
@@ -160,5 +161,6 @@ offset_top = -39.0
 offset_right = 128.0
 offset_bottom = -1.0
 grow_horizontal = 1
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

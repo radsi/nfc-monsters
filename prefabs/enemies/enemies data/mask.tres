@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="ExportedVariableData" load_steps=7 format=3 uid="uid://bgwucelhl2yf2"]
+
+[ext_resource type="Script" uid="uid://5hux7sye7uhg" path="res://addons/variable_export_import/exported_variable_data.gd" id="1_cuflq"]
+[ext_resource type="Script" uid="uid://dgoqmqbwxralk" path="res://scripts/enemies/behaviour_phase.gd" id="2_qa5q7"]
+[ext_resource type="Script" uid="uid://cwboblw35jqam" path="res://scripts/enemies/behaviour_enemy.gd" id="3_lhar8"]
+
+[sub_resource type="Resource" id="Resource_vj8al"]
+script = ExtResource("2_qa5q7")
+label = "First turn"
+condition_type = 4
+condition_value = 1.0
+force_actions = true
+weight_attack = 0
+weight_buff = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_vtsq2"]
+script = ExtResource("2_qa5q7")
+label = "Attack"
+condition_type = 3
+condition_value = 1.0
+force_actions = true
+weight_buff = 0
+weight_defend = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_ir7pr"]
+script = ExtResource("3_lhar8")
+behavior_name = "Goblin"
+phases = Array[ExtResource("2_qa5q7")]([SubResource("Resource_vj8al"), SubResource("Resource_vtsq2")])
+metadata/_custom_type_script = "uid://cwboblw35jqam"
+
+[resource]
+script = ExtResource("1_cuflq")
+script_path = "res://scripts/enemies/enemy.gd"
+variables = {
+"DieSFX": Array[AudioStreamWAV]([]),
+"SpawnSFX": Array[AudioStreamWAV]([]),
+"armor_gain": 99.0,
+"behavior": SubResource("Resource_ir7pr"),
+"buff": false,
+"buff_multiplier": 1.5,
+"can_spawn_single": true,
+"current_hp": 100.0,
+"damage": 10.0,
+"die_condition": 0,
+"has_secret_action": false,
+"is_boss": false,
+"max_hp": 100.0,
+"min_layer": 3,
+"secret_action_tooltip": "",
+"thorns_damage": 0.0,
+"weight_spawn": 50.0
+}

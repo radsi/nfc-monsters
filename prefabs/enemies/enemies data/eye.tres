@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="ExportedVariableData" load_steps=9 format=3 uid="uid://dqmf6pwvhjapt"]
+
+[ext_resource type="Script" uid="uid://5hux7sye7uhg" path="res://addons/variable_export_import/exported_variable_data.gd" id="1_ydhdi"]
+[ext_resource type="Script" uid="uid://dgoqmqbwxralk" path="res://scripts/enemies/behaviour_phase.gd" id="2_hho41"]
+[ext_resource type="Script" uid="uid://cwboblw35jqam" path="res://scripts/enemies/behaviour_enemy.gd" id="3_w2pst"]
+
+[sub_resource type="Resource" id="Resource_uxaik"]
+script = ExtResource("2_hho41")
+condition_type = 2
+condition_value = 400.0
+weight_buff = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_cucji"]
+script = ExtResource("2_hho41")
+condition_type = 1
+condition_value = 350.0
+force_actions = true
+weight_attack = 0
+weight_defend = 0
+weight_secret = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_6ou5e"]
+script = ExtResource("2_hho41")
+condition_type = 6
+force_actions = true
+weight_buff = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_bomwq"]
+script = ExtResource("2_hho41")
+condition_type = 1
+condition_value = 250.0
+weight_buff = 0
+weight_secret = 50
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_mralw"]
+script = ExtResource("3_w2pst")
+behavior_name = "Eye"
+phases = Array[ExtResource("2_hho41")]([SubResource("Resource_uxaik"), SubResource("Resource_cucji"), SubResource("Resource_6ou5e"), SubResource("Resource_bomwq")])
+metadata/_custom_type_script = "uid://cwboblw35jqam"
+
+[resource]
+script = ExtResource("1_ydhdi")
+script_path = "res://scripts/enemies/enemy.gd"
+variables = {
+"DieSFX": Array[AudioStreamWAV]([]),
+"SpawnSFX": Array[AudioStreamWAV]([]),
+"armor_gain": 20.0,
+"behavior": SubResource("Resource_mralw"),
+"buff": false,
+"buff_multiplier": 2.0,
+"can_spawn_single": true,
+"current_hp": 500.0,
+"damage": 25.0,
+"die_condition": 0,
+"has_secret_action": false,
+"is_boss": true,
+"max_hp": 500.0,
+"min_layer": 3,
+"thorns_damage": 0.0,
+"weight_spawn": 100.0
+}

@@ -123,7 +123,7 @@ func _on_completed_timer_timeout() -> void:
 
 func Sleep():
 	var new_hp = clamp((_GameController.max_player_health * 0.25) + _GameController.player_health, 0, _GameController.max_player_health)
-	_GameController.add_hp(new_hp, "+")
+	_GameController.add_hp(new_hp + _GameController.regen_rest_additional, "+")
 	
 	Gamemanager.unlock_spell("SpellHealth")
 	

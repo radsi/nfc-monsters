@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://b24ot5bkivsws"]
+[gd_scene load_steps=15 format=3 uid="uid://b24ot5bkivsws"]
 
 [ext_resource type="Script" uid="uid://bgr1vihhspr3d" path="res://prefabs/events/chest_event.gd" id="1_gjbd8"]
 [ext_resource type="Texture2D" uid="uid://76oua0enfb4j" path="res://sprites/events/game-icons--open-chest.png" id="2_g8qjg"]
 [ext_resource type="Texture2D" uid="uid://lajdpau7h4i" path="res://sprites/events/game-icons--locked-chest.png" id="3_gjbd8"]
 [ext_resource type="AudioStream" uid="uid://dkuxqb6gklpou" path="res://sounds/chest.wav" id="4_g8qjg"]
+[ext_resource type="Texture2D" uid="uid://gcdlkj27drrb" path="res://sprites/items/mask.png" id="4_kr6xu"]
 [ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="8_ahlty"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gjbd8"]
@@ -49,7 +50,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_gjbd8")
 id = "chest"
-weight = 30
+weight = 40
 types = Array[int]([1])
 ActiveParticles = [NodePath("TextureRect/GPUParticles2D")]
 YesButton = NodePath("TextureRect/Area2D")
@@ -104,14 +105,39 @@ anchors_preset = -1
 anchor_top = 0.528
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -0.14401245
+offset_top = 103.85599
 grow_horizontal = 2
-grow_vertical = 0
 theme_override_font_sizes/font_size = 48
-text = "asdsda"
+text = "asdasdas"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Label"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 210
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="TextureRect2" type="TextureRect" parent="Label/MarginContainer"]
+self_modulate = Color(0, 0, 0, 1)
+use_parent_material = true
+layout_mode = 2
+texture = ExtResource("4_kr6xu")
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
 metadata/tooltip_on_mobile = false
 
 [node name="open" type="AudioStreamPlayer2D" parent="."]

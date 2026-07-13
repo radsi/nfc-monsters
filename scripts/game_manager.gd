@@ -33,6 +33,19 @@ var pending_unlocks: Array = []
 
 var coming_back_from_game := false
 
+const MENU_MUSIC := preload("res://sounds/main menu music.wav")
+var player := AudioStreamPlayer2D.new()
+
+func play_menu_music():
+	if player.stream == MENU_MUSIC and player.playing:
+		return
+
+	player.stream = MENU_MUSIC
+	player.play()
+
+func stop_menu_music():
+	player.stop()
+
 func _ready() -> void:
 	config.load(SAVE_PATH)
 
@@ -43,6 +56,8 @@ func _ready() -> void:
 
 	if not config.has_section_key("player", "unlocked_items"):
 		config.set_value("player", "unlocked_items", DEFAULT_UNLOCKED_ITEMS)
+	
+	add_child(player)
 
 func _save() -> void:
 	config.save(SAVE_PATH)
@@ -120,20 +135,6 @@ func get_unlocked_spells() -> Array[String]:
 		result.append(str(spell))
 
 	return result
-
-func save_player_xp(xp: int) -> void:
-	config.set_value(
-		"player",
-		"xp",
-		xp
-	)
-
-func get_player_xp() -> int:
-	return config.get_value(
-		"player",
-		"xp",
-		DEFAULT_XP
-	)
 
 func save_player_health(hp: float, max_hp: float) -> void:
 	config.set_value(

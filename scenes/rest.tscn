@@ -25,8 +25,8 @@ size = Vector2(135, 130)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4g80i"]
 shader = ExtResource("3_cs0ti")
-shader_parameter/amplitude = 3.0
-shader_parameter/frequency = 10.0
+shader_parameter/amplitude = 1.765
+shader_parameter/frequency = 17.98
 shader_parameter/speed = 2.0
 shader_parameter/min_height = 0.6
 shader_parameter/height_range = -0.5

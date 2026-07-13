@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqkpa36rlu8yw"]
+
+[ext_resource type="Script" uid="uid://bg67mm2grfwj" path="res://prefabs/events/gamble.gd" id="1_ap2w4"]
+[ext_resource type="Texture2D" uid="uid://c37pk1r87i57o" path="res://sprites/events/game-icons--slot-machine.png" id="5_8kr48"]
+[ext_resource type="AudioStream" uid="uid://c3p8agi0c8d8x" path="res://sounds/361346__jack126guy__slot-machine-payout.wav" id="5_ap2w4"]
+[ext_resource type="Texture2D" uid="uid://bfexd72gfbcr5" path="res://sprites/events/akar-icons--cross 128.png" id="6_lvdxc"]
+[ext_resource type="Texture2D" uid="uid://dffap6c7hudmo" path="res://sprites/events/mdi--tick.png" id="7_kpa7w"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="8_cxkyi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ym74"]
+size = Vector2(127.5, 129)
+
+[node name="Gamble" type="Control" node_paths=PackedStringArray("YesButton", "NoButton", "YesSFX")]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_ap2w4")
+id = "gamble"
+weight = 60
+types = Array[int]([2])
+effect_types = Array[int]([1])
+effect_values = Array[int]([-5])
+YesButton = NodePath("MarginContainer/HBoxContainer/YES/Area2D")
+NoButton = NodePath("MarginContainer/HBoxContainer/NO/Area2D")
+NoResponse = "You don't feel like playing today"
+FalseConditionResponse = "You didn't have a single penny, so you cried"
+YesSFX = NodePath("play")
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -250.0
+offset_right = 96.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_8kr48")
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.44900003
+anchor_right = 1.0
+anchor_bottom = 0.66
+offset_top = 0.047973633
+offset_bottom = 0.3199768
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Do you want to play for 5 coins?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="NO" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+icon = ExtResource("6_lvdxc")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="MarginContainer/HBoxContainer/NO"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/HBoxContainer/NO/Area2D"]
+position = Vector2(64.25, 64)
+shape = SubResource("RectangleShape2D_3ym74")
+
+[node name="YES" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+icon = ExtResource("7_kpa7w")
+flat = true
+metadata/signals_manager_path = "../../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="MarginContainer/HBoxContainer/YES"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/HBoxContainer/YES/Area2D"]
+position = Vector2(64.25, 64)
+shape = SubResource("RectangleShape2D_3ym74")
+
+[node name="play" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ap2w4")
+volume_db = -10.0
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("8_cxkyi")]

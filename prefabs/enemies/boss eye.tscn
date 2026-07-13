@@ -1,0 +1,195 @@
+[gd_scene load_steps=24 format=3 uid="uid://bfg6ksb33fka"]
+
+[ext_resource type="Shader" uid="uid://bifp3l7a1qjl8" path="res://scripts/shaders/wave.gdshader" id="1_s0ysa"]
+[ext_resource type="Texture2D" uid="uid://be460ugluhpkt" path="res://sprites/enemies/game-icons--bleeding-eye.png" id="2_bomwq"]
+[ext_resource type="Script" uid="uid://q82j2gvph32" path="res://prefabs/enemies/custom enemy script/eye.gd" id="3_bomwq"]
+[ext_resource type="Script" uid="uid://dgoqmqbwxralk" path="res://scripts/enemies/behaviour_phase.gd" id="4_fj7gj"]
+[ext_resource type="Script" uid="uid://cwboblw35jqam" path="res://scripts/enemies/behaviour_enemy.gd" id="5_vtcn0"]
+[ext_resource type="AudioStream" uid="uid://cqg1nve06ig7x" path="res://sounds/341841__ianstargem__whisper.wav" id="6_hjlti"]
+[ext_resource type="Texture2D" uid="uid://b7lvbr3gbcib1" path="res://sprites/UI/uil--focus.png" id="12_080wd"]
+[ext_resource type="AudioStream" uid="uid://d3n8o67o3xppq" path="res://sounds/whispers loop.wav" id="13_0x5mj"]
+[ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="13_4yt2p"]
+[ext_resource type="AudioStream" uid="uid://cf0pbnvhutf6u" path="res://sounds/536118__eminyildirim__water-single-bubble.wav" id="14_s5agc"]
+[ext_resource type="AudioStream" uid="uid://d33fdfycajgl4" path="res://sounds/657930__lilmati__cartoon-drowning-02.wav" id="15_8f4jk"]
+[ext_resource type="PackedScene" uid="uid://qnmhfihowsij" path="res://prefabs/enemies_actions.tscn" id="16_vlqqo"]
+[ext_resource type="PackedScene" uid="uid://c45oeykxwxhhi" path="res://prefabs/enemy_health_bar.tscn" id="17_52qa4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0x5mj"]
+shader = ExtResource("1_s0ysa")
+shader_parameter/amplitude = 6.43
+shader_parameter/frequency = 21.48
+shader_parameter/speed = 2.0
+shader_parameter/min_height = 0.36
+shader_parameter/height_range = 1.0
+shader_parameter/min_width = -0.5
+shader_parameter/width_range = 200.0
+shader_parameter/vertical = true
+shader_parameter/tint = Color(0, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_uxaik"]
+script = ExtResource("4_fj7gj")
+condition_type = 2
+condition_value = 400.0
+weight_buff = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_cucji"]
+script = ExtResource("4_fj7gj")
+condition_type = 1
+condition_value = 350.0
+force_actions = true
+weight_attack = 0
+weight_defend = 0
+weight_secret = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_6ou5e"]
+script = ExtResource("4_fj7gj")
+condition_type = 6
+force_actions = true
+weight_buff = 0
+weight_secret = 0
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_bomwq"]
+script = ExtResource("4_fj7gj")
+condition_type = 1
+condition_value = 250.0
+weight_buff = 0
+weight_secret = 50
+weight_prohibited = 0
+metadata/_custom_type_script = "uid://dgoqmqbwxralk"
+
+[sub_resource type="Resource" id="Resource_mralw"]
+script = ExtResource("5_vtcn0")
+behavior_name = "Eye"
+phases = Array[ExtResource("4_fj7gj")]([SubResource("Resource_uxaik"), SubResource("Resource_cucji"), SubResource("Resource_6ou5e"), SubResource("Resource_bomwq")])
+metadata/_custom_type_script = "uid://cwboblw35jqam"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vj8al"]
+size = Vector2(138, 158)
+
+[sub_resource type="Curve" id="Curve_bm1dj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.65887, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vey2m"]
+curve = SubResource("Curve_bm1dj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y2rt1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100.165, -38.46, 1)
+direction = Vector3(1, -30, 0)
+spread = 15.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 300, 0)
+scale_curve = SubResource("CurveTexture_vey2m")
+
+[node name="Eye" type="TextureRect"]
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_0x5mj")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource("2_bomwq")
+script = ExtResource("3_bomwq")
+behavior = SubResource("Resource_mralw")
+is_boss = true
+min_layer = 3
+secret_action_tooltip = "Randomizes your spells"
+max_hp = 760.0
+current_hp = 760.0
+damage = 25.0
+armor_gain = 20.0
+buff_multiplier = 2.0
+SpawnSFX = Array[AudioStreamWAV]([ExtResource("6_hjlti")])
+metadata/signals_manager_path = "mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(64, 37)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_vj8al")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0, 0.60784316)
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_080wd")
+
+[node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("13_4yt2p")]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="DamageLabel" type="Label" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.30826515, 0.24432126, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 32
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(64.355, 41.195)
+emitting = false
+amount = 1
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_y2rt1")
+
+[node name="spawn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_s5agc")
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_8f4jk")
+
+[node name="Actions" parent="." instance=ExtResource("16_vlqqo")]
+layout_mode = 1
+offset_top = -86.0
+offset_bottom = -38.0
+
+[node name="ProgressBar" parent="." instance=ExtResource("17_52qa4")]
+layout_mode = 1
+anchor_top = -0.305
+offset_top = 0.040000916
+offset_bottom = -1.0
+grow_horizontal = 1
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+
+[node name="whispers" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_0x5mj")
+volume_db = -20.0
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

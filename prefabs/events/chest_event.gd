@@ -3,20 +3,18 @@ extends EventData
 func custom_event_script(caller) -> void:
 	var _ItemsManager: ItemsManager = caller._ItemsManager
 	var _GameController: GameController = caller._GameController
+	var current_items = _ItemsManager.get_current_items()
 
-	var unlocked_items = Gamemanager.get_unlocked_items()
 	var item_pool: Array[ItemData] = []
 
-	for item_id in unlocked_items:
-		var p_item: ItemData = _ItemsManager.items.get(item_id)
-
-		if p_item == null:
+	for p_item: ItemData in _ItemsManager.items.values():
+		if p_item.type == ItemData.ItemType.Secret:
 			continue
 
-		if p_item.type == ItemData.ItemType.Secret or (id == "cardboard" and p_item.type != ItemData.ItemType.Cardboard):
+		if (id == "cardboard" and p_item.type != ItemData.ItemType.Cardboard) or (id != "cardboard" and p_item.type == ItemData.ItemType.Cardboard):
 			continue
 
-		if p_item.unique and _ItemsManager.get_current_items().any(
+		if p_item.unique and current_items.any(
 			func(e: ItemDataButton):
 				return e.item_data and e.item_data.id == p_item.id
 		):
@@ -24,13 +22,15 @@ func custom_event_script(caller) -> void:
 
 		item_pool.append(p_item)
 
-	if not item_pool.is_empty():
-		item_pool.sort_custom(func(a, b): return a.id < b.id)
+	if item_pool.is_empty():
+		return
 
-		var rng := RandomNumberGenerator.new()
-		rng.seed = _GameController.current_hash
+	item_pool.sort_custom(func(a: ItemData, b: ItemData): return a.id < b.id)
 
-		var selected_item = item_pool[rng.randi_range(0, item_pool.size() - 1)]
+	caller.rng.seed = caller._GameController.current_hash
 
-		items_data.append(selected_item)
-		GeneralLabel.text = selected_item.description
+	var selected_item: ItemData = item_pool[caller.rng.randi_range(0, item_pool.size() - 1)]
+
+	items_data.append(selected_item)
+	FalseConditionResponse = selected_item.description
+	$Label/MarginContainer/TextureRect2.texture = selected_item.icon

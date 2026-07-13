@@ -25,6 +25,9 @@ enum EffectTypes {
 @export var effect_values: Array[int]
 @export var ActiveParticles: Array[GPUParticles2D]
 @export var DeactiveParticles: Array[GPUParticles2D]
+@export var ignore_sprite_dissolve: bool = true
+@export var EnemyToFightAfterEvent: PackedScene
+@export var EnemiesAmmount: int
 
 @onready var GeneralLabel: Label = $Label
 
@@ -33,8 +36,12 @@ enum EffectTypes {
 @export var NoButton: Area2D
 @export var NoResponse: String
 @export var ConditionResponse: String
+@export var FalseConditionResponse: String
 @export var YesResponse: String
+@export var bg_music: AudioStreamWAV 
 @export var YesSFX: AudioStreamPlayer2D
 @export var NoSFX: AudioStreamPlayer2D
 @export var YesSprite: CompressedTexture2D
 @export var NoSprite: CompressedTexture2D
+
+var force_condition_satisfied := false

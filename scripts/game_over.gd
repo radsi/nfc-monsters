@@ -24,6 +24,7 @@ func _on_showing_mid_animation() -> void:
 		$BloodImagesDownloadBloodSplashes173127988917.hide()
 		$BloodImagesDownloadBloodSplashes173127988918.hide()
 		$MarginContainer/VBoxContainer/Label.text = "You win!"
+		Gamemanager.unlock_spell("SpellSummon")
 		Gamemanager.clear_game_state()
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

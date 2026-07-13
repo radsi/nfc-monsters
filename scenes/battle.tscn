@@ -59,13 +59,8 @@ anchor_bottom = 1.0
 offset_top = 0.16799927
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="Area2D" type="Area2D" parent="VBoxContainer"]
-position = Vector2(455, 37)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Area2D"]
-position = Vector2(121, 0)
-shape = SubResource("RectangleShape2D_v7i3o")
+metadata/signals_manager_path = "../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
 
 [node name="Execute" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -75,6 +70,15 @@ mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 48
 text = "Cast spells (0/0)"
+metadata/signals_manager_path = "../../mobile_plugin_signals_manager"
+metadata/tooltip_on_mobile = false
+
+[node name="Area2D" type="Area2D" parent="VBoxContainer/Execute"]
+position = Vector2(64, 37)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/Execute/Area2D"]
+position = Vector2(121, 0)
+shape = SubResource("RectangleShape2D_v7i3o")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -266,4 +270,4 @@ metadata/tooltip_on_mobile = false
 
 [node name="mobile_plugin_signals_manager" parent="." instance=ExtResource("11_03edq")]
 
-[connection signal="input_event" from="VBoxContainer/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="input_event" from="VBoxContainer/Execute/Area2D" to="." method="_on_area_2d_input_event"]

@@ -83,7 +83,6 @@ min_layer = 2
 weight_spawn = 50.0
 max_hp = 125.0
 current_hp = 125.0
-damage = 15.0
 armor_gain = 15.0
 metadata/signals_manager_path = "mobile_plugin_signals_manager"
 metadata/tooltip_on_mobile = false
