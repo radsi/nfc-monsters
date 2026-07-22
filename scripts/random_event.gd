@@ -19,7 +19,6 @@ enum EventStatus
 	REPLACING_ITEM
 }
 
-var events_path := "res://prefabs/events"
 var events: Array[EventEntry] = []
 var vanilla_events: Array = ["shop", "combat"]
 var selected_vanilla_event := ""
@@ -40,6 +39,8 @@ var waiting_dots := [
 var waiting_replace_target = null
 
 var rng: RandomNumberGenerator
+
+@export var event_scenes: Array[PackedScene]
 
 func _ready() -> void:
 	
@@ -292,26 +293,24 @@ func _on_item_removed():
 		event_status = EventStatus.NONE
 
 func load_events() -> void:
-	var dir := DirAccess.open(events_path)
-	if dir == null:
-		return
+	events.clear()
 
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
+	for scene in event_scenes:
+		if scene == null:
+			continue
 
-	while file_name != "":
-		if not dir.current_is_dir() and file_name.ends_with(".tscn"):
-			var scene := load(events_path.path_join(file_name)) as PackedScene
-			if scene and _is_event_valid(scene):
-				var entry := EventEntry.new()
-				entry.scene = scene
-				var instance: EventData = scene.instantiate()
-				entry.data = instance
-				events.append(entry)
+		if not _is_event_valid(scene):
+			continue
 
-		file_name = dir.get_next()
+		var entry := EventEntry.new()
+		entry.scene = scene
 
-	dir.list_dir_end()
+		var instance := scene.instantiate() as EventData
+		if instance == null:
+			continue
+
+		entry.data = instance
+		events.append(entry)
 
 func _is_event_valid(scene: PackedScene) -> bool:
 	var instance := scene.instantiate()
@@ -382,7 +381,7 @@ func REPLACE_ITEM():
 		if _ItemsManager.get_current_items().has(original):
 			waiting_replace_target = target
 			event_status = EventStatus.REPLACING_ITEM
-			_ItemsManager.remove_item(_ItemsManager.get_current_items().find(original))
+			_ItemsManager.remove_item(_ItemsManager.all_items[_ItemsManager.get_current_items().find(original)])
 			return
 
 func GIVE_ITEM():
@@ -392,7 +391,7 @@ func GIVE_ITEM():
 
 func REMOVE_ITEM():
 	if current_event.items_data.size() == 0: return
-	_ItemsManager.remove_item(_ItemsManager.get_current_items().find(current_event.items_data[0]))
+	_ItemsManager.remove_item(_ItemsManager.all_items[_ItemsManager.get_current_items().find(current_event.items_data)])
 
 func GIVE_EFFECT():
 	if current_event.effect_types.size() == 0: return

@@ -4,42 +4,21 @@ class_name ItemsManager
 signal ItemAdded
 signal ItemRemoved
 
+@export var all_items: Array[ItemData]
+
 var items: Dictionary = {}
 
 @onready var _GameController = $"../../../../.."
 @onready var Shop = $"../../../../../Map/OldPaperPiece/Menus/shop"
 
-func _init() -> void:
-	_load_items_recursive("res://prefabs/items")
-
-func _load_items_recursive(path: String) -> void:
-	var dir := DirAccess.open(path)
-	if dir == null:
-		return
-
-	dir.list_dir_begin()
-
-	var file := dir.get_next()
-
-	while file != "":
-		if file != "." and file != "..":
-			var full_path := path.path_join(file)
-
-			if dir.current_is_dir():
-				_load_items_recursive(full_path)
-			elif file.ends_with(".tres"):
-				var item := load(full_path) as ItemData
-				if item:
-					items[item.id] = item
-
-		file = dir.get_next()
-
-	dir.list_dir_end()
-
 func _ready() -> void:
-	
+	items.clear()
+	for item in all_items:
+		if item:
+			items[item.id] = item
+
 	await get_tree().process_frame
-	
+
 	var arr = Gamemanager.get_player_items()
 	var children = get_children()
 
@@ -56,8 +35,8 @@ func _ready() -> void:
 		else:
 			children[i].material.set_shader_parameter("dissolve_value", 0)
 			children[i].hide()
-	
-	Shop.item_bought.connect(func(item):add_item(item))
+
+	Shop.item_bought.connect(func(item): add_item(item))
 
 func add_item(item: ItemData):
 	if not items.has(item.id):
@@ -66,13 +45,12 @@ func add_item(item: ItemData):
 	var target: ItemDataButton = null
 
 	for child: ItemDataButton in get_children():
-		if child.visible == false:
+		if not child.visible:
 			target = child
 			break
 
-	if not target:
-		var last: ItemDataButton = get_child(get_child_count() - 1)
-		target = last.duplicate()
+	if target == null:
+		target = get_child(get_child_count() - 1).duplicate()
 		add_child(target)
 
 	target.icon = item.icon
@@ -82,22 +60,24 @@ func add_item(item: ItemData):
 
 	var tween = create_tween()
 	tween.tween_method(
-		func(value: float): target.material.set_shader_parameter("dissolve_value", value),
-		0.0, 1.0, 2.0
+		func(value: float):
+			target.material.set_shader_parameter("dissolve_value", value),
+		0.0,
+		1.0,
+		2.0
 	)
 
 	tween.finished.connect(func(): ItemAdded.emit())
 
-	_GameController.apply_item_effect(items.get(item.id), false, true)
+	_GameController.apply_item_effect(items[item.id], false, true)
 
-	var arr = []
+	var arr := []
 	for _item: ItemDataButton in get_children():
-		if not _item.item_data:
-			continue
-		arr.append(_item.item_data.id)
+		if _item.item_data:
+			arr.append(_item.item_data.id)
 
 	Gamemanager.save_player_items(arr)
-	
+
 	await get_tree().process_frame
 
 	var scroll := get_parent() as ScrollContainer
@@ -141,9 +121,11 @@ func remove_item(item: ItemData):
 
 	ItemRemoved.emit()
 
-func get_current_items():
+func get_current_items() -> Array[ItemDataButton]:
 	var result: Array[ItemDataButton] = []
+
 	for child in get_children():
-		if child.item_data != null:
+		if child.item_data:
 			result.append(child)
+
 	return result

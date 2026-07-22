@@ -11,6 +11,14 @@ Instead of selecting cards on screen, players use real NFC cards that represent:
 
 This is a concept I've always thought about, so I decided to make a game to see how it would work.
 
+To test the project you can clone this repository and open it in godot or just download the .apk that is available on releases and install it on an Android phone.
+You can also use the debug build, it uses keys (1, 2, 3, 4, 5 for spells, R to give yourself money) and mouse scroll instead of clicks (lol)
+
+## Theme Selection
+I chose the Indie Game theme because it encourages creativity, and artistic freedom. The goal was to create a simple but engaging game that allows me to experiment original mechanics.
+
+## Showcase
+
 [Showcase video](https://youtu.be/Tx2pvqhJloY)
 
 ![](https://cdn.hackclub.com/019f0465-7d59-7577-a0e6-c67392cc3af9/cooltext507481618374936.gif)

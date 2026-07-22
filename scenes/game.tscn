@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://co0higyrwk0jc"]
+[gd_scene load_steps=103 format=3 uid="uid://co0higyrwk0jc"]
 
 [ext_resource type="Script" uid="uid://cy3f8kgaaeju8" path="res://scripts/game_controller.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://dxgu3m6qwxhjm" path="res://sprites/old paper piece.png" id="2_yqjtg"]
@@ -21,19 +21,66 @@
 [ext_resource type="PackedScene" uid="uid://b3abjskq8dl7" path="res://scenes/random.tscn" id="11_pl11u"]
 [ext_resource type="Script" uid="uid://osnrx484t0pd" path="res://scripts/items_manager.gd" id="11_rysoc"]
 [ext_resource type="Texture2D" uid="uid://e7doi1skxact" path="res://sprites/UI/progress bars/vaadin--progressbar fill 340.png" id="12_e1j6l"]
+[ext_resource type="PackedScene" uid="uid://b4dw6jt2whsvy" path="res://prefabs/enemies/birdman.tscn" id="12_fedci"]
+[ext_resource type="Script" uid="uid://bpf0b3qguuhkh" path="res://prefabs/enemies/enemies data/EnemyDatabase.gd" id="12_gxtfn"]
 [ext_resource type="PackedScene" uid="uid://dwgrv1pcgkn6n" path="res://scenes/game_over.tscn" id="12_sww3w"]
+[ext_resource type="PackedScene" uid="uid://o5ktslnsypbl" path="res://prefabs/enemies/bone crusher.tscn" id="13_8qswn"]
 [ext_resource type="Script" uid="uid://86l0i6tvjbkk" path="res://scripts/item_button_data.gd" id="13_264po"]
 [ext_resource type="Texture2D" uid="uid://dvwt55mlmr4na" path="res://sprites/UI/ion--arrow-back-outline.png" id="14_qouja"]
+[ext_resource type="PackedScene" uid="uid://6napmm400rq1" path="res://prefabs/enemies/boss brainer.tscn" id="14_rm0al"]
 [ext_resource type="Material" uid="uid://chtljj6m6lo55" path="res://scripts/shaders/dissolve black.tres" id="15_e1j6l"]
+[ext_resource type="PackedScene" uid="uid://bfg6ksb33fka" path="res://prefabs/enemies/boss eye.tscn" id="15_i4re6"]
 [ext_resource type="AudioStream" uid="uid://cp1frwaubjluq" path="res://sounds/761526__geoff-bremner-audio__sharpie-scribble-2.wav" id="15_ir15t"]
 [ext_resource type="Shader" uid="uid://cdsuts6pxeq6i" path="res://scripts/shaders/texture outline.gdshader" id="15_js0lu"]
 [ext_resource type="Texture2D" uid="uid://bfexd72gfbcr5" path="res://sprites/events/akar-icons--cross 128.png" id="15_v2yb1"]
 [ext_resource type="Texture2D" uid="uid://dffap6c7hudmo" path="res://sprites/events/mdi--tick.png" id="16_js0lu"]
+[ext_resource type="PackedScene" uid="uid://plpxk0v35fme" path="res://prefabs/enemies/boss fishman.tscn" id="16_pf7vy"]
+[ext_resource type="PackedScene" uid="uid://dwksqol25lk1l" path="res://prefabs/enemies/boss kraken.tscn" id="17_o8ni1"]
+[ext_resource type="PackedScene" uid="uid://chdvbkb2cyfq4" path="res://prefabs/enemies/crab.tscn" id="18_3hbvx"]
 [ext_resource type="AudioStream" uid="uid://c4d8so0su3ge" path="res://sounds/140360__dwoboyle__coins-04.wav" id="18_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://bgul7nmr01hs5" path="res://prefabs/enemies/ghost.tscn" id="19_q8j3a"]
+[ext_resource type="PackedScene" uid="uid://drqcj6mfffr6b" path="res://prefabs/enemies/goblin.tscn" id="20_ms3bu"]
+[ext_resource type="PackedScene" uid="uid://c5bvoceuyecyc" path="res://prefabs/enemies/hog.tscn" id="21_7ixpq"]
 [ext_resource type="AudioStream" uid="uid://vpudo4rqhvrx" path="res://sounds/853953__alexzavesa__bonfire-4.wav" id="22_37s47"]
+[ext_resource type="PackedScene" uid="uid://dunv83p11ohh7" path="res://prefabs/enemies/knight.tscn" id="22_bk1p3"]
+[ext_resource type="PackedScene" uid="uid://0wl8njrsd60m" path="res://prefabs/enemies/mask.tscn" id="23_n8ral"]
+[ext_resource type="PackedScene" uid="uid://b4uuadqecnpdn" path="res://prefabs/enemies/spider.tscn" id="24_yd4ix"]
 [ext_resource type="AudioStream" uid="uid://duyfaj2ajqngm" path="res://sounds/343462__rocotilos__real-coin-drop.wav" id="25_bhx41"]
 [ext_resource type="AudioStream" uid="uid://b6hiff1ycu4jc" path="res://sounds/503490__larakaa__yawn-02.mp3" id="26_qnb83"]
+[ext_resource type="PackedScene" uid="uid://60qbop83klbg" path="res://prefabs/events/cardboard box.tscn" id="27_4nbsr"]
+[ext_resource type="PackedScene" uid="uid://b24ot5bkivsws" path="res://prefabs/events/chest.tscn" id="28_fkywm"]
+[ext_resource type="PackedScene" uid="uid://b5ktqvwfsx00g" path="res://prefabs/events/coronation.tscn" id="29_dku7i"]
 [ext_resource type="PackedScene" uid="uid://f4tiqnp8tflm" path="res://addons/mobile/signals_manager/signals_manager.tscn" id="29_sgl2t"]
+[ext_resource type="PackedScene" uid="uid://gwj8r07fcy1r" path="res://prefabs/events/dice.tscn" id="30_veaf0"]
+[ext_resource type="PackedScene" uid="uid://bc54g6jcufk6d" path="res://prefabs/events/fishing.tscn" id="31_flw08"]
+[ext_resource type="PackedScene" uid="uid://dqkpa36rlu8yw" path="res://prefabs/events/gamble.tscn" id="32_84hbc"]
+[ext_resource type="PackedScene" uid="uid://w33ilej6l5ro" path="res://prefabs/events/water.tscn" id="33_15b3c"]
+[ext_resource type="PackedScene" uid="uid://c4vp2gv8ja2hu" path="res://prefabs/events/tobby.tscn" id="34_veukt"]
+[ext_resource type="Script" uid="uid://drsw7n0e01tvo" path="res://scripts/item_data.gd" id="36_2iuns"]
+[ext_resource type="Resource" uid="uid://bcatnchi05jke" path="res://prefabs/items/cardboard/apple.tres" id="37_7gkqi"]
+[ext_resource type="Resource" uid="uid://tnobm66lht0t" path="res://prefabs/items/cardboard/cardboard head.tres" id="38_753oq"]
+[ext_resource type="Resource" uid="uid://cybil0ksbx5ou" path="res://prefabs/items/cardboard/dicount.tres" id="39_3x338"]
+[ext_resource type="Resource" uid="uid://cnynjja6b0od1" path="res://prefabs/items/cardboard/dunbel.tres" id="40_1yg85"]
+[ext_resource type="Resource" uid="uid://eju6ptsbs3fn" path="res://prefabs/items/cardboard/goden.tres" id="41_s0g06"]
+[ext_resource type="Resource" uid="uid://njcvb4gplqc8" path="res://prefabs/items/boots.tres" id="42_2gnni"]
+[ext_resource type="Resource" uid="uid://bm0l0m2sby2tj" path="res://prefabs/items/brass knuckles.tres" id="43_vgxg3"]
+[ext_resource type="Resource" uid="uid://rw3r6lrxo5bo" path="res://prefabs/items/burguer.tres" id="44_4nbsr"]
+[ext_resource type="Resource" uid="uid://dy3b81whlp5ta" path="res://prefabs/items/card.tres" id="45_fkywm"]
+[ext_resource type="Resource" uid="uid://bp716eu00m1cu" path="res://prefabs/items/chest.tres" id="46_dku7i"]
+[ext_resource type="Resource" uid="uid://mb8bcywd5ucn" path="res://prefabs/items/crown.tres" id="47_veaf0"]
+[ext_resource type="Resource" uid="uid://dgwftdwob1bq5" path="res://prefabs/items/discount.tres" id="48_flw08"]
+[ext_resource type="Resource" uid="uid://dek2luldjbecg" path="res://prefabs/items/dumbbell.tres" id="49_84hbc"]
+[ext_resource type="Resource" uid="uid://dmgqhmp7ul26s" path="res://prefabs/items/fish.tres" id="50_15b3c"]
+[ext_resource type="Resource" uid="uid://g04caagye5k8" path="res://prefabs/items/gold.tres" id="51_veukt"]
+[ext_resource type="Resource" uid="uid://djour5vdwckhv" path="res://prefabs/items/mask.tres" id="52_nbjts"]
+[ext_resource type="Resource" uid="uid://biwa620qh7h8m" path="res://prefabs/items/medal.tres" id="53_i1hsc"]
+[ext_resource type="Resource" uid="uid://d3y4kj48hl1cp" path="res://prefabs/items/midas.tres" id="54_ounyb"]
+[ext_resource type="Resource" uid="uid://cig7pbl67l0u3" path="res://prefabs/items/pants.tres" id="55_iekjf"]
+[ext_resource type="Resource" uid="uid://cpv0j5ysepgk0" path="res://prefabs/items/radioactive.tres" id="56_okmmv"]
+[ext_resource type="Resource" uid="uid://kixxlo4xpgmc" path="res://prefabs/items/spikes.tres" id="57_ja1h7"]
+[ext_resource type="Resource" uid="uid://d3ahh02sn6u2g" path="res://prefabs/items/tobby.tres" id="58_p4npv"]
+[ext_resource type="Resource" uid="uid://div2knvo8qcs4" path="res://prefabs/items/vacuum.tres" id="59_xjcjm"]
+[ext_resource type="Resource" uid="uid://btqfygdbjmiwq" path="res://prefabs/items/water.tres" id="60_tc8uq"]
 
 [sub_resource type="Resource" id="Resource_ca42v"]
 script = ExtResource("5_ir15t")
@@ -67,6 +114,11 @@ type_rules = {
 }
 }
 metadata/_custom_type_script = "uid://cutfybf7raaeh"
+
+[sub_resource type="Resource" id="Resource_twgab"]
+script = ExtResource("12_gxtfn")
+enemies = Array[PackedScene]([ExtResource("12_fedci"), ExtResource("13_8qswn"), ExtResource("14_rm0al"), ExtResource("15_i4re6"), ExtResource("16_pf7vy"), ExtResource("17_o8ni1"), ExtResource("18_3hbvx"), ExtResource("19_q8j3a"), ExtResource("20_ms3bu"), ExtResource("21_7ixpq"), ExtResource("22_bk1p3"), ExtResource("23_n8ral"), ExtResource("24_yd4ix")])
+metadata/_custom_type_script = "uid://bpf0b3qguuhkh"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wljb1"]
 size = Vector2(48.75, 23.625)
@@ -236,8 +288,10 @@ NodesContainer = NodePath("../../Container")
 SFX = [NodePath("../../../../paper"), NodePath("../../../../bonfire"), NodePath("../../../../yawn")]
 PaperBG = NodePath("../..")
 
-[node name="combat" parent="Map/OldPaperPiece/Menus" node_paths=PackedStringArray("_GameController", "NodesContainer", "SFX", "PaperBG", "GameBG") instance=ExtResource("10_e1j6l")]
+[node name="combat" parent="Map/OldPaperPiece/Menus" node_paths=PackedStringArray("_ItemsManager", "_GameController", "NodesContainer", "SFX", "PaperBG", "GameBG") instance=ExtResource("10_e1j6l")]
 layout_mode = 1
+_ItemsManager = NodePath("../../../../MarginContainer/VBoxContainer/MarginContainer2/ScrollContainer/ItemsManager")
+enemy_database = SubResource("Resource_twgab")
 _GameController = NodePath("../../../..")
 NodesContainer = NodePath("../../Container")
 SFX = [NodePath("../../../../paper")]
@@ -247,6 +301,7 @@ GameBG = NodePath("../../../../ColorRect")
 [node name="event" parent="Map/OldPaperPiece/Menus" node_paths=PackedStringArray("_ItemsManager", "_GameController", "NodesContainer", "SFX", "PaperBG") instance=ExtResource("11_pl11u")]
 layout_mode = 1
 _ItemsManager = NodePath("../../../../MarginContainer/VBoxContainer/MarginContainer2/ScrollContainer/ItemsManager")
+event_scenes = Array[PackedScene]([ExtResource("27_4nbsr"), ExtResource("28_fkywm"), ExtResource("29_dku7i"), ExtResource("30_veaf0"), ExtResource("31_flw08"), ExtResource("32_84hbc"), ExtResource("33_15b3c"), ExtResource("34_veukt")])
 _GameController = NodePath("../../../..")
 NodesContainer = NodePath("../../Container")
 SFX = [NodePath("../../../../paper")]
@@ -506,6 +561,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 columns = 2
 script = ExtResource("11_rysoc")
+all_items = Array[ExtResource("36_2iuns")]([ExtResource("37_7gkqi"), ExtResource("38_753oq"), ExtResource("39_3x338"), ExtResource("40_1yg85"), ExtResource("41_s0g06"), ExtResource("42_2gnni"), ExtResource("43_vgxg3"), ExtResource("44_4nbsr"), ExtResource("45_fkywm"), ExtResource("46_dku7i"), ExtResource("47_veaf0"), ExtResource("48_flw08"), ExtResource("49_84hbc"), ExtResource("50_15b3c"), ExtResource("51_veukt"), ExtResource("52_nbjts"), ExtResource("53_i1hsc"), ExtResource("54_ounyb"), ExtResource("55_iekjf"), ExtResource("56_okmmv"), ExtResource("57_ja1h7"), ExtResource("58_p4npv"), ExtResource("59_xjcjm"), ExtResource("60_tc8uq")])
 metadata/signals_manager_path = "../../../../../mobile_plugin_signals_manager"
 metadata/tooltip_on_mobile = false
 

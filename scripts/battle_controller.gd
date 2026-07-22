@@ -32,7 +32,7 @@ const DISSOLVE_DURATION = 0.25
 const ACTION_DELAY = 0.75
 var _executing = false
 
-const RANDOMIZABLE_ACTIONS := [
+var RANDOMIZABLE_ACTIONS := [
 	"SpellHit",
 	"SpellDefend",
 	"SpellHealth",
@@ -42,6 +42,8 @@ const RANDOMIZABLE_ACTIONS := [
 ]
 
 var combat_rng := RandomNumberGenerator.new()
+
+@export var enemy_database: EnemyDatabase
 
 func _ready() -> void:
 	super._ready()
@@ -249,7 +251,9 @@ func roll_enemies() -> void:
 		force_enemy_ammount = 0
 		return
 
-	var enemies_prefab: Array[PackedScene] = get_scenes("res://prefabs/enemies")
+	var enemies_prefab = enemy_database.enemies
+	
+	print("Enemy scenes found: ", enemies_prefab.size())
 
 	var available: Array[PackedScene] = []
 	var weights: Array[float] = []
