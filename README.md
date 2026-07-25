@@ -14,6 +14,10 @@ This is a concept I've always thought about, so I decided to make a game to see 
 To test the project you can clone this repository and open it in godot or just download the .apk that is available on releases and install it on an Android phone.
 You can also use the debug build, it uses keys (1, 2, 3, 4, 5 for spells, R to give yourself money) and mouse scroll instead of clicks (lol)
 
+## Setup
+
+To setup this project, clone this repostiory and open the project in Godot.
+
 ## Theme Selection
 I chose the Indie Game theme because it encourages creativity, and artistic freedom. The goal was to create a simple but engaging game that allows me to experiment original mechanics.
 
