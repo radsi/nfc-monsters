@@ -18,6 +18,9 @@ You can also use the debug build, it uses keys (1, 2, 3, 4, 5 for spells, R to g
 
 To setup this project, clone this repostiory and open the project in Godot.
 
+## AI Usage
+AI has been used to help me optimize code and solve problems.
+
 ## Theme Selection
 I chose the Indie Game theme because it encourages creativity, and artistic freedom. The goal was to create a simple but engaging game that allows me to experiment original mechanics.
 
