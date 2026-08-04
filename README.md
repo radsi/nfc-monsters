@@ -16,7 +16,10 @@ You can also use the debug build, it uses keys (1, 2, 3, 4, 5 for spells, R to g
 
 ## Setup
 
-To setup this project, clone this repostiory and open the project in Godot.
+Clone this repository: `git clone <repository-url>`
+
+Open Godot, select Import (or Open if the project is already listed), navigate to the cloned repository and select the project.godot file.
+Run the project by pressing F5 or clicking the Run Project button in the Godot editor.
 
 ## AI Usage
 AI has been used to help me optimize code and solve problems.
