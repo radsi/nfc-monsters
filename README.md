@@ -24,9 +24,6 @@ Run the project by pressing F5 or clicking the Run Project button in the Godot e
 ## AI Usage
 AI has been used to help me optimize code and solve problems.
 
-## Theme Selection
-I chose the Indie Game theme because it encourages creativity, and artistic freedom. The goal was to create a simple but engaging game that allows me to experiment original mechanics.
-
 ## Showcase
 
 [Showcase video](https://youtu.be/Tx2pvqhJloY)
